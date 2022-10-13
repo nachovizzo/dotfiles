@@ -18,3 +18,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/t
 ```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/tools/install.sh)" "" --full
 ```
+## TODO
+
+- [ ] Install kitty terminal
+- [ ] Install fonts automagicaly (with patches)
+- [ ] Add CI so I can rest in peace
+
