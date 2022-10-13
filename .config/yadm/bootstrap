@@ -150,6 +150,9 @@ RUN=$(user_can_sudo && echo "sudo" || echo "command")
 INSTALL_FULL=${INSTALL_FULL:-no}
 
 main() {
+  echo "Updating the yadm repo origin URL"
+  yadm remote set-url origin "git@github.com:nachovizzo/dotfiles.git"
+
   cd "$HOME"
 
   minimal_installation
@@ -158,8 +161,6 @@ main() {
     full_installation
   fi
 
-  echo "Init submodules"
-  yadm submodule update --recursive --init
 }
 
 main "$@"
