@@ -1,0 +1,19 @@
+include dark.conf
+
+font_size        11
+font_family      SFMono Medium Nerd Font Complete Mono
+bold_font        SFMono Bold Nerd Font Complete Mono
+italic_font      SFMono Bold Nerd Font Complete Mono
+bold_italic_font SFMono Bold Italic Nerd Font Complete Mono
+
+cursor_blink_interval   0
+window_padding_width    10
+initial_window_height   900
+initial_window_width    1600
+hide_window_decorations yes
+remember_window_size    no
+enable_audio_bell       no
+tab_bar_edge            top
+tab_bar_style           powerline
+tab_powerline_style     round
+allow_remote_control    yes

@@ -1,0 +1,32 @@
+{
+  "diagnostic.enable": true,
+  "clangd.enabled": true,
+  // "clangd.compilationDatabasePath": "",
+  "clangd.arguments": [
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=iwyu",
+    "--suggest-missing-includes",
+    "-j=8"
+  ],
+  "python.pythonPath": "python3",
+  "python.linting.pylintEnabled": true,
+  "python.linting.pylintArgs": ["--extension-pkg-whitelist=pyopenvdb"],
+  "explorer.buffer.root.template": "[icon & 1] OPEN EDITORS",
+  "explorer.file.root.template": "[icon & 1] PROJECT ([root])",
+  "explorer.file.child.template": "[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5][size]",
+  "explorer.filename.colored.enable": false,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.quitOnOpen": true,
+  "explorer.position": "left",
+  "explorer.file.showHiddenFiles": true,
+  "explorer.file.column.clip.copy": "",
+  "explorer.file.column.clip.cut": "",
+  "explorer.file.reveal.auto": true,
+  "explorer.file.reveal.whenOpen": true,
+  "explorer.previewAction.onHover": false,
+  "explorer.openAction.strategy": "sourceWindow",
+  "explorer.keyMappings.global": {
+    "<cr>": ["wait", "expandable?", "expand", "open"]
+  }
+}

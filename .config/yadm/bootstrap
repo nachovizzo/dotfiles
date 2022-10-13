@@ -1,0 +1,165 @@
+#!/bin/bash
+set -e
+
+command_exists() {
+  command -v "$@" >/dev/null 2>&1
+}
+
+user_can_sudo() {
+  # If sudo is available then use it, if not default to command for root enviroments
+  # TODO: Add support for non root enviroments!!!
+  # Adapted from https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh
+  command_exists sudo || return 1
+  ! LANG= sudo -n -v 2>&1 | grep -q "may not run sudo"
+}
+
+update_pkgs() {
+  # This takes too much, do it once
+  $RUN apt update
+}
+
+install_pkgs() {
+  # Wrapper to install packages depending on sudo or non-sudo enviroments
+  # if user_can_sudo; then
+  # $RUN apt update && apt install --no-install-recommends -y "$@"
+  # else
+  # # WIP
+  # apt-get download $(apt-rdepends $@ | grep -v "^ ")
+  # for pkg in $.deb; do dpkg -x $pkg $HOME; done
+  # fi
+  $RUN apt install --no-install-recommends -y "$@"
+}
+
+install_zsh() {
+  install_pkgs curl zsh
+
+  # Install ohmyzsh
+  export CHSH=no
+  export KEEP_ZSHRC=yes
+  export RUNZSH=no
+  ZSH= sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
+  $RUN chsh -s "$(which zsh)" "$USER" 2>/dev/null || chsh -s "$(which zsh)"
+
+  # Install zsh-autosuggestions custom plugin
+  git clone --depth 1 \
+    https://github.com/zsh-users/zsh-autosuggestions \
+    ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions 2>/dev/null || true
+
+  # Copy custom configuration to the oh my sh installation
+  cp -r $HOME/.oh-my-zsh-custom/* ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/
+}
+
+install_nodejs() {
+  # Do not re-install
+  command_exists node && command_exists npm && return 0 || echo "Installing nodejs"
+
+  # If we reach this poing either node or npm are not there, then install:
+  curl -sL install-node.vercel.app/lts | $RUN bash -s -- --yes
+}
+
+install_coc_extensions() {
+  mkdir -p ~/.config/coc/extensions && cd ~/.config/coc/extensions
+  if [ ! -f package.json ]; then
+    echo '{"dependencies":{}}' >package.json
+  fi
+  COC_EXTENSIONS=$(nvim --headless -c 'echo coc_global_extensions' +qa 2>&1 | awk -v RS="'" '!(NR%2)')
+  npm install $(echo $COC_EXTENSIONS) --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
+}
+
+install_neovim() {
+  install_pkgs neovim
+
+  # Install vim-plug packages
+  nvim --headless -u $HOME/.vim/config/plug.vim +PlugInstall +qall
+
+  # Install coc-nvim plugins:
+  # neovim-coc relies on nodejs, install only if not there
+  install_nodejs
+
+  # Manually install coc-extensions(https://github.com/neoclide/coc.nvim/issues/118)
+  install_coc_extensions
+}
+
+install_python() {
+  install_pkgs python3 python3-pip python3-dev python-is-python3
+  python3 -m pip install --user --upgrade pip
+  pip install ipython ipdb black
+}
+
+install_build_utils() {
+  install_pkgs build-essential cmake cmake-curses-gui
+}
+
+install_cpp_utils() {
+  install_pkgs clang-format clangd
+}
+
+install_shell_utils() {
+  install_pkgs htop silversearcher-ag tree tig
+}
+
+install_tmux() {
+  install_pkgs tmux tmuxinator
+}
+
+install_essential_tools() {
+  install_pkgs git-lfs wget binutils less xdg-utils
+}
+
+install_ssh() {
+  install_pkgs openssh-client openssh-server sshfs
+}
+
+install_fonts() {
+  # I have my own SF-Mono patched fonts, but just in case install powerline packaged fonts
+  install_pkgs tmux tmuxinator fonts-powerline
+
+  # Update fonts cache (should read the ~/.fonts)
+  fc-cache -f -v
+
+  # Update the gnome-terminal font, only when using a GUI
+  if command_exists gsettings; then
+    profile="$(gsettings get org.gnome.Terminal.ProfilesList default)"
+    profile="${profile:1:-1}" # remove leading and trailing single quotes
+    dconf write "/org/gnome/terminal/legacy/profiles:/:$profile/font" "'SF Mono 11'"
+  fi
+}
+
+minimal_installation() {
+  echo "Running minimal installation, just zsh, neovim, tmux, and some binutils"
+  update_pkgs
+  install_essential_tools
+  install_zsh
+  install_neovim
+  install_tmux
+  install_fonts
+}
+
+full_installation() {
+  echo "[WARNING] Running full installation mode, this will take some time..."
+  update_pkgs
+  install_python
+  install_build_utils
+  install_cpp_utils
+  install_shell_utils
+  install_ssh
+}
+
+# Options
+RUN=$(user_can_sudo && echo "sudo" || echo "command")
+INSTALL_FULL=${INSTALL_FULL:-no}
+
+main() {
+  cd "$HOME"
+
+  minimal_installation
+
+  if [ $INSTALL_FULL = yes ]; then
+    full_installation
+  fi
+
+  echo "Init submodules"
+  yadm submodule update --recursive --init
+}
+
+main "$@"

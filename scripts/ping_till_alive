@@ -1,0 +1,13 @@
+#!/bin/bash
+# @file      ping_till_alive
+# @author    Ignacio Vizzo     [ivizzo@uni-bonn.de]
+#
+# Copyright (c) 2020 Ignacio Vizzo, all rights reserved
+HOST="$1"
+printf "%s" "ping ${HOST} until it becoms alive"
+while ! timeout 1 ping -c 1 -n $HOST &>/dev/null; do
+  printf "%c" "."
+  sleep 1
+done
+printf "\n%s\n" "${HOST} is online"
+notify-send "${HOST} is online"

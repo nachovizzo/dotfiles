@@ -1,0 +1,15 @@
+#!/bin/bash
+# @file      mount_datasets
+# @author    Ignacio Vizzo     [ivizzo@uni-bonn.de]
+#
+# Copyright (c) 2019 Ignacio Vizzo, all rights reserved
+
+# First umount all the mounted remote file systems, just in case
+mkdir -p $DATASETS/dataserver
+fusermount -q -u $DATASETS/dataserver
+
+# Mount this directory as read only so we don't screw up anything
+echo "Mounting datasets from dataserver into $DATASETS/dataserver/"
+sshfs -o reconnect,ro,ServerAliveInterval=15,ServerAliveCountMax=3,IdentityFile=$HOME/.ssh/id_rsa \
+  nacho@dataserver:/export/datasets/ \
+  $DATASETS/dataserver

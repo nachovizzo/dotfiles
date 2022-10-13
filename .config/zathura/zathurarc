@@ -1,0 +1,72 @@
+## Color Scheme
+set default-bg                  "#1d2021" # bg
+set default-fg                  "#1f1f24" # fg
+set render-loading              true
+set render-loading-bg           "#1d2021" # bg
+set render-loading-fg           "#1f1f24" # fg
+
+# Recolor book content's color
+set recolor-lightcolor          "#1f1f24" # bg
+set recolor-darkcolor           "#ffffff" # fg
+set recolor                     "false"
+set recolor-keephue             "false"
+set recolor-reverse-video       "false"
+
+## Settings-----------------------------------------------------------------------------------------
+set window-title-basename "true"
+set selection-clipboard "clipboard"
+set first-page-column "1:1"
+set window-width "1920"
+set window-height "1080"
+set adjust-open "best-fit"
+set page-padding "2"
+set guioptions ""
+set pages-per-row "2"
+
+map [normal] = zoom in
+map [normal]- zoom out
+map [fullscreen] = zoom in
+map [fullscreen]- zoom out
+
+# Sometimes we want the dark mode but with the original
+# colors
+map [normal]     t set recolor-keephue
+map [fullscreen] t set recolor-keephue
+
+# Add a shortcut to display 3 pages per row
+map [normal] p1 set "pages-per-row 1"
+map [normal] p2 set "pages-per-row 2"
+map [normal] p3 set "pages-per-row 3"
+map [normal] p4 set "pages-per-row 4"
+map [normal] p5 set "pages-per-row 5"
+map [normal] p6 set "pages-per-row 6"
+map [normal] p7 set "pages-per-row 7"
+map [normal] p8 set "pages-per-row 8"
+map [normal] p9 set "pages-per-row 9"
+map [fullscreen] p1 set "pages-per-row 1"
+map [fullscreen] p2 set "pages-per-row 2"
+map [fullscreen] p3 set "pages-per-row 3"
+map [fullscreen] p4 set "pages-per-row 4"
+map [fullscreen] p5 set "pages-per-row 5"
+map [fullscreen] p6 set "pages-per-row 6"
+map [fullscreen] p7 set "pages-per-row 7"
+map [fullscreen] p8 set "pages-per-row 8"
+map [fullscreen] p8 set "pages-per-row 9"
+
+# Make the scroll keybinding the same as vimium
+map [normal]     d scroll half-down
+map [fullscreen] d scroll half-down
+map [normal]     u scroll half-up
+map [fullscreen] u scroll half-up
+
+# Allow to set white background for reading
+map [normal] w set "default-bg \"#FFFFFF\""
+map [normal] b set "default-bg \"#1f1f24\""
+map [fullscreen] w set "default-bg \"#FFFFFF\""
+map [fullscreen] b set "default-bg \"#1f1f24\""
+
+# Make presenters work
+map [normal]     <Right> navigate next
+map [normal]     <Left>  navigate previous
+map [fullscreen] <Right> navigate next
+map [fullscreen] <Left>  navigate previous

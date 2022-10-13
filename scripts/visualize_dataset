@@ -1,0 +1,122 @@
+#!/usr/bin/env python3
+from functools import partial
+from functools import lru_cache
+import glob
+import os
+import time
+from natsort import natsorted
+
+import click
+import numpy as np
+import open3d as o3d
+
+
+@lru_cache()
+def read_geometry(filename):
+    if os.path.splitext(filename)[-1] == ".bin":
+        points = np.fromfile(filename, dtype=np.float32).reshape((-1, 4))[:, :3]
+        return o3d.geometry.PointCloud(o3d.utility.Vector3dVector(points))
+    if os.path.splitext(filename)[-1] == ".obj":
+        mesh = o3d.io.read_triangle_mesh(filename)
+        mesh.compute_vertex_normals()
+        return mesh
+    return o3d.io.read_point_cloud(filename)
+
+
+class Visualizer:
+    def __init__(self, filenames, sleep_time=5e-3):
+        # Visualizer
+        self.vis = o3d.visualization.VisualizerWithKeyCallback()
+        self.vis.create_window()
+        self.render_options = self.vis.get_render_option()
+
+        # Files to render
+        self.files = filenames
+        self.n_frames = len(filenames)
+
+        # Initialize the default callbacks
+        self._register_key_callbacks()
+
+        # Add first frame
+        self.idx = 0
+        self.vis.add_geometry(read_geometry(self.files[self.idx]))
+        self.print_help()
+
+        # Continous time plot
+        self.stop = False
+        self.sleep_time = sleep_time
+
+    def next_frame(self, vis):
+        self.idx = (self.idx + 1) % self.n_frames
+        self.update_geometry()
+        return False
+
+    def prev_frame(self, vis):
+        self.idx = (self.idx - 1) % self.n_frames
+        self.update_geometry()
+        return False
+
+    def start_prev(self, vis):
+        self.stop = False
+        while not self.stop:
+            self.next_frame(vis)
+            time.sleep(self.sleep_time)
+
+    def stop_prev(self, vis):
+        self.stop = True
+
+    def update_geometry(self):
+        print("Visualizing {}".format(self.files[self.idx]), end="\r")
+        self.vis.clear_geometries()
+        self.vis.add_geometry(read_geometry(self.files[self.idx]), reset_bounding_box=False)
+        self.vis.poll_events()
+        self.vis.update_renderer()
+
+    def set_render_options(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self.render_options, key, value)
+
+    def register_key_callback(self, key, callback):
+        self.vis.register_key_callback(ord(str(key)), partial(callback))
+
+    def set_white_background(self, vis):
+        """Change backround between white and white."""
+        self.render_options.background_color = [1.0, 1.0, 1.0]
+
+    def set_black_background(self, vis):
+        """Change backround between white and black."""
+        self.render_options.background_color = [0.0, 0.0, 0.0]
+
+    def _register_key_callbacks(self):
+        self.register_key_callback("N", self.next_frame)
+        self.register_key_callback("P", self.prev_frame)
+        self.register_key_callback("S", self.start_prev)
+        self.register_key_callback("X", self.stop_prev)
+        self.register_key_callback("W", self.set_white_background)
+        self.register_key_callback("B", self.set_black_background)
+
+    def print_help(self):
+        print("N: next")
+        print("P: previous")
+        print("S: start")
+        print("X: stop")
+        print("W: white background")
+        print("B: black  background")
+        print("Q: quit")
+
+    def run(self):
+        self.vis.run()
+        self.vis.destroy_window()
+
+
+@click.command()
+@click.argument("file_patterns", type=str)
+def visualizer(file_patterns):
+    """Specify the filename pattern of the files you want to visualize."""
+    files = natsorted(glob.glob(file_patterns))
+    print("Visualizing {} models".format(len(files)))
+    vis = Visualizer(files)
+    vis.run()
+
+if __name__ == "__main__":
+    visualizer()

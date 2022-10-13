@@ -1,0 +1,43 @@
+[user]
+    email = ignaciovizzo@gmail.com
+    name = Ignacio Vizzo
+[core]
+    excludesfile = /home/ivizzo/.gitignore_global
+    editor = nvim
+    pager = diff-so-fancy | less --tabs=4 -RFX
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+[push]
+	default = current
+[diff]
+    tool = meld
+[difftool "meld"]
+    cmd = "GTK_THEME=Adwaita:light meld $LOCAL $REMOTE"
+[difftool]
+    prompt = false
+[color]
+    ui = true
+[pager]
+    branch = false
+[color "diff-highlight"]
+    oldNormal = red
+    oldHighlight = red bold 52
+    newNormal = green
+    newHighlight = green bold 22
+[color "diff"]
+    meta = 11
+    frag = magenta bold
+    func = 146 bold
+    commit = yellow
+    old = red
+    new = green
+    whitespace = red reverse
+[interactive]
+    diffFilter = diff-so-fancy --patch
+[diff-so-fancy]
+	markEmptyLines = false
+[init]
+	defaultBranch = main

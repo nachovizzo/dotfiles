@@ -1,0 +1,81 @@
+{
+  "float": [
+    {
+      "class": "pop-shell-example",
+      "title": "pop-shell-example"
+    },
+    {
+      "class": "Org.gnome.Shell.Extensions"
+    },
+    {
+      "class": "Gnome-tweaks"
+    },
+    {
+      "class": "Gnome-control-center"
+    },
+    {
+      "class": "Pop!_Shell Keyboard Shortcuts"
+    },
+    {
+      "class": "Gnome-extensions-app"
+    },
+    {
+      "class": "Evolution-alarm-notify"
+    },
+    {
+      "class": "Spotify"
+    },
+    {
+      "class": "Org.gnome.Weather"
+    },
+    {
+      "class": "floating_terminal"
+    },
+    {
+      "class": "floating_google"
+    },
+    {
+      "class": "Org.gnome.Nautilus"
+    },
+    {
+      "class": "Open3D"
+    },
+    {
+      "class": "Software-properties-gtk"
+    },
+    {
+      "class": "Baobab"
+    },
+    {
+      "class": "Gnome-calculator"
+    },
+    {
+      "class": "vdb_view"
+    },
+    {
+      "class": "ObinsKit"
+    },
+    {
+      "class": "Gedit"
+    },
+    {
+      "class": "visualizer"
+    },
+    {
+      "class": "matplotlib"
+    },
+    {
+      "class": "Pavucontrol"
+    },
+    {
+      "class": "rviz"
+    },
+    {
+      "class": "Cheese"
+    }
+  ],
+  "skiptaskbarhidden": [],
+  "log_on_focus": false,
+  "move_pointer_on_switch": false,
+  "default_pointer_position": "TOP_LEFT"
+}
