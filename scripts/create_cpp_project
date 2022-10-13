@@ -2,22 +2,8 @@
 # @file      create_cpp_project
 # @author    Ignacio Vizzo     [ivizzo@uni-bonn.de]
 #
-# Copyright (c) 2019 Ignacio Vizzo, all rights reserved
+# Copyright (c) 2022 Ignacio Vizzo, all rights reserved
 echo "Creating a new C++ Project in $(pwd)/"
-mkdir -p build
+cp -r $HOME/scripts/cpp_template_project/. .
+tmuxinator
 
-echo "Copying project template"
-cp $HOME/scripts/cpp_template_project/* .
-
-echo "Copying configuration files"
-cp -r $HOME/scripts/cpp_template_project/.vscode .
-
-echo "Building Project"
-cd build
-cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON  -DCMAKE_BUILD_TYPE=Debug  ..
-make all
-
-echo "Testing..."
-./main
-
-echo "Done!"

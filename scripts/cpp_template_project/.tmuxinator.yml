@@ -1,0 +1,8 @@
+name: cpp_project
+on_project_start: cmake -Bbuild && cmake --build build
+windows:
+  - build:
+      layout: even-horizontal
+      panes:
+        - vim main.cpp
+        - cd build && find .. | entr -scp 'make && ./main'
