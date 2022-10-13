@@ -1,11 +1,11 @@
 # Nacho dotfiles
 
-Work in progress transition repository using yadm as tool
+Work in progress (almost finished) transition repository using yadm as tool
 
 ## Dependencies
 
 - `curl`
-- root access, thow `sudo` or `root` user
+- root access, `sudo` or `root` user
 
 ## Minimal Installation
 
