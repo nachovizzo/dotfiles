@@ -10,3 +10,8 @@ export FPATH=$FPATH:$HOME/.zfunc
 export EDITOR='nvim'
 export DATASETS=$HOME/data/
 export MODELS=$HOME/data/models/
+
+# For remote installs
+# export CMAKE_INSTALL_PREFIX=$HOME/usr/
+# export CPATH=$HOME/usr/include/
+# export LD_LIBRARY_PATH=$HOME/usr/lib:$LD_LIBRARY_PATH
