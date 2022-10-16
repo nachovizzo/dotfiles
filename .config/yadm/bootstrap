@@ -162,6 +162,9 @@ main() {
     full_installation
   fi
 
+  echo "Loading encrypted files"
+  yadm decrypt
+
 }
 
 main "$@"
