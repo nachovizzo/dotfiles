@@ -44,8 +44,8 @@ set shortmess+=c
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
-colorscheme xcodedark
-" colorscheme xcodelight
+" colorscheme xcodedark
+colorscheme xcodelight
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
