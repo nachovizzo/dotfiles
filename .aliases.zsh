@@ -25,3 +25,5 @@ alias ydam='yadm'
 alias mkae='make'
 alias ssh='kitty +kitten ssh'
 alias cat='bat'
+alias meld='light_meld'
+
