@@ -111,6 +111,12 @@ install_ssh() {
   install_pkgs openssh-client openssh-server sshfs
 }
 
+install_bat() {
+  wget https://github.com/sharkdp/bat/releases/download/v0.22.1/bat-musl_0.22.1_amd64.deb
+  sudo apt install bat-musl_0.22.1_amd64.deb
+  rm bat-musl_0.22.1_amd64.deb
+}
+
 install_fonts() {
   # I have my own SF-Mono patched fonts, but just in case install powerline packaged fonts
   install_pkgs tmux tmuxinator fonts-powerline
@@ -134,6 +140,7 @@ minimal_installation() {
   install_neovim
   install_tmux
   install_fonts
+  install_bat
 }
 
 full_installation() {
