@@ -2,6 +2,10 @@
 # @author    Ignacio Vizzo     [ivizzo@uni-bonn.de]
 #
 # Copyright (c) 2019 Ignacio Vizzo, all rights reserved
+command_exists() {
+  command -v "$@" >/dev/null 2>&1
+}
+
 alias py='ipython3'
 alias coit='code . && exit'
 alias cor='code -r'
@@ -22,11 +26,10 @@ alias ll='ls -hltrBF --group-directories-first --color=auto'
 alias df='df -h -xsquashfs -xtmpfs -xdevtmpfs'
 alias tkb='take build'
 alias ag='ag -U'
-alias start_notebook_tunnel='ssh -f -N ipb24-tunnel'
 alias glow='glow -p'
 alias -g latest='*(om[1])'
 alias vim='nvim'
-alias ssh='kitty +kitten ssh'
+alias ssh='command_exists kitty && kitty +kitten ssh || ssh'
 alias ts='tmux new-session -s $(basename $(pwd))'
 alias cat='bat'
 alias ydam='yadm'
