@@ -112,24 +112,15 @@ install_ssh() {
 }
 
 install_bat() {
-  wget https://github.com/sharkdp/bat/releases/download/v0.22.1/bat-musl_0.22.1_amd64.deb
-  sudo apt install bat-musl_0.22.1_amd64.deb
-  rm bat-musl_0.22.1_amd64.deb
+  wget -c https://github.com/sharkdp/bat/releases/download/v0.22.1/bat-musl_0.22.1_amd64.deb
+  sudo apt install ./bat-musl_0.22.1_amd64.deb
+  rm ./bat-musl_0.22.1_amd64.deb
 }
 
 install_fonts() {
   # I have my own SF-Mono patched fonts, but just in case install powerline packaged fonts
-  install_pkgs tmux tmuxinator fonts-powerline
-
-  # Update fonts cache (should read the ~/.fonts)
+  install_pkgs fonts-powerline
   fc-cache -f -v
-
-  # Update the gnome-terminal font, only when using a GUI
-  if command_exists gsettings; then
-    profile="$(gsettings get org.gnome.Terminal.ProfilesList default)"
-    profile="${profile:1:-1}" # remove leading and trailing single quotes
-    dconf write "/org/gnome/terminal/legacy/profiles:/:$profile/font" "'SF Mono 11'"
-  fi
 }
 
 minimal_installation() {
@@ -139,8 +130,8 @@ minimal_installation() {
   install_zsh
   install_neovim
   install_tmux
-  install_fonts
   install_bat
+  install_fonts
 }
 
 full_installation() {
