@@ -10,6 +10,7 @@ export FPATH=$FPATH:$HOME/.zfunc
 export EDITOR='nvim'
 export DATASETS=$HOME/data/
 export MODELS=$HOME/data/models/
+export BAT_THEME="gruvbox-light"
 
 # For remote installs
 # export CMAKE_INSTALL_PREFIX=$HOME/usr/
