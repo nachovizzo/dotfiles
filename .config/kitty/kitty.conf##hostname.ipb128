@@ -1,6 +1,6 @@
 include dark.conf
 
-font_size        13
+font_size        12
 font_family      SFMono Medium Nerd Font Complete Mono
 bold_font        SFMono Bold Nerd Font Complete Mono
 italic_font      SFMono Bold Nerd Font Complete Mono
