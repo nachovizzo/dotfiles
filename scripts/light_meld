@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+GTK_THEME=Adwaita:light /usr/bin/meld
