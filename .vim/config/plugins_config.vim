@@ -64,7 +64,6 @@ hi! link texMathZoneEnsured texMathZone
 " Small tweaks
 hi! link QuickFixLine Normal
 hi! link qfLineNr Normal
-hi! link EndOfBuffer LineNr
 hi! link Conceal LocalIdent
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
