@@ -25,4 +25,4 @@ alias ydam='yadm'
 alias mkae='make'
 alias cat='bat'
 alias meld='light_meld'
-
+alias ld='ld -dynamic-linker /lib64/ld-linux-x86-64.so.2'
