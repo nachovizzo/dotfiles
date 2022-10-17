@@ -3,7 +3,8 @@
 # @author    Ignacio Vizzo     [ivizzo@uni-bonn.de]
 #
 # Copyright (c) 2019 Ignacio Vizzo, all rights reserved
-PRESENTER_MODE="1920x1440"
+# PRESENTER_MODE="1920x1440"
+PRESENTER_MODE="1600x1200"
 NORMAL_MODE="2048x1152"
 
 resolution=$(xrandr --query | awk -F '[ +]' '/connected primary/{print $4}')
