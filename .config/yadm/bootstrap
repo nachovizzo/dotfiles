@@ -55,6 +55,10 @@ install_nodejs() {
 
   # If we reach this poing either node or npm are not there, then install:
   curl -sL install-node.vercel.app/lts | $RUN bash -s -- --yes
+
+  # Create non-sudo installations of nodejs packages
+  mkdir -p ${HOME}/.npm-packages
+  npm config set prefix ${HOME}/.npm-packages
 }
 
 install_coc_extensions() {
