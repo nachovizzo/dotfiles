@@ -2,6 +2,10 @@ get_remote() {
     git remote -vv | tail -n1 | awk '{print $2}' | tr -d '\n' | xcopy
 }
 
+get_branch() {
+    git branch | sed -n -e 's/^\* \(.*\)/\1/p' | xcopy
+}
+
 open_remote() {
     xdg-open $(git remote -vv | grep origin | tail -n1 | awk '{print $2}' | xargs -I URL sh -c "echo URL | grep https || echo URL | sed 's/:/\//' | sed 's/^.*@/https:\/\//'") 1> /dev/null
 }
