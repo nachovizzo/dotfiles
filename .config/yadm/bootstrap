@@ -101,6 +101,7 @@ install_cpp_utils() {
 
 install_shell_utils() {
   install_pkgs htop silversearcher-ag tree tig
+  pip3 install thefuck
 }
 
 install_tmux() {
