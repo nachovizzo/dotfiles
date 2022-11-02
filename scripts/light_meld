@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-GTK_THEME=Adwaita:light /usr/bin/meld "@"
+GTK_THEME=Adwaita:light /usr/bin/meld "$@"
