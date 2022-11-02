@@ -154,6 +154,7 @@ full_installation() {
 # Options
 RUN=$(user_can_sudo && echo "sudo" || echo "command")
 INSTALL_FULL=${INSTALL_FULL:-no}
+DECRYPT=${DECRYPT:-yes}
 
 main() {
   echo "Updating the yadm repo origin URL"
@@ -167,8 +168,10 @@ main() {
     full_installation
   fi
 
-  echo "Loading encrypted files"
-  yadm decrypt || true # allow failure for non-nacho users
+  if [ $DECRYPT = yes ]; then
+    echo "Loading encrypted files"
+    yadm decrypt
+  fi
 
 }
 

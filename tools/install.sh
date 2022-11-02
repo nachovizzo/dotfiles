@@ -28,6 +28,9 @@ main() {
     case $1 in
       --full) export INSTALL_FULL=yes ;;
     esac
+    case $1 in
+      --skip-decrypt) export DECRYPT=no ;;
+    esac
     shift
   done
 
