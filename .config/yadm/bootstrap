@@ -72,7 +72,9 @@ install_coc_extensions() {
 }
 
 install_neovim() {
-  install_pkgs neovim
+  wget -c https://github.com/neovim/neovim/releases/download/v0.8.0/nvim-linux64.deb
+  $RUN apt install ./nvim-linux64.dev
+  rm nvim-linux64.deb
 
   # Install vim-plug packages
   nvim --headless -u $HOME/.vim/config/plug.vim +PlugInstall +qall
