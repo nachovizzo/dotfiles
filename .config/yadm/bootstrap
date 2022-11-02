@@ -168,7 +168,7 @@ main() {
   fi
 
   echo "Loading encrypted files"
-  yadm decrypt
+  yadm decrypt || true # allow failure for non-nacho users
 
 }
 
