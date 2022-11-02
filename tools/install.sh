@@ -10,10 +10,10 @@ user_can_sudo() {
   ! LANG= sudo -n -v 2>&1 | grep -q "may not run sudo"
 }
 
-install_pkgs() {
+install_git() {
   RUN=$(user_can_sudo && echo "sudo" || echo "command")
   $RUN apt-get update
-  $RUN apt-get install --no-install-recommends -y "$@"
+  $RUN apt-get install --no-install-recommends -y git
 }
 
 install_yadm() {
@@ -31,12 +31,11 @@ main() {
     shift
   done
 
-  install_pkgs git
-  install_pkgs yadm
+  install_git
+  install_yadm
 
   # If cloning fails, this means that yadm is already installed and we shoudl bootstrap
   yadm clone --bootstrap https://github.com/nachovizzo/dotfiles.git 2>/dev/null || yadm bootstrap
-
 }
 
 main "$@"
