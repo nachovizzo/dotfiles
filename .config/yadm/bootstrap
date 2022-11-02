@@ -171,6 +171,8 @@ main() {
   if [ $DECRYPT = yes ]; then
     echo "Loading encrypted files"
     yadm decrypt
+  else
+    echo "Skipping encrypted files, as requested"
   fi
 
 }
