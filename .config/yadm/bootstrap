@@ -55,6 +55,10 @@ install_nodejs() {
 
   # If we reach this poing either node or npm are not there, then install:
   curl -sL install-node.vercel.app/lts | $RUN bash -s -- --yes
+
+  # Create non-sudo installations of nodejs packages
+  mkdir -p ${HOME}/.npm-packages
+  npm config set prefix ${HOME}/.npm-packages
 }
 
 install_coc_extensions() {
@@ -68,7 +72,9 @@ install_coc_extensions() {
 }
 
 install_neovim() {
-  install_pkgs neovim
+  wget -c https://github.com/neovim/neovim/releases/download/v0.8.0/nvim-linux64.deb
+  $RUN apt install ./nvim-linux64.deb
+  rm nvim-linux64.deb
 
   # Install vim-plug packages
   nvim --headless -u $HOME/.vim/config/plug.vim +PlugInstall +qall
@@ -97,6 +103,7 @@ install_cpp_utils() {
 
 install_shell_utils() {
   install_pkgs htop silversearcher-ag tree tig
+  pip3 install thefuck
 }
 
 install_tmux() {
@@ -147,6 +154,7 @@ full_installation() {
 # Options
 RUN=$(user_can_sudo && echo "sudo" || echo "command")
 INSTALL_FULL=${INSTALL_FULL:-no}
+DECRYPT=${DECRYPT:-yes}
 
 main() {
   echo "Updating the yadm repo origin URL"
@@ -160,8 +168,12 @@ main() {
     full_installation
   fi
 
-  echo "Loading encrypted files"
-  yadm decrypt
+  if [ $DECRYPT = yes ]; then
+    echo "Loading encrypted files"
+    yadm decrypt
+  else
+    echo "Skipping encrypted files, as requested"
+  fi
 
 }
 

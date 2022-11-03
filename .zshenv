@@ -6,6 +6,7 @@ export PATH=$PATH:$HOME/scripts/
 export PATH=$PATH:$HOME/usr/bin
 export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:$HOME/.local/bin/
+export PATH=$PATH:$HOME/.npm-packages/bin
 export FPATH=$FPATH:$HOME/.zfunc
 export EDITOR='nvim'
 export DATASETS=$HOME/data/
