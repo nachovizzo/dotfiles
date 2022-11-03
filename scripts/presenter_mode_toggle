@@ -9,7 +9,7 @@ NORMAL_MODE="2048x1152"
 
 resolution=$(xrandr --query | awk -F '[ +]' '/connected primary/{print $4}')
 if [ $resolution == $NORMAL_MODE ]; then
-    xrandr --output eDP-1 --mode $PRESENTER_MODE
+    xrandr --output eDP-1-1 --mode $PRESENTER_MODE
 elif [ $resolution == $PRESENTER_MODE ]; then
-    xrandr --output eDP-1 --mode $NORMAL_MODE
+    xrandr --output eDP-1-1 --mode $NORMAL_MODE
 fi
