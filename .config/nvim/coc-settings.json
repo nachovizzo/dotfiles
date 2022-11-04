@@ -2,7 +2,10 @@
   "inlayHint.enable": false,
   "diagnostic.enable": true,
   "clangd.enabled": true,
-  "clangd.compilationDatabasePath": "build/",
+  "clangd.compilationDatabaseCandidates": [
+    "${workspaceFolder}",
+    "${workspaceFolder}/build/"
+  ],
   "clangd.arguments": [
     "--background-index",
     "--clang-tidy",
