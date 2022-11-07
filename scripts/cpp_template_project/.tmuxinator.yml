@@ -5,4 +5,4 @@ windows:
       layout: even-horizontal
       panes:
         - vim main.cpp
-        - cd build && find .. | entr -sc 'make && ./main'
+        - find . | entr -c './build_and_run.sh'
