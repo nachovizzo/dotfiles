@@ -9,3 +9,4 @@ source ~/.vim/config/extended.vim
 
 " New LUA configuration, WIP
 luafile ~/.vim/config/init.lua
+
