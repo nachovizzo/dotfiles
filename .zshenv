@@ -2,11 +2,13 @@
 export ZSH=$HOME/.oh-my-zsh
 
 # PATH
-export PATH=$PATH:$HOME/scripts/
-export PATH=$PATH:$HOME/usr/bin
-export PATH=$PATH:$HOME/go/bin
-export PATH=$PATH:$HOME/.local/bin/
-export PATH=$PATH:$HOME/.npm-packages/bin
+export PATH=$HOME/scripts/:$PATH
+export PATH=$HOME/usr/bin:$PATH
+export PATH=$HOME/go/bin:$PATH
+export PATH=$HOME/.npm-packages/bin:$PATH
+export PATH=$HOME/.local/bin/:$PATH
+
+# Others
 export FPATH=$FPATH:$HOME/.zfunc
 export EDITOR='nvim'
 export DATASETS=$HOME/data/
