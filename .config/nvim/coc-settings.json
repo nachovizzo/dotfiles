@@ -1,4 +1,5 @@
 {
+  "coc.source.file.ignoreHidden": false,
   "inlayHint.enable": false,
   "diagnostic.enable": true,
   "clangd.enabled": true,
