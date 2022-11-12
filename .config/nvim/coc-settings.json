@@ -5,11 +5,13 @@
   "clangd.enabled": true,
   "clangd.compilationDatabaseCandidates": [
     "${workspaceFolder}",
-    "${workspaceFolder}/build/"
+    "${workspaceFolder}/build/",
+    "${workspaceFolder}/_skbuild/linux-x86_64-3.10/cmake-build/"
   ],
   "clangd.arguments": [
     "--background-index",
     "--clang-tidy",
+    "--fallback-style=Google",
     "--header-insertion=iwyu",
     "--suggest-missing-includes",
     "-j=8"
