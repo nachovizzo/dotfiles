@@ -1,5 +1,9 @@
 {
   "coc.source.file.ignoreHidden": false,
+  "coc.source.around.enable": false,
+  "coc.source.buffer.enable": false,
+  "coc.source.word.enable": true,
+  "coc.source.word.filetypes": ["markdown", "tex"],
   "inlayHint.enable": false,
   "diagnostic.enable": true,
   "clangd.enabled": true,

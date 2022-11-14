@@ -2,6 +2,7 @@
 let g:coc_global_extensions = [
       \'coc-clangd',
       \'coc-cmake',
+      \'coc-emoji',
       \'coc-explorer',
       \'coc-json',
       \'coc-lua',
@@ -9,6 +10,7 @@ let g:coc_global_extensions = [
       \'coc-pyright',
       \'coc-vimlsp',
       \'coc-vimtex',
+      \'coc-word',
       \'coc-yaml',
       \]
 
