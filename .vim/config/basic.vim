@@ -4,8 +4,7 @@
 let mapleader = " "
 
 " Enable filetype plugins
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -15,7 +14,7 @@ set backspace=eol,start,indent
 set clipboard^=unnamed
 set cmdheight=1
 set colorcolumn=+1
-set completeopt+=menuone,noselect
+set completeopt+=menu
 set cursorline
 set hidden
 set ignorecase
@@ -43,6 +42,7 @@ set shortmess+=c
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on
 syntax enable
 " colorscheme xcodedark
 colorscheme xcodelight
