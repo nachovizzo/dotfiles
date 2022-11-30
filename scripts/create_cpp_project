@@ -3,6 +3,10 @@
 # @author    Ignacio Vizzo     [ivizzo@uni-bonn.de]
 #
 # Copyright (c) 2022 Ignacio Vizzo, all rights reserved
+
+DIR=$(mktemp -d)
+mkdir -p $DIR
+pushd $DIR
 echo "Creating a new C++ Project in $(pwd)/"
 cp -r $HOME/scripts/cpp_template_project/. .
 tmuxinator
