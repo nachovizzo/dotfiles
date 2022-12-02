@@ -25,3 +25,4 @@ alias ydam='yadm'
 alias mkae='make'
 alias cat='bat'
 alias meld='light_meld'
+alias gs="git status"
