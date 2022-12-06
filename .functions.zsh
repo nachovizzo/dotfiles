@@ -134,3 +134,5 @@ dark_terminal(){  kitty @ set-colors -a "~/.config/kitty/dark.conf" }
 function gitignore() {
     curl -sLw n https://www.toptal.com/developers/gitignore/api/$@
 }
+
+taker () { take $(mktemp -d) }

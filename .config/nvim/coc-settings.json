@@ -5,7 +5,6 @@
   "coc.source.word.filetypes": ["markdown", "latex"],
   "inlayHint.enable": false,
   "diagnostic.enable": true,
-  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/15.0.3/clangd_15.0.3/bin/clangd",
   "clangd.compilationDatabaseCandidates": [
     "${workspaceFolder}",
     "${workspaceFolder}/build/",
@@ -21,9 +20,7 @@
   ],
   "python.pythonPath": "python3",
   "python.linting.pylintEnabled": true,
-  "python.linting.pylintArgs": [
-    "--extension-pkg-whitelist=pyopenvdb"
-  ],
+  "python.linting.pylintArgs": ["--extension-pkg-whitelist=pyopenvdb"],
   "explorer.root.strategies": ["cwd", "reveal", "sourceBuffer", "workspace"],
   "explorer.buffer.root.template": "[icon & 1] OPEN EDITORS",
   "explorer.file.root.template": "[icon & 1] PROJECT ([root])",
@@ -40,11 +37,6 @@
   "explorer.previewAction.onHover": false,
   "explorer.openAction.strategy": "sourceWindow",
   "explorer.keyMappings.global": {
-    "<cr>": [
-      "wait",
-      "expandable?",
-      "expand",
-      "open"
-    ]
-  },
+    "<cr>": ["wait", "expandable?", "expand", "open"]
+  }
 }
