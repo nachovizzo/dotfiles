@@ -38,5 +38,9 @@
   "explorer.openAction.strategy": "sourceWindow",
   "explorer.keyMappings.global": {
     "<cr>": ["wait", "expandable?", "expand", "open"]
+  },
+  "markdownlint.config": {
+    "default": true,
+    "line_length": false
   }
 }
