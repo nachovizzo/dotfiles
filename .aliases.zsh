@@ -26,3 +26,6 @@ alias mkae='make'
 alias cat='bat'
 alias meld='light_meld'
 alias gs="git status"
+
+alias cm="cmake -Bbuild"
+alias cb="cmake --build build -j$(nproc --all)"
