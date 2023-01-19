@@ -6,7 +6,6 @@
 
 
 # -- navigation ----------------------------------------------------------------
-
 # if you're running tmux within iTerm2
 #   - and tmux is 1.9 or 1.9a
 #   - and iTerm2 is configured to let option key act as +Esc
@@ -324,10 +323,11 @@ tmux_conf_copy_to_os_clipboard=true
 
 
 # -- user customizations -------------------------------------------------------
-# this is the place to override or undo settings
+# disable status bar, lol
+set -g status off
 
 # start with mouse mode enabled
-set -g mouse on
+set -g mouse off
 
 # replace C-b by C-a instead of using both prefixes
 set -gu prefix2
