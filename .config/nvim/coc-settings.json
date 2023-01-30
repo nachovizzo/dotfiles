@@ -11,10 +11,8 @@
     "${workspaceFolder}/_skbuild/linux-x86_64-3.10/cmake-build/"
   ],
   "clangd.arguments": [
-    "--query-driver=/usr/bin/c++",
     "--background-index",
     "--clang-tidy",
-    "--fallback-style=Google",
     "--header-insertion=iwyu",
     "-j=8"
   ],
