@@ -3,7 +3,6 @@ from functools import partial
 from functools import lru_cache
 import glob
 import os
-import time
 
 import click
 from natsort import natsorted
@@ -16,12 +15,9 @@ from tqdm import tqdm
 def read_geometry(filename):
     if os.path.splitext(filename)[-1] == ".bin":
         points = np.fromfile(filename, dtype=np.float32).reshape((-1, 4))[:, :3]
-        return o3d.geometry.PointCloud(o3d.utility.Vector3dVector(points))
-    if os.path.splitext(filename)[-1] == ".obj":
-        mesh = o3d.io.read_triangle_mesh(filename)
-        mesh.compute_vertex_normals()
-        return mesh
-    return o3d.io.read_point_cloud(filename)
+    else:
+        points = np.asarray(o3d.io.read_point_cloud(filename).points, dtype=np.float64)
+    return o3d.utility.Vector3dVector(points.astype(np.float64))
 
 
 class Visualizer:
@@ -48,7 +44,7 @@ class Visualizer:
         self.vis.create_window(
             window_name="Dataset Visualizer", width=1920, height=1080
         )
-        self.frame = read_geometry(self.files[self.idx])
+        self.frame.points = read_geometry(self.files[self.idx])
         self.vis.add_geometry(self.frame)
         print(100 * "=")
         print(f"Visualizing {len(self.files)} models")
@@ -82,8 +78,7 @@ class Visualizer:
         return False
 
     def update_geometry(self):
-        frame = read_geometry(self.files[self.idx])
-        self.frame.points = frame.points
+        self.frame.points = read_geometry(self.files[self.idx])
         self.vis.update_geometry(self.frame)
         self.vis.poll_events()
         self.vis.update_renderer()
