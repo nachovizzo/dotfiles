@@ -21,11 +21,11 @@ def read_geometry(filename):
 
 
 class Visualizer:
-    def __init__(self, filenames):
+    def __init__(self, filenames, jump: int = 0):
         # Files to render
         self.files = filenames
         self.n_frames = len(filenames)
-        self.idx = 0
+        self.idx = jump
         self.frame = o3d.geometry.PointCloud()
 
         # Visualizer
@@ -116,9 +116,10 @@ class Visualizer:
 
 @click.command()
 @click.argument("file_patterns", type=str)
-def visualizer(file_patterns):
+@click.option("--jump", "-j", type=int, default=0)
+def visualizer(file_patterns, jump):
     files = natsorted(glob.glob(file_patterns))
-    Visualizer(files).run()
+    Visualizer(files, jump).run()
 
 
 if __name__ == "__main__":

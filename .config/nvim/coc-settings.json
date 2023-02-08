@@ -14,7 +14,7 @@
     "--background-index",
     "--clang-tidy",
     "--header-insertion=iwyu",
-    "-j=8"
+    "-j=12"
   ],
   "python.pythonPath": "python3",
   "python.linting.pylintEnabled": true,

@@ -57,6 +57,14 @@ speedup_video() {
     echo "Done!"
 }
 
+mkv_to_mp4() {
+    VIDEO="$1"
+    BASENAME="$(basename -- $VIDEO)"
+    FILENAME=${BASENAME%.*}
+    echo "Converting $VIDEO..."
+    ffmpeg -i $VIDEO -codec copy ${FILENAME}.mp4
+}
+
 function cuda_is_availabe() {
     python3 -c "import torch; print(torch.cuda.is_available())"
 }
