@@ -26,28 +26,42 @@ def read_geometry(filename):
 
 class Visualizer:
     def __init__(self, filenames):
-        # Visualizer
-        self.vis = o3d.visualization.VisualizerWithKeyCallback()
-        self.vis.create_window()
-        self.render_options = self.vis.get_render_option()
-
         # Files to render
         self.files = filenames
         self.n_frames = len(filenames)
+        self.idx = 0
+        self.frame = o3d.geometry.PointCloud()
 
-        # Initialize the default callbacks
+        # Visualizer
+        self.vis = o3d.visualization.VisualizerWithKeyCallback()
+        self._initialize_visualizer()
         self._register_key_callbacks()
 
-        # Add first frame
-        self.idx = 0
-        self.vis.add_geometry(read_geometry(self.files[self.idx]))
-        self.print_help()
+        # Initialize GUI controls
+        self.flag_exit = False
+        self.flag_play = False
 
-        # Continous time plot
-        self.stop = False
-
-        # Continous time plot
+        # Status bar
         self.pbar = tqdm(total=self.n_frames)
+
+    def _initialize_visualizer(self):
+        self.vis.create_window(
+            window_name="Dataset Visualizer", width=1920, height=1080
+        )
+        self.frame = read_geometry(self.files[self.idx])
+        self.vis.add_geometry(self.frame)
+        print(100 * "=")
+        print(f"Visualizing {len(self.files)} models")
+        print(
+            "Dataset Visualizer initialized. Press:\n"
+            "\t[SPACE] to pause/start\n"
+            "\t  [ESC] to exit\n"
+            "\t    [N] to step to next frame\n"
+            "\t    [P] to step to prev frame\n"
+            "\t    [W] to toggle a white background\n"
+            "\t    [B] to toggle a black background"
+        )
+        print(100 * "=")
 
     def next_frame(self, vis):
         self.idx = (self.idx + 1) % self.n_frames
@@ -59,58 +73,49 @@ class Visualizer:
     def prev_frame(self, vis):
         self.idx = (self.idx - 1) % self.n_frames
         self.update_geometry()
+        self.pbar.update() if self.pbar else None
+        self.pbar.set_description(f"Visualizing {self.files[self.idx]}")
         return False
 
-    def start_prev(self, vis):
-        self.stop = False
-        while not self.stop:
-            self.next_frame(vis)
-
-    def stop_prev(self, vis):
-        self.stop = True
+    def start_stop(self, vis):
+        self.flag_play = not self.flag_play
+        return False
 
     def update_geometry(self):
-        self.vis.clear_geometries()
-        self.vis.add_geometry(
-            read_geometry(self.files[self.idx]), reset_bounding_box=False
-        )
+        frame = read_geometry(self.files[self.idx])
+        self.frame.points = frame.points
+        self.vis.update_geometry(self.frame)
         self.vis.poll_events()
         self.vis.update_renderer()
-
-    def set_render_options(self, **kwargs):
-        for key, value in kwargs.items():
-            setattr(self.render_options, key, value)
 
     def register_key_callback(self, key, callback):
         self.vis.register_key_callback(ord(str(key)), partial(callback))
 
     def set_white_background(self, vis):
-        """Change backround between white and white."""
-        self.render_options.background_color = [1.0, 1.0, 1.0]
+        self.vis.get_render_option().background_color = [1.0, 1.0, 1.0]
 
     def set_black_background(self, vis):
-        """Change backround between white and black."""
-        self.render_options.background_color = [0.0, 0.0, 0.0]
+        self.vis.get_render_option().background_color = [0.0, 0.0, 0.0]
 
     def _register_key_callbacks(self):
-        self.register_key_callback("N", self.next_frame)
-        self.register_key_callback("P", self.prev_frame)
-        self.register_key_callback("S", self.start_prev)
-        self.register_key_callback("X", self.stop_prev)
+        self.register_key_callback("Ā", self.quit)
+        self.register_key_callback("Q", self.quit)
+        self.register_key_callback("\x1b", self.quit)
         self.register_key_callback("W", self.set_white_background)
         self.register_key_callback("B", self.set_black_background)
+        self.register_key_callback(" ", self.start_stop)
+        self.register_key_callback("N", self.next_frame)
+        self.register_key_callback("P", self.prev_frame)
 
-    def print_help(self):
-        print("N: next")
-        print("P: previous")
-        print("S: start")
-        print("X: stop")
-        print("W: white background")
-        print("B: black  background")
-        print("Q: quit")
+    def quit(self, vis):
+        self.flag_exit = True
+        return False
 
     def run(self):
-        self.vis.run()
+        while self.pbar.n < self.n_frames and not self.flag_exit:
+            self.next_frame(self.vis) if self.flag_play else None
+            self.vis.poll_events()
+            self.vis.update_renderer()
         self.vis.destroy_window()
 
 
@@ -118,7 +123,6 @@ class Visualizer:
 @click.argument("file_patterns", type=str)
 def visualizer(file_patterns):
     files = natsorted(glob.glob(file_patterns))
-    print(f"Visualizing {len(files)} models")
     Visualizer(files).run()
 
 
