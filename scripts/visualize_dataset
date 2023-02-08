@@ -4,11 +4,12 @@ from functools import lru_cache
 import glob
 import os
 import time
-from natsort import natsorted
 
 import click
+from natsort import natsorted
 import numpy as np
 import open3d as o3d
+from tqdm import tqdm
 
 
 @lru_cache()
@@ -24,7 +25,7 @@ def read_geometry(filename):
 
 
 class Visualizer:
-    def __init__(self, filenames, sleep_time=5e-3):
+    def __init__(self, filenames):
         # Visualizer
         self.vis = o3d.visualization.VisualizerWithKeyCallback()
         self.vis.create_window()
@@ -44,11 +45,15 @@ class Visualizer:
 
         # Continous time plot
         self.stop = False
-        self.sleep_time = sleep_time
+
+        # Continous time plot
+        self.pbar = tqdm(total=self.n_frames)
 
     def next_frame(self, vis):
         self.idx = (self.idx + 1) % self.n_frames
         self.update_geometry()
+        self.pbar.update() if self.pbar else None
+        self.pbar.set_description(f"Visualizing {self.files[self.idx]}")
         return False
 
     def prev_frame(self, vis):
@@ -60,15 +65,15 @@ class Visualizer:
         self.stop = False
         while not self.stop:
             self.next_frame(vis)
-            time.sleep(self.sleep_time)
 
     def stop_prev(self, vis):
         self.stop = True
 
     def update_geometry(self):
-        print("Visualizing {}".format(self.files[self.idx]), end="\r")
         self.vis.clear_geometries()
-        self.vis.add_geometry(read_geometry(self.files[self.idx]), reset_bounding_box=False)
+        self.vis.add_geometry(
+            read_geometry(self.files[self.idx]), reset_bounding_box=False
+        )
         self.vis.poll_events()
         self.vis.update_renderer()
 
@@ -112,11 +117,10 @@ class Visualizer:
 @click.command()
 @click.argument("file_patterns", type=str)
 def visualizer(file_patterns):
-    """Specify the filename pattern of the files you want to visualize."""
     files = natsorted(glob.glob(file_patterns))
-    print("Visualizing {} models".format(len(files)))
-    vis = Visualizer(files)
-    vis.run()
+    print(f"Visualizing {len(files)} models")
+    Visualizer(files).run()
+
 
 if __name__ == "__main__":
     visualizer()

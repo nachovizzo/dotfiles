@@ -48,6 +48,15 @@ split_video() {
     echo "Done!"
 }
 
+speedup_video() {
+    VIDEO="$1"
+    BASENAME="$(basename -- $VIDEO)"
+    FILENAME=${BASENAME%.*}
+    echo "Speeding by 2x video: $VIDEO..."
+    ffmpeg -i $VIDEO -filter_complex "[0:v]setpts=0.20*PTS[v];[0:a]atempo=2[a]" -map "[v]" -map "[a]" -c:v libx264 -c:a aac ${FILENAME}_2x.mp4
+    echo "Done!"
+}
+
 function cuda_is_availabe() {
     python3 -c "import torch; print(torch.cuda.is_available())"
 }
