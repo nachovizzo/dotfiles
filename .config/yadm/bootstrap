@@ -132,7 +132,6 @@ install_fonts() {
 
 minimal_installation() {
   echo "Running minimal installation, just zsh, neovim, tmux, and some binutils"
-  update_pkgs
   install_essential_tools
   install_zsh
   install_neovim
@@ -143,7 +142,6 @@ minimal_installation() {
 
 full_installation() {
   echo "[WARNING] Running full installation mode, this will take some time..."
-  update_pkgs
   install_python
   install_build_utils
   install_cpp_utils
@@ -161,6 +159,9 @@ main() {
   yadm remote set-url origin "git@github.com:nachovizzo/dotfiles.git"
 
   cd "$HOME"
+
+  # Fetch juste once the apt repositories
+  update_pkgs
 
   minimal_installation
 
