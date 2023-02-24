@@ -8,7 +8,8 @@
   "clangd.compilationDatabaseCandidates": [
     "${workspaceFolder}",
     "${workspaceFolder}/build/",
-    "${workspaceFolder}/_skbuild/linux-x86_64-3.10/cmake-build/"
+    "${workspaceFolder}/_skbuild/linux-x86_64-3.10/cmake-build/",
+    "${workspaceFolder}/python/_skbuild/linux-x86_64-3.10/cmake-build/"
   ],
   "clangd.arguments": [
     "--background-index",
