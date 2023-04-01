@@ -28,4 +28,3 @@ alias meld='light_meld'
 alias gs="git status"
 
 alias cm="cmake -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
-alias cb="cmake --build build -j$(nproc --all)"
