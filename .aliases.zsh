@@ -15,7 +15,7 @@ alias re='cd ~/Research/'
 
 alias xopen='xdg-open'
 alias xcopy='xclip -selection clipboard'
-alias ll='ls -hltrBF --group-directories-first --color=auto'
+alias ll='ls -hltrBF --color=auto'
 alias df='df -h -xsquashfs -xtmpfs -xdevtmpfs'
 alias tkb='take build'
 alias vim='nvim'
