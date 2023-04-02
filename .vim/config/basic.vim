@@ -12,7 +12,6 @@ filetype plugin indent on
 set number
 set backspace=eol,start,indent
 set clipboard^=unnamed
-" set clipboard+=unnamedplus
 set cmdheight=1
 set colorcolumn=+1
 set completeopt+=menu
@@ -45,8 +44,8 @@ set shortmess+=c
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
 syntax enable
-colorscheme xcodedark
-" colorscheme xcodelight
+" colorscheme xcodedark
+colorscheme xcodelight
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
