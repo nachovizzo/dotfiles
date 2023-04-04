@@ -52,3 +52,8 @@ nmap <C-p> :Files<cr>
 " Jump buffer buffer with just ALT+h or ALT+l
 nnoremap <silent><M-h> :BufferLineCyclePrev<CR>
 nnoremap <silent><M-l> :BufferLineCycleNext<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VimTeX
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+noremap <localleader>c <Cmd>update<CR><Cmd>VimtexCompileSS<CR>
