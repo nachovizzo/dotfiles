@@ -8,15 +8,14 @@
   "clangd.compilationDatabaseCandidates": [
     "${workspaceFolder}",
     "${workspaceFolder}/build/",
-    "${workspaceFolder}/_skbuild/linux-x86_64-3.10/cmake-build/"
+    "${workspaceFolder}/_skbuild/linux-x86_64-3.10/cmake-build/",
+    "${workspaceFolder}/python/_skbuild/linux-x86_64-3.10/cmake-build/"
   ],
   "clangd.arguments": [
-    "--query-driver=/usr/bin/c++",
     "--background-index",
     "--clang-tidy",
-    "--fallback-style=Google",
     "--header-insertion=iwyu",
-    "-j=8"
+    "-j=12"
   ],
   "python.pythonPath": "python3",
   "python.linting.pylintEnabled": true,

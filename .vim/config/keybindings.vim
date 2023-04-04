@@ -33,18 +33,6 @@ map <silent><C-j> <C-w>j
 map <silent><C-k> <C-w>k
 map <silent><C-l> <C-w>l
 
-" Same but using the leader, you can't hold down this key, what a shame
-nmap <silent><leader>h :wincmd h<cr>
-nmap <silent><leader>j :wincmd j<cr>
-nmap <silent><leader>k :wincmd k<cr>
-nmap <silent><leader>l :wincmd l<cr>
-
-" Split configurations
-nmap <silent><C-Left>  :vertical resize +3<cr>
-nmap <silent><C-Right> :vertical resize -3<cr>
-nmap <silent><C-Up>    :resize +3<cr>
-nmap <silent><C-Down>  :resize -3<cr>
-
 " Always move down with vim keys even in soft-lines
 noremap <expr> j v:count ? 'j' : 'gj'
 noremap <expr> k v:count ? 'k' : 'gk'

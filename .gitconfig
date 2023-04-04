@@ -13,10 +13,10 @@
 	default = current
 [diff]
     tool = meld
-[difftool "meld"]
-    cmd = "GTK_THEME=Adwaita:light meld $LOCAL $REMOTE"
 [difftool]
     prompt = false
+[difftool "meld"]
+    cmd = GTK_THEME=Adwaita:light meld $LOCAL $REMOTE
 [color]
     ui = true
 [pager]

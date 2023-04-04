@@ -20,21 +20,25 @@
 # new window retains current path, possible values are:
 #   - true
 #   - false (default)
+#   - disabled (do not modify new-window bindings)
 tmux_conf_new_window_retain_current_path=false
 
 # new pane retains current path, possible values are:
 #   - true (default)
 #   - false
+#   - disabled (do not modify split-window bindings)
 tmux_conf_new_pane_retain_current_path=true
 
-# new pane tries to reconnect ssh sessions (experimental), possible values are:
+# new pane tries to reconnect ssh sessions, possible values are:
 #   - true
 #   - false (default)
+#   - disabled (do not modify split-window bindings)
 tmux_conf_new_pane_reconnect_ssh=false
 
 # prompt for session name when creating a new session, possible values are:
 #   - true
 #   - false (default)
+#   - disabled (do not modify new-session bindings)
 tmux_conf_new_session_prompt=false
 
 
@@ -42,7 +46,12 @@ tmux_conf_new_session_prompt=false
 
 # RGB 24-bit colour support (tmux >= 2.2), possible values are:
 #  - true
-#  - false (default)
+#  - false
+#  - auto (default)
+#
+# automatic detection relies on the COLORTERM environment variable being defined
+# to 'truecolor' or '24bit' or '$ tput colors' answering '16777216'
+# see https://github.com/termstandard/colors
 tmux_conf_24b_colour=true
 
 # default theme
@@ -190,14 +199,14 @@ tmux_conf_theme_window_status_last_bg="$tmux_conf_theme_colour_2"
 tmux_conf_theme_window_status_last_attr="none"
 
 # status left/right sections separators
-# tmux_conf_theme_left_separator_main=""
-# tmux_conf_theme_left_separator_sub="|"
-# tmux_conf_theme_right_separator_main=""
-# tmux_conf_theme_right_separator_sub="|"
-tmux_conf_theme_left_separator_main="\uE0B0"  # /!\ you don't need to install Powerline
-tmux_conf_theme_left_separator_sub="\uE0B1"   #   you only need fonts patched with
-tmux_conf_theme_right_separator_main="\uE0B2" #   Powerline symbols or the standalone
-tmux_conf_theme_right_separator_sub="\uE0B3"  #   PowerlineSymbols.otf font, see README.md
+tmux_conf_theme_left_separator_main=""
+tmux_conf_theme_left_separator_sub="|"
+tmux_conf_theme_right_separator_main=""
+tmux_conf_theme_right_separator_sub="|"
+#tmux_conf_theme_left_separator_main='\uE0B0'  # /!\ you don't need to install Powerline
+#tmux_conf_theme_left_separator_sub='\uE0B1'   #   you only need fonts patched with
+#tmux_conf_theme_right_separator_main='\uE0B2' #   Powerline symbols or the standalone
+#tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see README.md
 
 # status left/right content:
 #   - separate main sections with "|"
@@ -318,14 +327,33 @@ tmux_conf_theme_clock_style="24"
 # in copy mode, copying selection also copies to the OS clipboard
 #   - true
 #   - false (default)
+#   - disabled
 # on macOS, this requires installing reattach-to-user-namespace, see README.md
 # on Linux, this requires xsel or xclip
 tmux_conf_copy_to_os_clipboard=true
 
 
-# -- user customizations -------------------------------------------------------
-# this is the place to override or undo settings
+# -- theme customizations -------------------------------------------------------
+# Use a monochrome statusline, with host and session names on the right.
+tmux_conf_theme=disabled
+set -g status-bg black
+set -g status-fg white
+set -g status-left ''
+set -g status-right ' #h: #S '
 
+# Use normal and bright monochrome colors to show a tab line on the left.
+set -g status-justify left
+set-window-option -g window-status-separator ''
+set-window-option -g window-status-format '#[bg=black,fg=white] #I #W '
+set-window-option -g window-status-current-format '#[bg=brightblack,fg=brightwhite] #I #W '
+
+# Switching panes should change the foreground color but not border colors.
+set -g window-style 'bg=default,fg=white'
+set -g window-active-style 'bg=default,fg=brightwhite'
+set -g pane-border-style 'bg=default,fg=black'
+set -g pane-active-border-style 'bg=default,fg=black'
+
+# -- user customizations -------------------------------------------------------
 # start with mouse mode enabled
 set -g mouse on
 
@@ -345,6 +373,9 @@ bind | split-window -h
 
 # clear both screen and history
 bind -n C-p send-keys C-l \; run 'sleep 0.1' \; clear-history
+
+# Zen mode, shutdown status bar
+bind z set -g status
 
 # -- vim -----------------------------------------------------------------------
 # Smart pane switching with awareness of Vim splits.
@@ -385,24 +416,23 @@ tmux_conf_update_plugins_on_launch=true
 #   - false
 tmux_conf_update_plugins_on_reload=true
 
+# by default, reloading the configuration will uninstall tpm and plugins when no
+# plugins are enabled
+#   - true (default)
+#   - false
+tmux_conf_uninstall_plugins_on_reload=true
+
+# /!\ the tpm bindings differ slightly from upstream:
+#   - installing plugins: <prefix> + I
+#   - uninstalling plugins: <prefix> + Alt + u
+#   - updating plugins: <prefix> + u
+
 # /!\ do not add set -g @plugin 'tmux-plugins/tpm'
 # /!\ do not add run '~/.tmux/plugins/tpm/tpm'
 
 # to enable a plugin, use the 'set -g @plugin' syntax:
 # visit https://github.com/tmux-plugins for available plugins
 # IMPORTANT: run prefix + I (capital I) after adding plugins here
-set -g @plugin 'tmux-plugins/tmux-open'
-set -g @plugin 'tmux-plugins/tmux-copycat'
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-#set -g @plugin 'tmux-plugins/tmux-cpu'
-#set -g @plugin 'tmux-plugins/tmux-continuum'
-#set -g @continuum-restore 'on'
-
-set -g @resurrect-dir '$HOME/.tmux_resurrect/'
-
-# -- tmux-open remap ----------------------------------------------------------
-set -g @open 'C-o'
-set -g @open-editor 'o'
 
 # -- custom variables ----------------------------------------------------------
 
@@ -419,9 +449,9 @@ set -g @open-editor 'o'
 #
 # # /!\ do not "uncomment" the functions: the leading "# " characters are needed
 #
-# weather() {
-#   curl -m 1 wttr.in?format=3 2>/dev/null
-#   sleep 900 # sleep for 15 minutes, throttle network requests whatever the value of status-interval
+# weather() {                                         # see https://github.com/chubin/wttr.in#one-line-output
+#   curl -f -s -m 2 'wttr.in?format=3' || printf '\n' # /!\ make sure curl is installed
+#   sleep 900                                         # sleep for 15 minutes, throttle network requests whatever the value of status-interval
 # }
 #
 # online() {

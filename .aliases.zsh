@@ -15,7 +15,7 @@ alias re='cd ~/Research/'
 
 alias xopen='xdg-open'
 alias xcopy='xclip -selection clipboard'
-alias ll='ls -hltrBF --group-directories-first --color=auto'
+alias ll='ls -hltrBF --color=auto'
 alias df='df -h -xsquashfs -xtmpfs -xdevtmpfs'
 alias tkb='take build'
 alias vim='nvim'
@@ -26,3 +26,6 @@ alias mkae='make'
 alias cat='bat'
 alias meld='light_meld'
 alias gs="git status"
+
+alias cm="cmake -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+alias cb="cmake --build build -j"
