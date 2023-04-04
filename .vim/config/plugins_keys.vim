@@ -50,8 +50,8 @@ nmap <C-p> :Files<cr>
 " => BufferLine
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Jump buffer buffer with just ALT+h or ALT+l
-nnoremap <silent><M-h> :BufferLineCyclePrev<CR>
-nnoremap <silent><M-l> :BufferLineCycleNext<CR>
+nnoremap <silent>H :BufferLineCyclePrev<CR>
+nnoremap <silent>L :BufferLineCycleNext<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VimTeX
