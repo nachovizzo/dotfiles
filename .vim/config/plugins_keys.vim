@@ -56,4 +56,5 @@ nnoremap <silent><M-l> :BufferLineCycleNext<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VimTeX
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-noremap <localleader>c <Cmd>update<CR><Cmd>VimtexCompileSS<CR>
+nmap <localleader>c <Cmd>update<CR><Cmd>VimtexCompileSS<CR>
+nmap <localleader>v <plug>(vimtex-view)

@@ -66,6 +66,11 @@ hi! link QuickFixLine Normal
 hi! link qfLineNr Normal
 hi! link Conceal LocalIdent
 
+" vimtex options
+let g:vimtex_view_method = 'skim'
+let g:vimtex_imaps_enabled = 0
+let g:vimtex_quickfix_open_on_warning = 0
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => XCode color settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
