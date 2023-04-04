@@ -1,4 +1,4 @@
-[[ -n $SSH_CONNECTION ]] && ZSH_THEME="fwalch-hostname" || ZSH_THEME="no_prompt"
+[[ -n $SSH_CONNECTION ]] && ZSH_THEME="fwalch-hostname" || ZSH_THEME="fwalch"
 DISABLE_AUTO_UPDATE="true"
 ENABLE_CORRECTION="false"
 HYPHEN_INSENSITIVE="true"
@@ -13,6 +13,7 @@ plugins=(
     fzf
     git
     tmux
+    zsh-autosuggestions
     z
 )
 
