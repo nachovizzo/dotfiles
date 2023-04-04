@@ -8,4 +8,4 @@ source ~/.vim/config/plugins_keys.vim
 source ~/.vim/config/extended.vim
 
 " New LUA configuration, WIP
-" luafile ~/.vim/config/init.lua
+luafile ~/.vim/config/init.lua
