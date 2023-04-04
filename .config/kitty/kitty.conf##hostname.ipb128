@@ -1,4 +1,4 @@
-include light.conf
+include dark.conf
 
 font_size        12
 font_family      SFMono Medium Nerd Font Complete Mono
