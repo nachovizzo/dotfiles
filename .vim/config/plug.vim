@@ -8,7 +8,7 @@ endif
 call plug#begin()
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 Plug 'antoinemadec/coc-fzf'
-Plug 'arzg/vim-colors-xcode'
+Plug 'nachovizzo/vim-colors-xcode'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
