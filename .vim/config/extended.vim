@@ -42,3 +42,8 @@ endif
 " => FileType associations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufReadPost *.tmux.* set syntax=tmux
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => LaTeX start always as a white canvas
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufEnter *.tex colorscheme xcodelight
