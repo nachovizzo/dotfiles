@@ -13,8 +13,8 @@ plugins=(
     fzf
     git
     tmux
-    zsh-autosuggestions
     z
+    zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
