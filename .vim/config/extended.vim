@@ -12,11 +12,6 @@ autocmd! BufWritePost ~/.vim/config/extended.vim       source $MYVIMRC
 autocmd! BufWritePost ~/.vim/config/init.lua           source $MYVIMRC
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Filetypes syntax settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au BufNewFile,BufRead .clang-* set syntax=yaml
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Autoreaload buffer when something changes
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
