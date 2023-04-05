@@ -49,33 +49,12 @@ let g:NERDCreateDefaultMappings = 0
 let g:NERDSpaceDelims = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/lervag/vimtex/issues/1946#issuecomment-843674951
-" => VimTeX highlight groups
+" => VimTeX
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-hi texCmd guifg=#ad3da4 guibg=NONE gui=NONE ctermfg=127 ctermbg=NONE cterm=NONE
-hi! link texMathEnvArgName texEnvArgName
-hi! link texMathZone LocalIdent
-hi! link texMathZoneEnv texMathZone
-hi! link texMathZoneEnvStarred texMathZone
-hi! link texMathZoneX texMathZone
-hi! link texMathZoneXX texMathZone
-hi! link texMathZoneEnsured texMathZone
-
-" Small tweaks
-hi! link QuickFixLine Normal
-hi! link qfLineNr Normal
-hi! link Conceal LocalIdent
-
-" vimtex options
 let g:vimtex_view_method = 'skim'
 let g:vimtex_imaps_enabled = 0
 let g:vimtex_quickfix_open_on_warning = 0
-
-" TOC settings
-let g:vimtex_toc_config = {
-      \ 'layers' : ['content'],
-      \ 'show_help' : 0,
-      \}
+let g:vimtex_toc_config = { 'layers' : ['content'], 'show_help' : 0}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => XCode color settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
