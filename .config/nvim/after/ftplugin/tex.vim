@@ -1,8 +1,8 @@
 " Make it white
-colorscheme xcodelight
+" colorscheme xcodelight
 
 " Need to reaload this here or looks ugly as my face
-luafile ~/.vim/config/init.lua
+" luafile ~/.vim/config/init.lua
 
 " Some stuff, like disabling the bar and enabling spell check
 set textwidth=0
