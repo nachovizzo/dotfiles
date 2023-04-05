@@ -14,9 +14,6 @@ let g:coc_global_extensions = [
       \'coc-yaml',
       \]
 
-" Put back statusline, still checking
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
 " Add custom commands
 command! -nargs=0 Format    :call CocActionAsync('format')
 command! -nargs=0 OR        :call CocAction('runCommand', 'editor.action.organizeImport')
