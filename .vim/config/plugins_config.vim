@@ -71,6 +71,11 @@ let g:vimtex_view_method = 'skim'
 let g:vimtex_imaps_enabled = 0
 let g:vimtex_quickfix_open_on_warning = 0
 
+" TOC settings
+let g:vimtex_toc_config = {
+      \ 'layers' : ['content'],
+      \ 'show_help' : 0,
+      \}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => XCode color settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
