@@ -19,7 +19,8 @@ map <silent><leader>p "+p
 map <silent><expr> <leader><cr> (&hls && v:hlsearch ? ':set nohlsearch' : ':set hls')."\n"
 
 " Quickly open vim config file
-map <silent><leader>e :e! $MYVIMRC<cr>
+map <silent><nowait><leader>e :e! $MYVIMRC<cr>
+map <silent><nowait><leader>r :source $MYVIMRC<cr>
 
 " Jumb back to last buffer
 map <silent><leader>6 <c-^><cr>

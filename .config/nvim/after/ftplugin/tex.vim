@@ -1,8 +1,8 @@
 " Make it white
-colorscheme xcodelight
+" colorscheme xcodelight
 
 " Need to reaload this here or looks ugly as my face
-luafile ~/.vim/config/init.lua
+" luafile ~/.vim/config/init.lua
 
 " Some stuff, like disabling the bar and enabling spell check
 set textwidth=0
@@ -10,8 +10,10 @@ set colorcolumn=0
 set spell
 
 " override some keybindings
-nmap <leader>c <Cmd>update<CR><Cmd>VimtexCompileSS<CR>
-nmap <leader>v <plug>(vimtex-view)
+nmap <silent><nowait><leader>c <Cmd>update<CR><Cmd>VimtexCompileSS<CR>
+nmap <silent><nowait><leader>v <plug>(vimtex-view)
+nmap <silent><nowait><leader>t <plug>(vimtex-toc-open)
+nmap <silent><nowait><leader>o <plug>(vimtex-errors)
 
 " Backward search from pdf->vim in macOS
 function! s:TexFocusVim() abort

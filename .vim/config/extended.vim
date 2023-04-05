@@ -1,17 +1,4 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Fast editing and reloading of vimrc configs
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd! BufWritePost $MYVIMRC                         source $MYVIMRC
-autocmd! BufWritePost ~/.vim/config/basic.vim          source $MYVIMRC
-autocmd! BufWritePost ~/.vim/config/coc.vim            source $MYVIMRC
-autocmd! BufWritePost ~/.vim/config/functions.vim      source $MYVIMRC
-autocmd! BufWritePost ~/.vim/config/keybindings.vim    source $MYVIMRC
-autocmd! BufWritePost ~/.vim/config/plugins_config.vim source $MYVIMRC
-autocmd! BufWritePost ~/.vim/config/plugins_keys.vim   source $MYVIMRC
-autocmd! BufWritePost ~/.vim/config/extended.vim       source $MYVIMRC
-autocmd! BufWritePost ~/.vim/config/init.lua           source $MYVIMRC
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Autoreaload buffer when something changes
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
