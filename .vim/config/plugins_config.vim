@@ -61,6 +61,8 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'Overfull \\vbox',
       \ 'Underfull \\hbox',
       \ 'Overfull \\hbox',
+      \ 'LaTeX Font',
+      \ 'Float too large',
       \]
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => XCode color settings
