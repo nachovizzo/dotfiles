@@ -44,7 +44,7 @@ function! CheckBackspace() abort
 endfunction
 
 " Keystrokes mappings
-nmap <silent><M-o> :CocCommand clangd.switchSourceHeader<cr>
+nmap <silent>gh :CocCommand clangd.switchSourceHeader<cr>
 nmap <silent>gy <Plug>(coc-type-definition)
 nmap <silent>gi <Plug>(coc-implementation)
 nmap <silent>gr <Plug>(coc-references)
