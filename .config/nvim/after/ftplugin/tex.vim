@@ -2,6 +2,7 @@
 set textwidth=0
 set colorcolumn=0
 set spell
+set iskeyword+=- " enables ctags to find fig:this-sucks
 let g:gutentags_enabled=1
 
 " override some keybindings
