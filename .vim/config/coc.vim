@@ -39,13 +39,12 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Keystrokes mappings
 nmap <silent><M-o> :CocCommand clangd.switchSourceHeader<cr>
-nmap <silent>gd <Plug>(coc-definition)
 nmap <silent>gy <Plug>(coc-type-definition)
 nmap <silent>gi <Plug>(coc-implementation)
 nmap <silent>gr <Plug>(coc-references)
@@ -53,3 +52,9 @@ nmap <silent>g[ <Plug>(coc-diagnostic-prev)
 nmap <leader>g] <Plug>(coc-diagnostic-next)
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>cf <Plug>(coc-fix-current)
+
+" Sets the tag function from coc, this way we can jump between definitions by
+" only using the tags stack, instead of the whole ctrl+o ctrl+i thing.
+" https://github.com/neoclide/coc.nvim/issues/1026
+set tagfunc=CocTagFunc
+nmap <silent>gd <C-]>
