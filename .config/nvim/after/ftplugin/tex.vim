@@ -2,6 +2,7 @@
 set textwidth=0
 set colorcolumn=0
 set spell
+let g:gutentags_enabled=1
 
 " override some keybindings
 nmap <silent><nowait><leader>c <Cmd>update<CR><Cmd>VimtexCompileSS<CR>

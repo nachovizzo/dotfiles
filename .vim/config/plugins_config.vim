@@ -68,3 +68,8 @@ let g:vimtex_quickfix_ignore_filters = [
 " => XCode color settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:xcodelighthc_match_paren_style = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => gutentags disabled by defualt
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:gutentags_enabled = 0

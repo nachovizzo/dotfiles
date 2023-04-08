@@ -22,4 +22,5 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'kevinhwang91/nvim-bqf'
+Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
