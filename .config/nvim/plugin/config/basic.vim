@@ -33,13 +33,6 @@ set whichwrap+=<,>,h,l
 set mouse=a
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => coc.nvim settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set signcolumn=number
-set updatetime=300
-set shortmess+=c
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
@@ -50,7 +43,6 @@ colorscheme xcodedark
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
 set nowb
 set noswapfile
