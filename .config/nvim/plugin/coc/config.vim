@@ -1,4 +1,4 @@
-let g:coc_config_home = '.'
+let g:coc_config_home = '~/.config/nvim/plugin/coc/.'
 let g:coc_global_extensions = [
       \'coc-clangd',
       \'coc-cmake',
