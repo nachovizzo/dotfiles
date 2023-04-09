@@ -20,7 +20,7 @@ map <silent><expr> <leader><cr> (&hls && v:hlsearch ? ':set nohlsearch' : ':set 
 
 " Quickly open vim config file
 map <silent><nowait><leader>e :e! $MYVIMRC<cr>
-map <silent><nowait><leader>r :source $MYVIMRC<cr>
+map <silent><nowait><leader>r :Runtime <cr>
 
 " Jumb back to last buffer
 map <silent><leader>6 <c-^><cr>
