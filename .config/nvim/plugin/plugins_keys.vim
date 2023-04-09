@@ -8,29 +8,21 @@ nnoremap <silent><leader>cr :CocRestart<cr>
 nnoremap <silent><leader>co :CocConfig<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => coc-explorer bindings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <silent><leader>m       :CocCommand explorer<cr>
+nmap <silent><leader>b       :CocCommand explorer --preset buffer<cr>
+nmap <silent><leader><space> :CocCommand explorer --preset floating<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Format Keybindings (using Neoformat)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <silent><leader>f  :Neoformat<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => coc-fzf Keybindigs
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <silent><leader>cl :<C-u>CocFzfList<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => fzf plugin
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <C-p> :Files<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => coc-explorer bindings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TODO: Fix this shit!
-" let $foo=expand('%:p:h')
-nmap <silent><leader>m       :CocCommand explorer<cr>
-nmap <silent><leader>n       :CocCommand explorer --preset floating<cr>
-nmap <silent><leader>b       :CocCommand explorer --preset buffer<cr>
-nmap <silent><leader><space> :CocCommand explorer --preset floating<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => SilverSearcher bindings
@@ -46,12 +38,5 @@ xmap <silent>gc <Plug>NERDCommenterToggle<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => BufferLine
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Jump buffer buffer with just ALT+h or ALT+l
 nnoremap <silent>H :BufferLineCyclePrev<CR>
 nnoremap <silent>L :BufferLineCycleNext<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VimTeX
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <localleader>c <Cmd>update<CR><Cmd>VimtexCompileSS<CR>
-nmap <localleader>v <plug>(vimtex-view)

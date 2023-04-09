@@ -15,6 +15,8 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'Float too large',
       \]
 
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Enable universal ctags
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -27,7 +29,9 @@ set spell
 set iskeyword+=- " enables ctags to find fig:this-sucks
 
 " override some keybindings
+nmap <localleader>c            <Cmd>update<CR><Cmd>VimtexCompileSS<CR>
 nmap <silent><nowait><leader>c <Cmd>update<CR><Cmd>VimtexCompileSS<CR>
+nmap <localleader>v            <plug>(vimtex-view)
 nmap <silent><nowait><leader>v <plug>(vimtex-view)
 nmap <silent><nowait><leader>t <plug>(vimtex-toc-open)
 nmap <silent><nowait><leader>o <plug>(vimtex-errors)
