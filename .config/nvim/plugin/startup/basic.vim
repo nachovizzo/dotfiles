@@ -54,7 +54,6 @@ colorscheme xcodedark
 set nobackup
 set nowb
 set noswapfile
-set undodir=~/.vim/temp_dirs/undodir/
 set undofile
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
