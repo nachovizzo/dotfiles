@@ -22,7 +22,6 @@ set inccommand=split
 set incsearch
 set lazyredraw
 set linebreak
-set mouse=a
 set nohlsearch
 set nowrap
 set smartcase
@@ -31,6 +30,7 @@ set splitright
 set termguicolors
 set textwidth=100
 set whichwrap+=<,>,h,l
+set mouse=a
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => coc.nvim settings
