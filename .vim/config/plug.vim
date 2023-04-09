@@ -23,4 +23,5 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'honza/vim-snippets'
 call plug#end()

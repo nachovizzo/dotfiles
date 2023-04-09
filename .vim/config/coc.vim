@@ -8,6 +8,7 @@ let g:coc_global_extensions = [
       \'coc-lua',
       \'coc-markdownlint',
       \'coc-pyright',
+      \'coc-snippets',
       \'coc-vimlsp',
       \'coc-vimtex',
       \'coc-word',
