@@ -11,14 +11,16 @@ nnoremap <silent><leader>co :CocConfig<cr>
 " => Format Keybindings (using Neoformat)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <silent><leader>f  :Neoformat<cr>
-xmap <silent><leader>f  :Neoformat<cr>
-nmap <silent><leader>or :OR<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => coc-fzf Keybindigs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set mouse=a
-nnoremap <silent><leader>cl      :<C-u>CocFzfList<CR>
+nnoremap <silent><leader>cl :<C-u>CocFzfList<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => fzf plugin
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <C-p> :Files<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => coc-explorer bindings
@@ -40,11 +42,6 @@ nmap <silent><leader>ag :Ag <c-r><c-w><cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <silent>gc <Plug>NERDCommenterToggle<cr>
 xmap <silent>gc <Plug>NERDCommenterToggle<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => fzf plugin
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <C-p> :Files<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => BufferLine
