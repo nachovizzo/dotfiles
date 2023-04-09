@@ -41,12 +41,12 @@ noremap <expr> k v:count ? 'k' : 'gk'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-vmap <silent><leader>r :call VisualSelection('replace', '')<cr>
+vmap <silent><leader>r :call functions#VisualSelection('replace', '')<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Function Calls
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <Leader>ipdb :call InsertIpdbLine()<cr>
+map <Leader>ipdb :call functions#InsertIpdbLine()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colorscheme, TOOD: define a darktheme and a light theme
