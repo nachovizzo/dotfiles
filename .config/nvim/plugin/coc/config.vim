@@ -1,3 +1,10 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => global settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set signcolumn=number
+set updatetime=300
+set shortmess+=c
+
 let g:coc_config_home = '~/.config/nvim/plugin/coc/.'
 let g:coc_global_extensions = [
       \'coc-clangd',
