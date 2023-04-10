@@ -33,13 +33,6 @@ set whichwrap+=<,>,h,l
 set mouse=a
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => coc.nvim settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set signcolumn=number
-set updatetime=300
-set shortmess+=c
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
@@ -50,11 +43,9 @@ colorscheme xcodelight
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
 set nowb
 set noswapfile
-set undodir=~/.vim/temp_dirs/undodir/
 set undofile
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -74,3 +65,8 @@ set softtabstop=-1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set exrc
 set secure
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Disable automatic comment insertion
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set formatoptions-=cro

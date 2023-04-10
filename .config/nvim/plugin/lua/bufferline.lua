@@ -22,9 +22,3 @@ require "bufferline".setup {
         }
     }
 }
-
-require 'bqf'.setup({
-    preview = {
-        wrap = true,
-    }
-})

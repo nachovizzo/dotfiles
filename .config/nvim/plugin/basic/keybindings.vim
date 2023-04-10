@@ -20,7 +20,7 @@ map <silent><expr> <leader><cr> (&hls && v:hlsearch ? ':set nohlsearch' : ':set 
 
 " Quickly open vim config file
 map <silent><nowait><leader>e :e! $MYVIMRC<cr>
-map <silent><nowait><leader>r :source $MYVIMRC<cr>
+map <silent><nowait><leader>r :Runtime <cr>
 
 " Jumb back to last buffer
 map <silent><leader>6 <c-^><cr>
@@ -41,12 +41,12 @@ noremap <expr> k v:count ? 'k' : 'gk'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-vmap <silent><leader>r :call VisualSelection('replace', '')<cr>
+vmap <silent><leader>r :call functions#VisualSelection('replace', '')<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Function Calls
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <Leader>ipdb :call InsertIpdbLine()<cr>
+map <Leader>ipdb :call functions#InsertIpdbLine()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colorscheme, TOOD: define a darktheme and a light theme

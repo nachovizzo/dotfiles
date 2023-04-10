@@ -5,7 +5,7 @@ function! CmdLine(str)
     call feedkeys(":" . a:str)
 endfunction
 
-function! VisualSelection(direction, extra_filter) range
+function! functions#VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
     execute "normal! vgvy"
 
@@ -26,7 +26,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Inster Python debugger inline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! InsertIpdbLine()
+function! functions#InsertIpdbLine()
   let trace = expand("import ipdb; ipdb.sset_trace()")
   execute "normal o".trace
 endfunction
