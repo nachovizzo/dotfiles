@@ -35,3 +35,5 @@
 	markEmptyLines = false
 [init]
 	defaultBranch = main
+[alias]
+    patch = !git --no-pager diff
