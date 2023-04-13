@@ -1,5 +1,5 @@
-require 'bqf'.setup({
-    preview = {
-        wrap = true,
-    }
+require("bqf").setup({
+	preview = {
+		wrap = true,
+	},
 })
