@@ -24,6 +24,7 @@ require("telescope").setup({
 			prompt_prefix = "Files> ",
 			layout_config = {
 				width = 0.8,
+				height = 0.8,
 			},
 		},
 	},
