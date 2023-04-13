@@ -219,21 +219,8 @@ snippet page reference to a page
 snippet index \index
 	\\index{${1:index}} ${0}
 #Citations
-snippet citen \citen
-	\\citen{${1}} ${0}
-# natbib citations
-snippet citep \citep
-	\\citep{${1}} ${0}
-snippet citet \citet
-	\\citet{${1}} ${0}
-snippet cite \cite[]{}
-	\\cite[${1}]{${2}} ${0}
-snippet citea \citeauthor
-	\\citeauthor{${1}} ${0}
-snippet citey \citeyear
-	\\citeyear{${1}} ${0}
-snippet fcite \footcite[]{}
-	\\footcite[${1}]{${2}}${0}
+snippet cite \cite
+	${0}~\\cite{${1:}}
 #Formating text: italic, bold, underline, small capital, emphase ..
 snippet ita italic text
 	\\textit{${1:${VISUAL:text}}}${0}
