@@ -12,6 +12,31 @@ require("telescope").setup({
 				["<C-k>"] = actions.move_selection_previous,
 			},
 		},
+		vimgrep_arguments = {
+			"rg",
+			"-l",
+			"--color=never",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--smart-case",
+		},
+		sorting_strategy = "ascending",
+		layout_strategy = "horizontal",
+		layout_config = {
+			horizontal = {
+				prompt_position = "top",
+				preview_width = 0.55,
+				results_width = 0.8,
+			},
+			vertical = {
+				mirror = false,
+			},
+			width = 0.87,
+			height = 0.80,
+			preview_cutoff = 120,
+		},
 	},
 	pickers = {
 		live_grep = {
@@ -19,9 +44,6 @@ require("telescope").setup({
 		},
 		grep_string = {
 			initial_mode = "normal",
-			results_title = false,
-			prompt_title = false,
-			previewer_title = false,
 		},
 		find_files = {
 			theme = "dropdown",
