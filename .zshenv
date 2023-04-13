@@ -7,7 +7,7 @@ export PATH=$HOME/usr/bin:$PATH
 export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/.npm-packages/bin:$PATH
 export PATH=$HOME/.local/bin/:$PATH
-export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
+export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
 
 # Others
 export FPATH=$FPATH:$HOME/.zfunc
