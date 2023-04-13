@@ -4,14 +4,11 @@
 map <silent><leader>f  :Neoformat<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => fzf plugin
+" => Telescope
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <C-p> :Files<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => SilverSearcher bindings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <silent><leader>ag :Ag <c-r><c-w><cr>
+" Find files using Telescope command-line sugar.
+nnoremap <C-p>      <cmd>Telescope find_files<cr>
+nnoremap <silent><leader>ag <cmd>Telescope grep_string<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDCommenter
