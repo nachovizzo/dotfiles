@@ -207,13 +207,15 @@ snippet ni \noindent
 snippet itd description \item
 	\\item[${1:description}] ${0:item}
 snippet figref reference to a figure
-	~\\figref{fig:${1}}
+	~\\figref{fig:${0}}
 snippet tabref reference to a table
-	~\\tabref{tab:${1}}
+	~\\tabref{tab:${0}}
 snippet listing reference to a listing
 	${1:Listing}~\\ref{${2:list}}
 snippet secref reference to a section
-	~\\secref{tab:${1}}
+	~\\secref{sec:${0}}
+snippet partref reference to a part
+	~\\partref{part:${0}}
 snippet page reference to a page
 	${1:page}~\\pageref{${2}} ${0}
 snippet index \index

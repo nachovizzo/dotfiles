@@ -14,6 +14,18 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'LaTeX Font',
       \ 'Float too large',
       \]
+let g:vimtex_complete_close_braces = 1
+let g:vimtex_complete_ref = {
+  \ 'custom_patterns': [
+  \  '\\figref\*\?{[^}]*$',
+  \  '\\secref\*\?{[^}]*$',
+  \  '\\tabref\*\?{[^}]*$',
+  \  '\\eqref\*\?{[^}]*$',
+  \  '\\algref\*\?{[^}]*$',
+  \  '\\partref\*\?{[^}]*$',
+  \  '\\chapref\*\?{[^}]*$',
+  \  ]
+  \ }
 
 
 
