@@ -13,7 +13,9 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'Overfull \\hbox',
       \ 'LaTeX Font',
       \ 'Float too large',
+      \ 'Package caption',
       \]
+
 let g:vimtex_complete_close_braces = 1
 let g:vimtex_complete_ref = {
   \ 'custom_patterns': [
