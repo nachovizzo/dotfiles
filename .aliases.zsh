@@ -12,6 +12,7 @@ alias ex='cd ~/dev/examples'
 alias te='cd ~/Teaching'
 alias de='cd ~/dev'
 alias re='cd ~/Research/'
+alias cv='cd ~/.config/nvim/'
 
 alias xopen='xdg-open'
 alias xcopy='xclip -selection clipboard'
