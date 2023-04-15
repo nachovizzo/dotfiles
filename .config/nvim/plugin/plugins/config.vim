@@ -30,8 +30,3 @@ let g:NERDSpaceDelims = 1
 " => gutentags disabled by defualt
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:gutentags_enabled = 0
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Open file finder if no stuff was given. TODO: Look a better places
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd VimEnter * if empty(bufname('')) | exe "Telescope find_files" | endif
