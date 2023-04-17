@@ -3,6 +3,7 @@ import importlib
 from pathlib import Path
 from typing import Optional
 
+import numpy as np
 import typer
 from kiss_icp.datasets import (
     available_dataloaders,
@@ -10,19 +11,18 @@ from kiss_icp.datasets import (
     sequence_dataloaders,
     supported_file_extensions,
 )
-from kiss_icp.tools.cmd import app, guess_dataloader, name_callback
+from kiss_icp.tools.cmd import guess_dataloader, name_callback
 from kiss_icp.tools.visualizer import RegistrationVisualizer
 from tqdm import tqdm
 
 
 class Visualizer(RegistrationVisualizer):
-    def __init__(self, dataset, n_scans: int = -1, jump: int = 0):
-        try:
-            self.o3d = importlib.import_module("open3d")
-        except ModuleNotFoundError as err:
-            print(f'open3d is not installed on your system, run "pip install open3d"')
-            exit(1)
+    class StubMap:
+        def point_cloud(self):
+            pass
 
+    def __init__(self, dataset, n_scans: int = -1, jump: int = 0):
+        super().__init__()
         self._dataset = dataset
         self._n_scans = (
             len(self._dataset) - jump if n_scans == -1 else min(len(self._dataset) - jump, n_scans)
@@ -32,56 +32,51 @@ class Visualizer(RegistrationVisualizer):
         self._last = self._jump + self._n_scans
         self.idx = jump
 
-        # Visualizer
-        self.vis = self.o3d.visualization.VisualizerWithKeyCallback()
-        self._initialize_visualizer()
-        self._register_key_callbacks()
+        # Hacks to avoid writing too much code in here
+        self.target_map = Visualizer.StubMap()
+        self.pose = np.eye(4, 4)
 
-        # Initialize GUI controls
-        self.flag_exit = False
-        self.flag_play = False
-
-        # Status bar
-        self.source = self.o3d.geometry.PointCloud()
-
-    def update(self, frame):
-        self._update_geometries(frame)
-        while self.block_vis:
-            self.vis.poll_events()
-            self.vis.update_renderer()
-            if self.play_crun:
-                break
-        self.block_vis = not self.block_vis
-
-    def _update_geometries(self, frame):
-        self.source.points = self.o3d.utility.Vector3dVector(frame)
-        self.vis.poll_events()
-        self.vis.update_renderer()
-
-    def run(self):
-        for scan, _ in self._dataset:
-            self.update(scan)
-        self.vis.destroy_window()
+        # Visualization options
+        self.render_map = False
+        self.render_source = True
+        self.render_keypoints = False
+        self.global_view = False
+        self.render_trajectory = False
 
     # Private Interaface ---------------------------------------------------------------------------
     def _initialize_visualizer(self):
         w_name = self.__class__.__name__
         self.vis.create_window(window_name=w_name, width=1920, height=1080)
-        self.vis.add_geometry(self.frame)
+        self.vis.add_geometry(self.source)
         self._set_black_background(self.vis)
         self.vis.get_render_option().point_size = 1
         print(
             f"{w_name} initialized. Press:\n"
             "\t[SPACE] to pause/start\n"
             "\t  [ESC] to exit\n"
-            "\t    [N] to step to next frame\n"
-            "\t    [P] to step to prev frame\n"
+            "\t    [N] to step\n"
             "\t    [W] to toggle a white background\n"
-            "\t    [B] to toggle a black background"
+            "\t    [B] to toggle a black background\n"
         )
+
+    def run(self):
+        for scan, _ in self._dataset:
+            self.update(scan, scan, self.target_map, self.pose)
+
+    def _register_key_callbacks(self):
+        self._register_key_callback(["Ā", "Q", "\x1b"], self._quit)
+        self._register_key_callback([" "], self._start_stop)
+        self._register_key_callback(["N"], self._next_frame)
+        self._register_key_callback(["V"], self._toggle_view)
+        self._register_key_callback(["B"], self._set_black_background)
+        self._register_key_callback(["W"], self._set_white_background)
+
+    def __del__(self):
+        self.vis.destroy_window()
 
 
 app = typer.Typer(add_completion=False, rich_markup_mode="rich")
+
 # Remove from the help those dataloaders we explicitly say how to use
 _available_dl_help = available_dataloaders()
 _available_dl_help.remove("generic")
@@ -168,7 +163,6 @@ def visualize_dataset(
         rich_help_panel="Additional Options",
     ),
 ):
-    # Attempt to guess some common file extensions to avoid using the --dataloader flag
     if not dataloader:
         dataloader, data = guess_dataloader(data, default_dataloader="generic")
 
@@ -198,5 +192,9 @@ def visualize_dataset(
     ).run()
 
 
+def main():
+    app()
+
+
 if __name__ == "__main__":
-    visualize_dataset()
+    main()
