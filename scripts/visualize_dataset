@@ -52,7 +52,6 @@ class Visualizer(RegistrationVisualizer):
 
     def run(self):
         while True:
-            print(self.idx)
             self.update()
             self.advance()
 
