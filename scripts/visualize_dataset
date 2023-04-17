@@ -49,9 +49,8 @@ class Visualizer(RegistrationVisualizer):
 
     def run(self):
         while True:
-            print(self.idx)
             self.update()
-            self.idx = (self.idx + 1) % self._n_scans
+            self.advance()
 
     def update(self):
         source = self.get_frame(self.idx)
@@ -62,16 +61,26 @@ class Visualizer(RegistrationVisualizer):
             if self.play_crun:
                 break
 
+    def advance(self):
+        self.idx = (self.idx + 1) % self._n_scans
+        self.pbar.n = self.idx
+        self.pbar.refresh()
+
+    def rewind(self):
+        self.idx = (self.idx - 1) % self._n_scans
+        self.pbar.n = self.idx
+        self.pbar.refresh()
+
     # Private Interaface ---------------------------------------------------------------------------
     def _next_frame(self, vis):
         self.play_crun = False
-        self.idx = (self.idx + 1) % self._n_scans
+        self.advance()
         self.update()
         return False
 
     def _prev_frame(self, vis):
         self.play_crun = False
-        self.idx = (self.idx - 1) % self._n_scans
+        self.rewind()
         self.update()
         return False
 
