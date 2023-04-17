@@ -22,13 +22,17 @@ class Visualizer(RegistrationVisualizer):
     def __init__(self, dataset, n_scans: int = -1, jump: int = 0):
         super().__init__()
         self._dataset = dataset
-        self._n_scans = (
-            len(self._dataset) - jump if n_scans == -1 else min(len(self._dataset) - jump, n_scans)
-        )
-        self.jump = jump
+        if n_scans == -1:
+            self.n_scans = len(self._dataset)
+            self.start_idx = 0
+            self.stop_idx = self.n_scans
+        else:
+            self.n_scans = min(len(self._dataset) - jump, n_scans)
+            self.start_idx = jump
+            self.stop_idx = self.n_scans + jump
 
         self.idx = jump
-        self.pbar = tqdm(total=self._n_scans)
+        self.pbar = tqdm(total=self.n_scans)
         self._update_pbar()
 
         # Hacks to avoid writing too much code in here
@@ -48,6 +52,7 @@ class Visualizer(RegistrationVisualizer):
 
     def run(self):
         while True:
+            print(self.idx)
             self.update()
             self.advance()
 
@@ -61,16 +66,16 @@ class Visualizer(RegistrationVisualizer):
                 break
 
     def advance(self):
-        self.idx = self.jump if self.idx == self._n_scans + self.jump else self.idx + 1
+        self.idx = self.start_idx if self.idx == self.stop_idx - 1 else self.idx + 1
         self._update_pbar()
 
     def rewind(self):
-        self.idx = self.jump if self.idx == self._n_scans + self.jump else self.idx - 1
+        self.idx = self.start_idx if self.idx == self.stop_idx - 1 else self.idx - 1
         self._update_pbar()
 
     # Private Interaface ---------------------------------------------------------------------------
     def _update_pbar(self):
-        self.pbar.n = self.idx % self._n_scans
+        self.pbar.n = self.idx % self.n_scans
         self.pbar.refresh()
 
     def _next_frame(self, vis):
