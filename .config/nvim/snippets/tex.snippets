@@ -150,11 +150,6 @@ snippet spl split environment
 		${0:${VISUAL}}
 	\\end{split}
 # Part
-snippet part document \part
-	\\part{${1:part name}} % (fold)%
-	\\label{prt:${2:$1}}
-	${0}
-	% part $2 (end)
 # Chapter
 snippet cha \chapter
 	\\chapter{${1:chapter name}}%
@@ -387,18 +382,6 @@ snippet ddt time derivative
 # Limit
 snippet lim limit
 	\\lim_{{$1}} {{$2}} {$0}
-
-# Partial derivative
-snippet pdv partial derivation
-	\\frac{\\partial {$1}}{\\partial {$2}} {$0}
-
-# Second order partial derivative
-snippet ppdv second partial derivation
-	\\frac{\\partial^2 {$1}}{\\partial {$2} \\partial {$3}} {$0}
-
-# Ordinary derivative
-snippet dv derivative
-	\\frac{d {$1}}{d {$2}} {$0}
 
 # Summation
 snippet summ summation

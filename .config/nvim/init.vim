@@ -18,4 +18,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
+Plug 'nvimdev/dashboard-nvim'
 call plug#end()
+
