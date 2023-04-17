@@ -32,19 +32,15 @@ class Visualizer(RegistrationVisualizer):
         self.pbar = tqdm(total=self.n_scans)
         self.update_pbar()
 
-        # Override some visualization options
-        self.render_map = False
-        self.render_trajectory = False
-
     def run(self):
         while True:
             self.update()
             self.advance()
 
-    def update(self):
+    def update(self, poll_events=True):
         source = self._get_frame(self.idx)
         self._update_geometries(source)
-        while True:
+        while poll_events:
             self.vis.poll_events()
             self.vis.update_renderer()
             if self.play_crun:
@@ -66,14 +62,12 @@ class Visualizer(RegistrationVisualizer):
     def _next_frame(self, vis):
         self.play_crun = False
         self.advance()
-        self.update()
-        return False
+        self.update(False)
 
     def _prev_frame(self, vis):
         self.play_crun = False
         self.rewind()
-        self.update()
-        return False
+        self.update(False)
 
     def _get_frame(self, idx):
         dataframe = self._dataset[idx]
