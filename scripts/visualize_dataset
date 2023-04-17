@@ -25,12 +25,11 @@ class Visualizer(RegistrationVisualizer):
         self._n_scans = (
             len(self._dataset) - jump if n_scans == -1 else min(len(self._dataset) - jump, n_scans)
         )
-        self._jump = jump
-        self._first = jump
-        self._last = self._jump + self._n_scans
+        self.jump = jump
 
         self.idx = jump
         self.pbar = tqdm(total=self._n_scans)
+        self._update_pbar()
 
         # Hacks to avoid writing too much code in here
         self.stub_map = Visualizer.StubMap()
@@ -62,16 +61,18 @@ class Visualizer(RegistrationVisualizer):
                 break
 
     def advance(self):
-        self.idx = (self.idx + 1) % self._n_scans
-        self.pbar.n = self.idx
-        self.pbar.refresh()
+        self.idx = self.jump if self.idx == self._n_scans + self.jump else self.idx + 1
+        self._update_pbar()
 
     def rewind(self):
-        self.idx = (self.idx - 1) % self._n_scans
-        self.pbar.n = self.idx
-        self.pbar.refresh()
+        self.idx = self.jump if self.idx == self._n_scans + self.jump else self.idx - 1
+        self._update_pbar()
 
     # Private Interaface ---------------------------------------------------------------------------
+    def _update_pbar(self):
+        self.pbar.n = self.idx % self._n_scans
+        self.pbar.refresh()
+
     def _next_frame(self, vis):
         self.play_crun = False
         self.advance()
