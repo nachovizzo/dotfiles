@@ -1,126 +1,247 @@
 #!/usr/bin/env python3
-from functools import partial
-from functools import lru_cache
-import glob
-import os
+from pathlib import Path
+from typing import Optional
 
-import click
-from natsort import natsorted
-import numpy as np
-import open3d as o3d
+import typer
+from kiss_icp.datasets import (
+    available_dataloaders,
+    dataset_factory,
+    jumpable_dataloaders,
+    sequence_dataloaders,
+    supported_file_extensions,
+)
+from kiss_icp.tools.cmd import guess_dataloader, name_callback
+from kiss_icp.tools.visualizer import RegistrationVisualizer
 from tqdm import tqdm
 
 
-@lru_cache()
-def read_geometry(filename):
-    if os.path.splitext(filename)[-1] == ".bin":
-        points = np.fromfile(filename, dtype=np.float32).reshape((-1, 4))[:, :3]
-    else:
-        points = np.asarray(o3d.io.read_point_cloud(filename).points, dtype=np.float64)
-    return o3d.utility.Vector3dVector(points.astype(np.float64))
+class Visualizer(RegistrationVisualizer):
+    class StubMap:
+        def point_cloud(self):
+            pass
 
+    def __init__(self, dataset, n_scans: int = -1, jump: int = 0):
+        super().__init__()
+        self._dataset = dataset
+        if n_scans == -1:
+            self.n_scans = len(self._dataset)
+            self.start_idx = 0
+            self.stop_idx = self.n_scans
+        else:
+            self.n_scans = min(len(self._dataset) - jump, n_scans)
+            self.start_idx = jump
+            self.stop_idx = self.n_scans + jump
 
-class Visualizer:
-    def __init__(self, filenames, jump: int = 0):
-        # Files to render
-        self.files = filenames
-        self.n_frames = len(filenames)
         self.idx = jump
-        self.frame = o3d.geometry.PointCloud()
+        self.pbar = tqdm(total=self.n_scans)
+        self._update_pbar()
 
-        # Visualizer
-        self.vis = o3d.visualization.VisualizerWithKeyCallback()
-        self._initialize_visualizer()
-        self._register_key_callbacks()
+        # Hacks to avoid writing too much code in here
+        self.stub_map = Visualizer.StubMap()
 
-        # Initialize GUI controls
-        self.flag_exit = False
-        self.flag_play = False
+        # Override some visualization options
+        self.render_map = False
+        self.render_trajectory = False
 
-        # Status bar
-        self.pbar = tqdm(total=self.n_frames)
-
-    def _initialize_visualizer(self):
-        self.vis.create_window(
-            window_name="Dataset Visualizer", width=1920, height=1080
-        )
-        self.frame.points = read_geometry(self.files[self.idx])
-        self.vis.add_geometry(self.frame)
-        print(100 * "=")
-        print(f"Visualizing {len(self.files)} models")
-        print(
-            "Dataset Visualizer initialized. Press:\n"
-            "\t[SPACE] to pause/start\n"
-            "\t  [ESC] to exit\n"
-            "\t    [N] to step to next frame\n"
-            "\t    [P] to step to prev frame\n"
-            "\t    [W] to toggle a white background\n"
-            "\t    [B] to toggle a black background"
-        )
-        print(100 * "=")
-
-    def next_frame(self, vis):
-        self.idx = (self.idx + 1) % self.n_frames
-        self.update_geometry()
-        self.pbar.update() if self.pbar else None
-        self.pbar.set_description(f"Visualizing {self.files[self.idx]}")
-        return False
-
-    def prev_frame(self, vis):
-        self.idx = (self.idx - 1) % self.n_frames
-        self.update_geometry()
-        self.pbar.update() if self.pbar else None
-        self.pbar.set_description(f"Visualizing {self.files[self.idx]}")
-        return False
-
-    def start_stop(self, vis):
-        self.flag_play = not self.flag_play
-        return False
-
-    def update_geometry(self):
-        self.frame.points = read_geometry(self.files[self.idx])
-        self.vis.update_geometry(self.frame)
-        self.vis.poll_events()
-        self.vis.update_renderer()
-
-    def register_key_callback(self, key, callback):
-        self.vis.register_key_callback(ord(str(key)), partial(callback))
-
-    def set_white_background(self, vis):
-        self.vis.get_render_option().background_color = [1.0, 1.0, 1.0]
-
-    def set_black_background(self, vis):
-        self.vis.get_render_option().background_color = [0.0, 0.0, 0.0]
-
-    def _register_key_callbacks(self):
-        self.register_key_callback("Ā", self.quit)
-        self.register_key_callback("Q", self.quit)
-        self.register_key_callback("\x1b", self.quit)
-        self.register_key_callback("W", self.set_white_background)
-        self.register_key_callback("B", self.set_black_background)
-        self.register_key_callback(" ", self.start_stop)
-        self.register_key_callback("N", self.next_frame)
-        self.register_key_callback("P", self.prev_frame)
-
-    def quit(self, vis):
-        self.flag_exit = True
-        return False
+    def get_frame(self, idx):
+        dataframe = self._dataset[idx]
+        try:
+            frame, _ = dataframe
+        except ValueError:
+            frame = dataframe
+        return frame
 
     def run(self):
-        while self.pbar.n < self.n_frames and not self.flag_exit:
-            self.next_frame(self.vis) if self.flag_play else None
+        while True:
+            self.update()
+            self.advance()
+
+    def update(self):
+        source = self.get_frame(self.idx)
+        self._update_geometries(source)
+        while True:
             self.vis.poll_events()
             self.vis.update_renderer()
-        self.vis.destroy_window()
+            if self.play_crun:
+                break
+
+    def advance(self):
+        self.idx = self.start_idx if self.idx == self.stop_idx - 1 else self.idx + 1
+        self._update_pbar()
+
+    def rewind(self):
+        self.idx = self.start_idx if self.idx == self.stop_idx - 1 else self.idx - 1
+        self._update_pbar()
+
+    # Private Interaface ---------------------------------------------------------------------------
+    def _update_pbar(self):
+        self.pbar.n = self.idx % self.n_scans
+        self.pbar.refresh()
+
+    def _next_frame(self, vis):
+        self.play_crun = False
+        self.advance()
+        self.update()
+        return False
+
+    def _prev_frame(self, vis):
+        self.play_crun = False
+        self.rewind()
+        self.update()
+        return False
+
+    def _update_geometries(self, source):
+        self.source.points = self.o3d.utility.Vector3dVector(source)
+        self.vis.update_geometry(self.source)
+        if self.reset_bounding_box:
+            self.vis.reset_view_point(True)
+            self.reset_bounding_box = False
+
+    def _initialize_visualizer(self):
+        w_name = self.__class__.__name__
+        self.vis.create_window(window_name=w_name, width=1920, height=1080)
+        self.vis.add_geometry(self.source)
+        self._set_black_background(self.vis)
+        self.vis.get_render_option().point_size = 1
+        print(
+            f"{w_name} initialized. Press:\n"
+            "\t[SPACE] to pause/start\n"
+            "\t  [ESC] to exit\n"
+            "\t    [N] to render next frame\n"
+            "\t    [P] to render prev frame\n"
+            "\t    [W] to toggle a white background\n"
+            "\t    [B] to toggle a black background\n"
+        )
+
+    def _register_key_callbacks(self):
+        self._register_key_callback(["Ā", "Q", "\x1b"], self._quit)
+        self._register_key_callback([" "], self._start_stop)
+        self._register_key_callback(["N"], self._next_frame)
+        self._register_key_callback(["P"], self._prev_frame)
+        self._register_key_callback(["V"], self._toggle_view)
+        self._register_key_callback(["B"], self._set_black_background)
+        self._register_key_callback(["W"], self._set_white_background)
 
 
-@click.command()
-@click.argument("file_patterns", type=str)
-@click.option("--jump", "-j", type=int, default=0)
-def visualizer(file_patterns, jump):
-    files = natsorted(glob.glob(file_patterns))
-    Visualizer(files, jump).run()
+app = typer.Typer(add_completion=False, rich_markup_mode="rich")
+
+# Remove from the help those dataloaders we explicitly say how to use
+_available_dl_help = available_dataloaders()
+_available_dl_help.remove("generic")
+_available_dl_help.remove("mcap")
+_available_dl_help.remove("ouster")
+_available_dl_help.remove("rosbag")
+
+docstring = f"""
+:kiss: KISS-ICP dataset visualizer :kiss:\n
+\b
+[bold green]Examples: [/bold green]
+# Visualize all pointclouds in the given <data-dir> \[{", ".join(supported_file_extensions())}]
+$ visualize_dataset <data-dir>:open_file_folder:
+
+# Visualize a given [bold]ROS1/ROS2 [/bold]rosbag file (directory:open_file_folder:, ".bag":page_facing_up:, or "metadata.yaml":page_facing_up:)
+$ visualize_dataset <path-to-my-rosbag>[:open_file_folder:/:page_facing_up:]
+
+# Visualize [bold]mcap [/bold] recording
+$ visualize_dataset <path-to-file.mcap>:page_facing_up:
+
+# Visualize [bold]Ouster pcap[/bold] recording (requires ouster-sdk Python package installed)
+$ visualize_dataset <path-to-ouster.pcap>:page_facing_up: \[--meta <path-to-metadata.json>:page_facing_up:]
+
+# Use a more specific dataloader: {", ".join(_available_dl_help)}
+$ visualize_dataset --dataloader kitti --sequence 07 <path-to-kitti-root>:open_file_folder:
+
+"""
+
+
+@app.command(help=docstring)
+def visualize_dataset(
+    data: Path = typer.Argument(
+        ...,
+        help="The data directory used by the specified dataloader",
+        show_default=False,
+    ),
+    dataloader: str = typer.Option(
+        None,
+        show_default=False,
+        case_sensitive=False,
+        autocompletion=available_dataloaders,
+        callback=name_callback,
+        help="[Optional] Use a specific dataloader from those supported by KISS-ICP",
+    ),
+    sequence: Optional[int] = typer.Option(
+        None,
+        "--sequence",
+        "-s",
+        show_default=False,
+        help="[Optional] For some dataloaders, you need to specify a given sequence",
+        rich_help_panel="Additional Options",
+    ),
+    topic: Optional[str] = typer.Option(
+        None,
+        "--topic",
+        "-t",
+        show_default=False,
+        help="[Optional] Only valid when processing rosbag files",
+        rich_help_panel="Additional Options",
+    ),
+    n_scans: int = typer.Option(
+        -1,
+        "--n-scans",
+        "-n",
+        show_default=False,
+        help="[Optional] Specify the number of scans to process, default is the entire dataset",
+        rich_help_panel="Additional Options",
+    ),
+    jump: int = typer.Option(
+        0,
+        "--jump",
+        "-j",
+        show_default=False,
+        help="[Optional] Specify if you want to start to process scans from a given starting point",
+        rich_help_panel="Additional Options",
+    ),
+    meta: Optional[Path] = typer.Option(
+        None,
+        "--meta",
+        "-m",
+        exists=True,
+        show_default=False,
+        help="[Optional] For Ouster pcap dataloader, specify metadata json file path explicitly",
+        rich_help_panel="Additional Options",
+    ),
+):
+    if not dataloader:
+        dataloader, data = guess_dataloader(data, default_dataloader="generic")
+
+    # Validate some options
+    if dataloader in sequence_dataloaders() and sequence is None:
+        print('You must specify a sequence "--sequence"')
+        raise typer.Exit(code=1)
+
+    if (jump != 0 or n_scans != -1) and dataloader not in jumpable_dataloaders():
+        print(f"[WARNING] '{dataloader}' does not support '-jump' or '--n_scans'")
+        print(f"[WARNING] Visualazing entire dataset")
+        jump = 0
+        n_scans = -1
+
+    Visualizer(
+        dataset=dataset_factory(
+            dataloader=dataloader,
+            data_dir=data,
+            # Additional options
+            sequence=sequence,
+            topic=topic,
+            meta=meta,
+        ),
+        n_scans=n_scans,
+        jump=jump,
+    ).run()
+
+
+def main():
+    app()
 
 
 if __name__ == "__main__":
-    visualizer()
+    main()
