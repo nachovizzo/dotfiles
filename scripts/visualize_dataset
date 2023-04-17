@@ -5,6 +5,7 @@ from typing import Optional
 import typer
 from kiss_icp.datasets import (
     available_dataloaders,
+    dataset_factory,
     jumpable_dataloaders,
     sequence_dataloaders,
     supported_file_extensions,
@@ -121,9 +122,6 @@ class Visualizer(RegistrationVisualizer):
         self._register_key_callback(["B"], self._set_black_background)
         self._register_key_callback(["W"], self._set_white_background)
 
-    def __del__(self):
-        self.vis.destroy_window()
-
 
 app = typer.Typer(add_completion=False, rich_markup_mode="rich")
 
@@ -221,14 +219,11 @@ def visualize_dataset(
         print('You must specify a sequence "--sequence"')
         raise typer.Exit(code=1)
 
-    if jump != 0 or n_scans != -1 and dataloader not in jumpable_dataloaders():
+    if (jump != 0 or n_scans != -1) and dataloader not in jumpable_dataloaders():
         print(f"[WARNING] '{dataloader}' does not support '-jump' or '--n_scans'")
         print(f"[WARNING] Visualazing entire dataset")
         jump = 0
         n_scans = -1
-
-    # Lazy-loading for faster CLI
-    from kiss_icp.datasets import dataset_factory
 
     Visualizer(
         dataset=dataset_factory(
