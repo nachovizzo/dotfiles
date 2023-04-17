@@ -20,3 +20,4 @@ Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
 Plug 'nvimdev/dashboard-nvim'
 call plug#end()
+
