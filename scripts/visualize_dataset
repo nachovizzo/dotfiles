@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import importlib
 from pathlib import Path
 from typing import Optional
 
@@ -12,8 +11,8 @@ from kiss_icp.datasets import (
     supported_file_extensions,
 )
 from kiss_icp.tools.cmd import guess_dataloader, name_callback
+from kiss_icp.tools.progress_bar import get_progress_bar
 from kiss_icp.tools.visualizer import RegistrationVisualizer
-from tqdm import tqdm
 
 
 class Visualizer(RegistrationVisualizer):
@@ -43,6 +42,21 @@ class Visualizer(RegistrationVisualizer):
         self.global_view = False
         self.render_trajectory = False
 
+    def run(self):
+        for idx in get_progress_bar(self._first, self._last):
+            scan, _ = self.next(idx)
+            self.update(scan, scan, self.target_map, self.pose)
+
+    def next(self, idx):
+        """TODO: re-arrange this logic"""
+        dataframe = self._dataset[idx]
+        try:
+            frame, timestamps = dataframe
+        except ValueError:
+            frame = dataframe
+            timestamps = np.zeros(frame.shape[0])
+        return frame, timestamps
+
     # Private Interaface ---------------------------------------------------------------------------
     def _initialize_visualizer(self):
         w_name = self.__class__.__name__
@@ -59,9 +73,12 @@ class Visualizer(RegistrationVisualizer):
             "\t    [B] to toggle a black background\n"
         )
 
-    def run(self):
-        for scan, _ in self._dataset:
-            self.update(scan, scan, self.target_map, self.pose)
+    def _update_geometries(self, source, keypoints, target, pose):
+        self.source.points = self.o3d.utility.Vector3dVector(source)
+        self.vis.update_geometry(self.source)
+        if self.reset_bounding_box:
+            self.vis.reset_view_point(True)
+            self.reset_bounding_box = False
 
     def _register_key_callbacks(self):
         self._register_key_callback(["Ā", "Q", "\x1b"], self._quit)
