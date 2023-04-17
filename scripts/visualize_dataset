@@ -10,8 +10,8 @@ from kiss_icp.datasets import (
     supported_file_extensions,
 )
 from kiss_icp.tools.cmd import guess_dataloader, name_callback
-from kiss_icp.tools.progress_bar import get_progress_bar
 from kiss_icp.tools.visualizer import RegistrationVisualizer
+from tqdm import tqdm
 
 
 class Visualizer(RegistrationVisualizer):
@@ -28,7 +28,9 @@ class Visualizer(RegistrationVisualizer):
         self._jump = jump
         self._first = jump
         self._last = self._jump + self._n_scans
+
         self.idx = jump
+        self.pbar = tqdm(total=self._n_scans)
 
         # Hacks to avoid writing too much code in here
         self.stub_map = Visualizer.StubMap()
@@ -37,12 +39,7 @@ class Visualizer(RegistrationVisualizer):
         self.render_map = False
         self.render_trajectory = False
 
-    def run(self):
-        for idx in get_progress_bar(self._first, self._last):
-            scan = self.next(idx)
-            self.update(scan, keypoints=None, target_map=self.stub_map, pose=None)
-
-    def next(self, idx):
+    def get_frame(self, idx):
         dataframe = self._dataset[idx]
         try:
             frame, _ = dataframe
@@ -50,7 +47,41 @@ class Visualizer(RegistrationVisualizer):
             frame = dataframe
         return frame
 
+    def run(self):
+        while True:
+            print(self.idx)
+            self.update()
+            self.idx = (self.idx + 1) % self._n_scans
+
+    def update(self):
+        source = self.get_frame(self.idx)
+        self._update_geometries(source)
+        while True:
+            self.vis.poll_events()
+            self.vis.update_renderer()
+            if self.play_crun:
+                break
+
     # Private Interaface ---------------------------------------------------------------------------
+    def _next_frame(self, vis):
+        self.play_crun = False
+        self.idx = (self.idx + 1) % self._n_scans
+        self.update()
+        return False
+
+    def _prev_frame(self, vis):
+        self.play_crun = False
+        self.idx = (self.idx - 1) % self._n_scans
+        self.update()
+        return False
+
+    def _update_geometries(self, source):
+        self.source.points = self.o3d.utility.Vector3dVector(source)
+        self.vis.update_geometry(self.source)
+        if self.reset_bounding_box:
+            self.vis.reset_view_point(True)
+            self.reset_bounding_box = False
+
     def _initialize_visualizer(self):
         w_name = self.__class__.__name__
         self.vis.create_window(window_name=w_name, width=1920, height=1080)
@@ -61,7 +92,8 @@ class Visualizer(RegistrationVisualizer):
             f"{w_name} initialized. Press:\n"
             "\t[SPACE] to pause/start\n"
             "\t  [ESC] to exit\n"
-            "\t    [N] to step\n"
+            "\t    [N] to render next frame\n"
+            "\t    [P] to render prev frame\n"
             "\t    [W] to toggle a white background\n"
             "\t    [B] to toggle a black background\n"
         )
@@ -70,16 +102,10 @@ class Visualizer(RegistrationVisualizer):
         self._register_key_callback(["Ā", "Q", "\x1b"], self._quit)
         self._register_key_callback([" "], self._start_stop)
         self._register_key_callback(["N"], self._next_frame)
+        self._register_key_callback(["P"], self._prev_frame)
         self._register_key_callback(["V"], self._toggle_view)
         self._register_key_callback(["B"], self._set_black_background)
         self._register_key_callback(["W"], self._set_white_background)
-
-    def _update_geometries(self, source, *_, **__):
-        self.source.points = self.o3d.utility.Vector3dVector(source)
-        self.vis.update_geometry(self.source)
-        if self.reset_bounding_box:
-            self.vis.reset_view_point(True)
-            self.reset_bounding_box = False
 
     def __del__(self):
         self.vis.destroy_window()
