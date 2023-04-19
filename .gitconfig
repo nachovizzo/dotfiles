@@ -37,3 +37,6 @@
 	defaultBranch = main
 [alias]
     patch = !git --no-pager diff
+[credential "https://git.overleaf.com"]
+	username = ivizzo@uni-bonn.de
+	helper = cache
