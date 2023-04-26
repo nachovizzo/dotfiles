@@ -15,6 +15,10 @@ export EDITOR='nvim'
 export DATASETS=$HOME/data/
 export MODELS=$HOME/data/models/
 
+# Setting for perl macOS/Linux compatibility
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 # For remote installs
 # export CMAKE_INSTALL_PREFIX=$HOME/usr/
 # export CPATH=$HOME/usr/include/
