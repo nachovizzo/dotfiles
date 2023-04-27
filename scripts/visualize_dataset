@@ -16,10 +16,6 @@ from tqdm import tqdm
 
 
 class Visualizer(RegistrationVisualizer):
-    class StubMap:
-        def point_cloud(self):
-            pass
-
     def __init__(self, dataset, n_scans: int = -1, jump: int = 0):
         super().__init__()
         self._dataset = dataset
@@ -34,32 +30,17 @@ class Visualizer(RegistrationVisualizer):
 
         self.idx = jump
         self.pbar = tqdm(total=self.n_scans)
-        self._update_pbar()
-
-        # Hacks to avoid writing too much code in here
-        self.stub_map = Visualizer.StubMap()
-
-        # Override some visualization options
-        self.render_map = False
-        self.render_trajectory = False
-
-    def get_frame(self, idx):
-        dataframe = self._dataset[idx]
-        try:
-            frame, _ = dataframe
-        except ValueError:
-            frame = dataframe
-        return frame
+        self.update_pbar()
 
     def run(self):
         while True:
             self.update()
             self.advance()
 
-    def update(self):
-        source = self.get_frame(self.idx)
+    def update(self, poll_events=True):
+        source = self._get_frame(self.idx)
         self._update_geometries(source)
-        while True:
+        while poll_events:
             self.vis.poll_events()
             self.vis.update_renderer()
             if self.play_crun:
@@ -67,28 +48,34 @@ class Visualizer(RegistrationVisualizer):
 
     def advance(self):
         self.idx = self.start_idx if self.idx == self.stop_idx - 1 else self.idx + 1
-        self._update_pbar()
+        self.update_pbar()
 
     def rewind(self):
         self.idx = self.start_idx if self.idx == self.stop_idx - 1 else self.idx - 1
-        self._update_pbar()
+        self.update_pbar()
 
-    # Private Interaface ---------------------------------------------------------------------------
-    def _update_pbar(self):
+    def update_pbar(self):
         self.pbar.n = self.idx % self.n_scans
         self.pbar.refresh()
 
+    # Private Interaface ---------------------------------------------------------------------------
     def _next_frame(self, vis):
         self.play_crun = False
         self.advance()
-        self.update()
-        return False
+        self.update(False)
 
     def _prev_frame(self, vis):
         self.play_crun = False
         self.rewind()
-        self.update()
-        return False
+        self.update(False)
+
+    def _get_frame(self, idx):
+        dataframe = self._dataset[idx]
+        try:
+            frame, _ = dataframe
+        except ValueError:
+            frame = dataframe
+        return frame
 
     def _update_geometries(self, source):
         self.source.points = self.o3d.utility.Vector3dVector(source)
@@ -97,6 +84,7 @@ class Visualizer(RegistrationVisualizer):
             self.vis.reset_view_point(True)
             self.reset_bounding_box = False
 
+    # GUI controls ---------------------------------------------------------------------------
     def _initialize_visualizer(self):
         w_name = self.__class__.__name__
         self.vis.create_window(window_name=w_name, width=1920, height=1080)
@@ -118,19 +106,9 @@ class Visualizer(RegistrationVisualizer):
         self._register_key_callback([" "], self._start_stop)
         self._register_key_callback(["N"], self._next_frame)
         self._register_key_callback(["P"], self._prev_frame)
-        self._register_key_callback(["V"], self._toggle_view)
         self._register_key_callback(["B"], self._set_black_background)
         self._register_key_callback(["W"], self._set_white_background)
 
-
-app = typer.Typer(add_completion=False, rich_markup_mode="rich")
-
-# Remove from the help those dataloaders we explicitly say how to use
-_available_dl_help = available_dataloaders()
-_available_dl_help.remove("generic")
-_available_dl_help.remove("mcap")
-_available_dl_help.remove("ouster")
-_available_dl_help.remove("rosbag")
 
 docstring = f"""
 :kiss: KISS-ICP dataset visualizer :kiss:\n
@@ -148,10 +126,12 @@ $ visualize_dataset <path-to-file.mcap>:page_facing_up:
 # Visualize [bold]Ouster pcap[/bold] recording (requires ouster-sdk Python package installed)
 $ visualize_dataset <path-to-ouster.pcap>:page_facing_up: \[--meta <path-to-metadata.json>:page_facing_up:]
 
-# Use a more specific dataloader: {", ".join(_available_dl_help)}
+# Use a more specific dataloader: {", ".join(available_dataloaders())}
 $ visualize_dataset --dataloader kitti --sequence 07 <path-to-kitti-root>:open_file_folder:
 
 """
+
+app = typer.Typer(add_completion=False, rich_markup_mode="rich")
 
 
 @app.command(help=docstring)
