@@ -8,6 +8,7 @@ alias coit='code . && exit'
 alias cor='code -r'
 
 alias deko='cd ~/Desktop'
+alias dekoo='cd ~/Desktop'
 alias ex='cd ~/dev/examples'
 alias te='cd ~/Teaching'
 alias de='cd ~/dev'
