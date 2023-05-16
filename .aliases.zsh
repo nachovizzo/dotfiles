@@ -8,6 +8,7 @@ alias coit='code . && exit'
 alias cor='code -r'
 
 alias deko='cd ~/Desktop'
+alias dekoo='cd ~/Desktop'
 alias ex='cd ~/dev/examples'
 alias te='cd ~/Teaching'
 alias de='cd ~/dev'
@@ -30,3 +31,4 @@ alias gs="git status"
 
 alias cm="cmake -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
 alias cb="cmake --build build -j"
+alias got="git"

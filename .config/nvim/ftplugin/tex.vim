@@ -19,6 +19,7 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'LaTeX Font',
       \ 'Float too large',
       \ 'Package caption',
+      \ 'multiple pdfs with page group included in a single page',
       \]
 
 let g:vimtex_complete_close_braces = 1
