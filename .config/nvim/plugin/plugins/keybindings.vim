@@ -21,3 +21,8 @@ xmap <silent>gc <Plug>NERDCommenterToggle<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent>H :BufferLineCyclePrev<CR>
 nnoremap <silent>L :BufferLineCycleNext<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ZenMode
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <silent>Z :ZenMode<CR>
