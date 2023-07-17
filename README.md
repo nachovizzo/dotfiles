@@ -24,4 +24,3 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/t
 - [ ] Install fonts automagicaly (with patches)
 - [ ] Add CI so I can rest in peace
 - [ ] Investigate the use of `stow` to have a `~/dotiles` repo I can git-use
-
