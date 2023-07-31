@@ -15,9 +15,11 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'Underfull \\vbox',
       \ 'Overfull \\vbox',
       \ 'Underfull \\hbox',
+      \ 'Package hyperref',
       \ 'Overfull \\hbox',
       \ 'LaTeX Font',
       \ 'Float too large',
+      \ 'contains only floats',
       \ 'Package caption',
       \ 'multiple pdfs with page group included in a single page',
       \]

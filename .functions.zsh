@@ -153,3 +153,10 @@ function gitignore() {
 }
 
 taker () { take $(mktemp -d) }
+
+png_to_pdf() {
+    IMAGE="$1"
+    BASENAME="$(basename -- $IMAGE)"
+    FILENAME=${BASENAME%.*}
+    convert $IMAGE ${FILENAME}.pdf
+}

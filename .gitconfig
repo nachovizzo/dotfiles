@@ -13,10 +13,13 @@
 	default = current
 [diff]
     tool = meld
+[merge]
+	tool = meld
+[mergetool "meld"]
+    trustExitCode = true
+    cmd = GTK_THEME=Adwaita:light meld "$LOCAL" "$BASE" "$REMOTE"
 [difftool]
     prompt = false
-[difftool "meld"]
-    cmd = GTK_THEME=Adwaita:light meld $LOCAL $REMOTE
 [color]
     ui = true
 [pager]

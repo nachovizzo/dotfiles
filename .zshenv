@@ -4,6 +4,7 @@ export ZSH=$HOME/.oh-my-zsh
 # PATH
 export PATH=$HOME/scripts/:$PATH
 export PATH=$HOME/usr/bin:$PATH
+export PATH=$HOME/.cargo/bin/:$PATH
 export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/.npm-packages/bin:$PATH
 export PATH=$HOME/.local/bin/:$PATH

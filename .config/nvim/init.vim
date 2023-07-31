@@ -1,5 +1,5 @@
 call plug#begin('~/.config/nvim/plugged')
-Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v4.*' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ethanholz/nvim-lastplace'
 Plug 'kevinhwang91/nvim-bqf'
@@ -19,5 +19,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
 Plug 'nvimdev/dashboard-nvim'
+Plug 'folke/zen-mode.nvim'
 call plug#end()
 
