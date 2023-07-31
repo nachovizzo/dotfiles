@@ -16,6 +16,7 @@ alias re='cd ~/Research/'
 alias cv='cd ~/.config/nvim/'
 
 alias xopen='xdg-open'
+alias open='xdg-open'
 alias xcopy='xclip -selection clipboard'
 alias ll='ls -hltrBF --color=auto'
 alias df='df -h -xsquashfs -xtmpfs -xdevtmpfs'
