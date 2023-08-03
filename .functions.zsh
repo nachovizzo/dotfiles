@@ -104,7 +104,7 @@ filename () {
 }
 
 check_includes() {
-    grep -rh include | sort | uniq
+    grep -rhE '^#include\s+(<|").*(>|")' | sort | uniq
 }
 
 check_imports() {
