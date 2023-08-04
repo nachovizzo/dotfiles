@@ -14,6 +14,7 @@ grab() {
     realpath "$1" | tr -d "\n" | xclip -selection clipboard
 }
 
+
 wsp_compress() {
     VIDEO="$1"
     BASENAME="$(basename -- $VIDEO)"
@@ -61,7 +62,7 @@ mkv_to_mp4() {
     VIDEO="$1"
     BASENAME="$(basename -- $VIDEO)"
     FILENAME=${BASENAME%.*}
-    echo "Converting $VIDEO..."
+    echo "Converting $VIDEO to ${FILENAME}.mp4 ..."
     ffmpeg -i $VIDEO -codec copy ${FILENAME}.mp4
 }
 
