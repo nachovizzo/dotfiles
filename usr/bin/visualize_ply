@@ -12,6 +12,7 @@ import numpy as np
 import open3d as o3d
 from plyfile import PlyData
 
+
 def is_mesh_obj_info(header):
     for elem in header.obj_info:
         if "is_mesh" in elem:
@@ -43,9 +44,7 @@ def visualize_geometry(ply, filename, headless, options=None, camera=None):
 
     if camera:
         viewpoint = o3d.io.read_pinhole_camera_parameters(camera)
-        vis.create_window(
-            width=viewpoint.intrinsic.width, height=viewpoint.intrinsic.height
-        )
+        vis.create_window(width=viewpoint.intrinsic.width, height=viewpoint.intrinsic.height)
         ctr = vis.get_view_control()
         ctr.convert_from_pinhole_camera_parameters(viewpoint)
     else:
