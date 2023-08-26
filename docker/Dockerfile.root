@@ -8,23 +8,23 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && rm -rf /var/lib/apt/lists/* \
     && locale-gen $LANG
 
-# Install bare-minumin tools to bootstrap the installation
+# Install bare-minumin .config/yadm to bootstrap the installation
 RUN apt-get update && apt-get install --no-install-recommends -y \
     ca-certificates \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Run all the magic, bootstrap included
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/tools/install.sh)"
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/.config/yadm/install.sh)"
 
 # Test (move to CI) that the bootstrap sciprt is idempotent
 # RUN yadm bootstrap
 
 # Test (move to CI) that the bootstrap sciprt is idempotent
-# RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/tools/install.sh)"
+# RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/.config/yadm/install.sh)"
 
 # Test the full installation (move to CI)
-# RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/tools/install.sh)" "" --full
+# RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/.config/yadm/install.sh)" "" --full
 
 WORKDIR /root
 CMD ["zsh"]

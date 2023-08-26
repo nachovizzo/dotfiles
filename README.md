@@ -10,13 +10,13 @@ Work in progress (almost finished) transition repository using yadm as tool
 ## Minimal Installation
 
 ```sh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/.config/yadm/install.sh)"
 ```
 
 ## Full Installation
 
 ```sh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/tools/install.sh)" "" --full
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/.config/yadm/install.sh)" "" --full
 ```
 ## TODO
 
