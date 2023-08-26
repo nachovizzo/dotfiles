@@ -1,0 +1,59 @@
+#!/usr/bin/bash
+
+wsp_compress() {
+    VIDEO="$1"
+    BASENAME="$(basename -- $VIDEO)"
+    FILENAME=${BASENAME%.*}
+    echo "Compressing $VIDEO for WhatsApp..."
+    ffmpeg -i "${VIDEO}" -vcodec libx264 -acodec aac ${FILENAME}_wsp.mp4 2>/dev/zero
+    mv "${FILENAME}_wsp".mp4 ${VIDEO}
+}
+
+cut_video() {
+    VIDEO="$1"
+    START_TIME="$2"
+    END_TIME="$3"
+    BASENAME="$(basename -- $VIDEO)"
+    FILENAME=${BASENAME%.*}
+    echo "Cutting $VIDEO from ${START_TIME} to ${END_TIME}..."
+    ffmpeg -ss ${START_TIME} -to ${END_TIME} -i ${VIDEO} -c copy ${FILENAME}_cut.mp4
+}
+
+split_video() {
+    VIDEO="$1"
+    BASENAME="$(basename -- $VIDEO)"
+    FILENAME=${BASENAME%.*}
+
+    VIDEO_LENGTH="$(ffprobe -i $VIDEO -show_entries format=duration -v quiet -of csv='p=0')"
+    SPLIT_SECONDS=$(($VIDEO_LENGTH / 2))
+    SPLIT="$(date -d@"${SPLIT_SECONDS}" -u +%H:%M:%S)"
+
+    echo "Splitting in half $VIDEO..."
+    ffmpeg -i $1 -t ${SPLIT} -c copy "${FILENAME}"_part_1.mp4 \
+        -ss ${SPLIT} -c copy "${FILENAME}"_part_2.mp4
+    echo "Done!"
+}
+
+speedup_video() {
+    VIDEO="$1"
+    BASENAME="$(basename -- $VIDEO)"
+    FILENAME=${BASENAME%.*}
+    echo "Speeding by 2x video: $VIDEO..."
+    ffmpeg -i $VIDEO -filter_complex "[0:v]setpts=0.20*PTS[v];[0:a]atempo=2[a]" -map "[v]" -map "[a]" -c:v libx264 -c:a aac ${FILENAME}_2x.mp4
+    echo "Done!"
+}
+
+mkv_to_mp4() {
+    VIDEO="$1"
+    BASENAME="$(basename -- $VIDEO)"
+    FILENAME=${BASENAME%.*}
+    echo "Converting $VIDEO to ${FILENAME}.mp4 ..."
+    ffmpeg -i $VIDEO -codec copy ${FILENAME}.mp4
+}
+
+png_to_pdf() {
+    IMAGE="$1"
+    BASENAME="$(basename -- $IMAGE)"
+    FILENAME=${BASENAME%.*}
+    convert $IMAGE ${FILENAME}.pdf
+}

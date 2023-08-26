@@ -2,7 +2,6 @@
 export ZSH=$HOME/.oh-my-zsh
 
 # PATH
-export PATH=$HOME/scripts/:$PATH
 export PATH=$HOME/usr/bin:$PATH
 export PATH=$HOME/.cargo/bin/:$PATH
 export PATH=$HOME/go/bin:$PATH
@@ -14,7 +13,6 @@ export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
 export FPATH=$FPATH:$HOME/.zfunc
 export EDITOR='nvim'
 export DATASETS=$HOME/data/
-export MODELS=$HOME/data/models/
 
 # Setting for perl macOS/Linux compatibility
 export LC_CTYPE=en_US.UTF-8

@@ -20,6 +20,7 @@ alias tmux='tmux -2'
 alias ts='tmux new-session -s $(basename $(pwd))'
 alias vim='nvim'
 alias ydam='yadm'
+alias taker='take $(mktemp -d)'
 
 if [ "$SYSTEM_TYPE" = "Darwin" ]; then
   alias xcopy='pbcopy'

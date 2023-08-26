@@ -20,5 +20,5 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 source $HOME/.aliases.zsh
 source $HOME/.functions.zsh
-source $HOME/.zshrc_local
+source $HOME/.zshrc_local 2>/dev/null || true
 eval $(thefuck --alias)
