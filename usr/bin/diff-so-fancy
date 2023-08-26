@@ -11,7 +11,7 @@ use strict;
 use File::Spec;                                             # For catdir
 use File::Basename;                                         # For dirname
 use Cwd qw(abs_path);                                       # For realpath()
-use lib $ENV{"HOME"} . "/lib";                              # Add the local lib/ to @INC
+use lib $ENV{"HOME"} . "/usr/lib/diff-so-fancy";            # Add the local lib/ to @INC
 use DiffHighlight;
 
 my $remove_file_add_header     = 1;
