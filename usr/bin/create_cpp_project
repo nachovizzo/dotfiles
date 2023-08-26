@@ -8,6 +8,6 @@ DIR=$(mktemp -d)
 mkdir -p $DIR
 pushd $DIR
 echo "Creating a new C++ Project in $(pwd)/"
-cp -r $HOME/scripts/cpp_template_project/. .
+cp -r $HOME/./cpp_project/. .
 tmuxinator
 
