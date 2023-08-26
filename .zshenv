@@ -20,6 +20,9 @@ export MODELS=$HOME/data/models/
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+# Create env variabel to know who you are
+export SYSTEM_TYPE=$(uname -s)
+
 # For remote installs
 # export CMAKE_INSTALL_PREFIX=$HOME/usr/
 # export CPATH=$HOME/usr/include/

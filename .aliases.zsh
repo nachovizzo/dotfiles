@@ -19,6 +19,12 @@ alias tkb='take build'
 alias tmux='tmux -2'
 alias ts='tmux new-session -s $(basename $(pwd))'
 alias vim='nvim'
-alias xcopy='xclip -selection clipboard'
-alias xopen='xdg-open'
 alias ydam='yadm'
+
+if [ "$SYSTEM_TYPE" = "Darwin" ]; then
+  alias xcopy='pbcopy'
+  alias open='open'
+else
+  alias xcopy='xclip -selection clipboard'
+  alias open='xdg-open'
+fi
