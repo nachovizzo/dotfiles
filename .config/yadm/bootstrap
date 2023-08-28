@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 install_fonts() {
   # I have my own SF-Mono patched fonts, but just in case install powerline packaged fonts
