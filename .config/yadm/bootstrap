@@ -72,30 +72,26 @@ install_neovim() {
 }
 
 install_python() {
-  install_pkgs python3 python3-pip python3-dev python-is-python3
+  install_pkgs python
   python3 -m pip install --user --upgrade pip
-  pip install ipython ipdb black
+  python3 -m pip install ipython ipdb black thefuck
 }
 
-install_cpp_utils() {
-  install_pkgs clang-format clangd
-}
-
-install_shell_utils() {
-  install_pkgs htop silversearcher-ag tree tig
-  pip3 install thefuck
-}
-
-install_tmux() {
-  install_pkgs tmux tmuxinator
-}
-
-install_essential_tools() {
-  install_pkgs git-lfs wget binutils less
-}
-
-install_ssh() {
-  install_pkgs openssh-client openssh-server sshfs
+install_brew_packages() {
+  install_pkgs \
+    ag \
+    binutils \
+    git-lfs \
+    htop \
+    llvm \
+    openssh-client \
+    openssh-server \
+    sshfs \
+    tig \
+    tmux \
+    tmuxinator \
+    tree \
+    wget
 }
 
 install_fonts() {
@@ -117,15 +113,11 @@ main() {
 
   cd "$HOME"
 
-  install_essential_tools
   install_zsh
   install_neovim
-  install_tmux
-  install_fonts
   install_python
-  install_cpp_utils
-  install_shell_utils
-  install_ssh
+  install_brew_packages
+  # install_fonts
 
   if [ $DECRYPT = yes ]; then
     echo "Loading encrypted files"
