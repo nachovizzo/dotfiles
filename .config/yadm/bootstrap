@@ -18,7 +18,7 @@ user_can_sudo() {
 
 RUN=$(user_can_sudo && echo "sudo" || echo "command")
 
-install_zsh() {
+install_ohmyzsh() {
   # Install ohmyzsh
   export CHSH=no
   export KEEP_ZSHRC=yes
@@ -36,17 +36,7 @@ install_zsh() {
   cp -r $HOME/.oh-my-zsh-custom/* ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/
 }
 
-install_coc_extensions() {
-  mkdir -p ~/.config/coc/extensions && cd ~/.config/coc/extensions
-  if [ ! -f package.json ]; then
-    echo '{"dependencies":{}}' >package.json
-  fi
-  COC_EXTENSIONS=$(nvim --headless -c 'echo coc_global_extensions' +qa 2>&1 | awk -v RS="'" '!(NR%2)')
-  echo "Installing coc extensions: ${COC_EXTENSIONS}"
-  #npm install $(echo $COC_EXTENSIONS) --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
-}
-
-install_neovim() {
+install_neovim_extensions() {
   # Install vim-plug packages
   nvim --headless +PlugInstall +qall
 
@@ -55,7 +45,13 @@ install_neovim() {
   npm config set prefix ${HOME}/.npm-packages
 
   # Manually install coc-extensions(https://github.com/neoclide/coc.nvim/issues/118)
-  install_coc_extensions
+  mkdir -p ~/.config/coc/extensions && cd ~/.config/coc/extensions
+  if [ ! -f package.json ]; then
+    echo '{"dependencies":{}}' >package.json
+  fi
+  COC_EXTENSIONS=$(nvim --headless -c 'echo coc_global_extensions' +qa 2>&1 | awk -v RS="'" '!(NR%2)')
+  echo "Installing coc extensions: ${COC_EXTENSIONS}"
+  #npm install $(echo $COC_EXTENSIONS) --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 }
 
 install_pip_packages() {
@@ -77,8 +73,8 @@ main() {
 
   install_brew_packages
   install_pip_packages
-  install_zsh
-  install_neovim
+  install_ohmyzsh
+  install_neovim_extensions
 
   # FIXME
   # install_fonts
