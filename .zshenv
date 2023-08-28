@@ -1,9 +1,9 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
-
-# Homebrew env setup, only for Linux
+# Homebrew env setup
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
 eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || true)"
+
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
 
 # PATH
 export PATH=$HOME/.cargo/bin/:$PATH
