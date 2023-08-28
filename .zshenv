@@ -3,6 +3,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 # Homebrew env setup, only for Linux
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
+eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || true)"
 
 # PATH
 export PATH=$HOME/.cargo/bin/:$PATH
