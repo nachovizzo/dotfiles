@@ -24,6 +24,6 @@ export SYSTEM_TYPE=$(uname -s)
 export CPATH=$HOME/usr/include/
 export LD_LIBRARY_PATH=$HOME/usr/lib:$LD_LIBRARY_PATH
 
-# Homebrew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# Homebrew env setup, only for Linux
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
 eval $(thefuck --alias)
