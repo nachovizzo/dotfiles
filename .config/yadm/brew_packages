@@ -1,6 +1,5 @@
 automake
 ccache
-chrpath
 cloc
 cmatrix
 curl
