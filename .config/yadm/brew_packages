@@ -11,6 +11,7 @@ shfmt
 sshfs
 the_silver_searcher
 tig
+tmux
 tmuxinator
 tree
 wget

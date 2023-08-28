@@ -40,7 +40,7 @@ install_zsh() {
 
 install_nodejs() {
   # If we reach this poing either node or npm are not there, then install:
-  install_pkgs node
+  brew install node
 
   # Create non-sudo installations of nodejs packages
   mkdir -p ${HOME}/.npm-packages
