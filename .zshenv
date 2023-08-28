@@ -27,5 +27,3 @@ export SYSTEM_TYPE=$(uname -s)
 # For local user installs
 export CPATH=$HOME/usr/include/
 export LD_LIBRARY_PATH=$HOME/usr/lib:$LD_LIBRARY_PATH
-
-eval $(thefuck --alias)

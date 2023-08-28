@@ -64,7 +64,7 @@ install_neovim() {
 install_python() {
   brew install python
   python3 -m pip install --user --upgrade pip
-  python3 -m pip install ipython ipdb black thefuck
+  python3 -m pip install ipython ipdb black
 }
 
 install_brew_packages() {
