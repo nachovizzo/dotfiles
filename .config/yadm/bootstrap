@@ -39,7 +39,7 @@ install_nodejs() {
   command_exists node && command_exists npm && return 0 || echo "Installing nodejs"
 
   # If we reach this poing either node or npm are not there, then install:
-  curl -sL install-node.vercel.app/lts | $RUN bash -s -- --yes
+  install_pkgs node
 
   # Create non-sudo installations of nodejs packages
   mkdir -p ${HOME}/.npm-packages
@@ -90,7 +90,7 @@ install_tmux() {
 }
 
 install_essential_tools() {
-  install_pkgs git-lfs wget binutils less xdg-utils
+  install_pkgs git-lfs wget binutils less
 }
 
 install_ssh() {
