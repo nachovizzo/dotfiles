@@ -36,6 +36,5 @@ RUN eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"  && yadm bootstrap ||
 # TODO: Find a way to test this as well
 # RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/.config/yadm/install.sh)"
 
-
-# WORKDIR /root
-# CMD ["zsh"]
+WORKDIR /root
+CMD ["zsh"]

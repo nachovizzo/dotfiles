@@ -1,12 +1,13 @@
 automake
 ccache
 curl
-docutils
-git-lfs
 htop
 neovim
+node
+nvim
 openssh
 pkg-config
+python
 shfmt
 sshfs
 the_silver_searcher

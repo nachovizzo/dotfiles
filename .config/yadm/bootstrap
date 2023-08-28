@@ -19,8 +19,6 @@ user_can_sudo() {
 RUN=$(user_can_sudo && echo "sudo" || echo "command")
 
 install_zsh() {
-  brew install curl zsh
-
   # Install ohmyzsh
   export CHSH=no
   export KEEP_ZSHRC=yes
@@ -39,9 +37,6 @@ install_zsh() {
 }
 
 install_nodejs() {
-  # If we reach this poing either node or npm are not there, then install:
-  brew install node
-
   # Create non-sudo installations of nodejs packages
   mkdir -p ${HOME}/.npm-packages
   npm config set prefix ${HOME}/.npm-packages
@@ -54,33 +49,27 @@ install_coc_extensions() {
   fi
   COC_EXTENSIONS=$(nvim --headless -c 'echo coc_global_extensions' +qa 2>&1 | awk -v RS="'" '!(NR%2)')
   echo "Installing coc extensions: ${COC_EXTENSIONS}"
-  # FIXME:
-  # npm install $(echo $COC_EXTENSIONS) --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
+  npm install $(echo $COC_EXTENSIONS) --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 }
 
 install_neovim() {
-  brew install nvim
-
-  # Install vim-plug packages
-  nvim --headless -u $HOME/.vim/config/plug.vim +PlugInstall +qall
-
   # Install coc-nvim plugins: neovim-coc relies on nodejs, install only if not there
   install_nodejs
 
   # Manually install coc-extensions(https://github.com/neoclide/coc.nvim/issues/118)
   install_coc_extensions
+
+  # Install vim-plug packages
+  nvim --headless -u $HOME/.vim/config/plug.vim +PlugInstall +qall
 }
 
-install_python() {
-  brew install python && python3 -m pip install -r $HOME/.config/yadm/pip_packages
+install_pip_packages() {
+  python3 -m pip install -r $HOME/.config/yadm/pip_packages
 }
 
 install_brew_packages() {
   xargs brew install <$HOME/.config/yadm/brew_packages
 }
-
-# Options
-DECRYPT=${DECRYPT:-yes}
 
 main() {
   # check brew exists, otherwise this script is useless
@@ -91,15 +80,17 @@ main() {
 
   cd "$HOME"
 
+  install_brew_packages
+  install_pip_packages
   install_zsh
   install_neovim
-  install_python
-  install_brew_packages
 
   # FIXME
   # brew install llvm
   # install_fonts
 
+  # Options
+  DECRYPT=${DECRYPT:-yes}
   if [ $DECRYPT = yes ]; then
     echo "Loading encrypted files"
     yadm decrypt
