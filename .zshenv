@@ -23,7 +23,3 @@ export LC_ALL=en_US.UTF-8
 
 # Create env variabel to know who you are
 export SYSTEM_TYPE=$(uname -s)
-
-# For local user installs
-export CPATH=$HOME/usr/include/
-export LD_LIBRARY_PATH=$HOME/usr/lib:$LD_LIBRARY_PATH
