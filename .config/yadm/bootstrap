@@ -6,25 +6,28 @@ command_exists() {
 }
 
 install_ohmyzsh() {
-  if [[ -z "${ZSH}" ]]; then
-    export CHSH=no
-    export KEEP_ZSHRC=yes
-    export RUNZSH=no
+  export CHSH=no
+  export KEEP_ZSHRC=yes
+  export RUNZSH=no
+  export ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
+  export ZSH=
+
+  # Instal oh-my-zsh always
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+  # If user shell is not zsh, change it (password required)
+  if [ ! "$(basename "$SHELL")" = "zsh" ]; then
     RUN=$(command_exists sudo && echo "sudo" || echo "command")
-
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-    # FIXME: Get rid of thi RUN
     $RUN chsh -s "$(which zsh)" "$USER" 2>/dev/null || chsh -s "$(which zsh)"
-
-    # Install zsh-autosuggestions custom plugin
-    git clone --depth 1 \
-      https://github.com/zsh-users/zsh-autosuggestions \
-      ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions 2>/dev/null || true
-
-    # Copy custom configuration to the oh my sh installation
-    cp -r $HOME/.oh-my-zsh-custom/* ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/
   fi
+
+  # Install zsh-autosuggestions custom plugin
+  git clone --depth 1 \
+    https://github.com/zsh-users/zsh-autosuggestions \
+    ${ZSH_CUSTOM}/plugins/zsh-autosuggestions 2>/dev/null || true
+
+  # Copy custom configuration to the oh my sh installation
+  cp -r $HOME/.templates/oh-my-zsh-custom/* ${ZSH_CUSTOM}
 }
 
 install_neovim_extensions() {
