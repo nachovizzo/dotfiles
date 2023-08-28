@@ -1,5 +1,6 @@
 automake
 ccache
+cloc
 curl
 fzf
 htop
