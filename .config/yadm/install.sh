@@ -18,10 +18,8 @@ main() {
   install_brew
 
   brew install yadm
-  yadm clone https://github.com/nachovizzo/dotfiles.git
+  yadm clone --bootstrap https://github.com/nachovizzo/dotfiles.git 2>/dev/null || yadm bootstrap
   yadm remote set-url origin "git@github.com:nachovizzo/dotfiles.git"
-  ls -lah $HOME/.config/yadm/
-  yadm bootstrap
 }
 
 main "$@"
