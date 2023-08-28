@@ -19,4 +19,4 @@ jobs:
       - name: Run YADM Bootstrap
         run: |
           sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/.config/yadm/install.sh)"
-          yadm clone --bootstrap https://github.com/nachovizzo/dotfiles.git
+          eval $(/home/linuxbrew/.linuxbrew/brew shellenv) && yadm clone --bootstrap https://github.com/nachovizzo/dotfiles.git
