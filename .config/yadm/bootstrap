@@ -11,7 +11,7 @@ user_can_sudo() {
 }
 
 install_pkgs() {
-  $RUN apt install --no-install-recommends -y "$@"
+  brew install
 }
 
 install_zsh() {
@@ -56,18 +56,7 @@ install_coc_extensions() {
 }
 
 install_neovim() {
-  mkdir -p $HOME/.local/bin
-  CUSTOM_NVIM_PATH=$HOME/.local/bin/nvim
-
-  wget -c https://github.com/neovim/neovim/releases/download/v0.9.1/nvim.appimage
-  chmod u+x nvim.appimage
-  mv nvim.appimage $CUSTOM_NVIM_PATH
-
-  $RUN update-alternatives --install /usr/bin/ex ex "${CUSTOM_NVIM_PATH}" 110
-  $RUN update-alternatives --install /usr/bin/vi vi "${CUSTOM_NVIM_PATH}" 110
-  $RUN update-alternatives --install /usr/bin/view view "${CUSTOM_NVIM_PATH}" 110
-  $RUN update-alternatives --install /usr/bin/vim vim "${CUSTOM_NVIM_PATH}" 110
-  $RUN update-alternatives --install /usr/bin/vimdiff vimdiff "${CUSTOM_NVIM_PATH}" 110
+  brew install nvim
 
   # Install vim-plug packages
   nvim --headless -u $HOME/.vim/config/plug.vim +PlugInstall +qall
@@ -84,10 +73,6 @@ install_python() {
   install_pkgs python3 python3-pip python3-dev python-is-python3
   python3 -m pip install --user --upgrade pip
   pip install ipython ipdb black
-}
-
-install_build_utils() {
-  install_pkgs build-essential cmake cmake-curses-gui
 }
 
 install_cpp_utils() {
@@ -122,12 +107,13 @@ RUN=$(user_can_sudo && echo "sudo" || echo "command")
 DECRYPT=${DECRYPT:-yes}
 
 main() {
+  # check brew exists, otherwise this script is useless
+  command_exists brew || return 1
+
   echo "Updating the yadm repo origin URL"
   yadm remote set-url origin "git@github.com:nachovizzo/dotfiles.git"
 
   cd "$HOME"
-
-  $RUN apt update
 
   install_essential_tools
   install_zsh
@@ -135,7 +121,6 @@ main() {
   install_tmux
   install_fonts
   install_python
-  install_build_utils
   install_cpp_utils
   install_shell_utils
   install_ssh
