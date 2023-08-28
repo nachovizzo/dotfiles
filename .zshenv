@@ -17,6 +17,7 @@ export PATH=$HOMEBREW_PREFIX/opt/llvm/bin:$PATH
 export FPATH=$FPATH:$HOME/.zfunc
 export EDITOR='nvim'
 export DATASETS=$HOME/data/
+export TERM=xterm-256color
 
 # Setting for perl macOS/Linux compatibility
 export LC_CTYPE=en_US.UTF-8
