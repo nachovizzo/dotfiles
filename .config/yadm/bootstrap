@@ -5,6 +5,13 @@ command_exists() {
   command -v "$@" >/dev/null 2>&1
 }
 
+user_can_sudo() {
+  command_exists sudo || return 1
+  ! LANG= sudo -n -v 2>&1 | grep -q "may not run sudo"
+}
+
+RUN=$(user_can_sudo && echo "sudo" || echo "command")
+
 install_zsh() {
   brew install curl zsh
 
@@ -13,7 +20,8 @@ install_zsh() {
   export KEEP_ZSHRC=yes
   export RUNZSH=no
   ZSH= sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
-  chsh -s "$(which zsh)" "$USER" 2>/dev/null || chsh -s "$(which zsh)"
+  # FIXME: Get rid of thi RUN
+  $RUN chsh -s "$(which zsh)" "$USER" 2>/dev/null || chsh -s "$(which zsh)"
 
   # Install zsh-autosuggestions custom plugin
   git clone --depth 1 \
