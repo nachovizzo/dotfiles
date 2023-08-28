@@ -1,16 +1,12 @@
 #!/bin/bash
 set -e
 
-command_exists() {
-  command -v "$@" >/dev/null 2>&1
-}
+# Shared common functionallities with the install script
+source ./install.sh
 
-user_can_sudo() {
-  # If sudo is available then use it, if not default to command for root enviroments
-  # Adapted from https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh
-  command_exists sudo || return 1
-  ! LANG= sudo -n -v 2>&1 | grep -q "may not run sudo"
-}
+# Options
+RUN=$(user_can_sudo && echo "sudo" || echo "command")
+DECRYPT=${DECRYPT:-yes}
 
 install_pkgs() {
   $RUN apt install --no-install-recommends -y "$@"
@@ -119,43 +115,24 @@ install_fonts() {
   fc-cache -f -v
 }
 
-minimal_installation() {
-  echo "Running minimal installation, just zsh, neovim, tmux, and some binutils"
-  install_essential_tools
-  install_zsh
-  install_neovim
-  install_tmux
-  install_fonts
-}
-
-full_installation() {
-  echo "[WARNING] Running full installation mode, this will take some time..."
-  install_python
-  install_build_utils
-  install_cpp_utils
-  install_shell_utils
-  install_ssh
-}
-
-# Options
-RUN=$(user_can_sudo && echo "sudo" || echo "command")
-INSTALL_FULL=${INSTALL_FULL:-no}
-DECRYPT=${DECRYPT:-yes}
-
 main() {
   echo "Updating the yadm repo origin URL"
   yadm remote set-url origin "git@github.com:nachovizzo/dotfiles.git"
 
   cd "$HOME"
 
-  # Fetch juste once the apt repositories
   $RUN apt update
 
-  minimal_installation
-
-  if [ $INSTALL_FULL = yes ]; then
-    full_installation
-  fi
+  install_essential_tools
+  install_zsh
+  install_neovim
+  install_tmux
+  install_fonts
+  install_python
+  install_build_utils
+  install_cpp_utils
+  install_shell_utils
+  install_ssh
 
   if [ $DECRYPT = yes ]; then
     echo "Loading encrypted files"
