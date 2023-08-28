@@ -1,6 +1,7 @@
 automake
 ccache
 curl
+fzf
 htop
 llvm
 node
