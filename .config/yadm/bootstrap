@@ -36,12 +36,6 @@ install_zsh() {
   cp -r $HOME/.oh-my-zsh-custom/* ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/
 }
 
-install_nodejs() {
-  # Create non-sudo installations of nodejs packages
-  mkdir -p ${HOME}/.npm-packages
-  npm config set prefix ${HOME}/.npm-packages
-}
-
 install_coc_extensions() {
   mkdir -p ~/.config/coc/extensions && cd ~/.config/coc/extensions
   if [ ! -f package.json ]; then
@@ -54,7 +48,8 @@ install_coc_extensions() {
 
 install_neovim() {
   # Install coc-nvim plugins: neovim-coc relies on nodejs, install only if not there
-  install_nodejs
+  mkdir -p ${HOME}/.npm-packages
+  npm config set prefix ${HOME}/.npm-packages
 
   # Manually install coc-extensions(https://github.com/neoclide/coc.nvim/issues/118)
   install_coc_extensions
