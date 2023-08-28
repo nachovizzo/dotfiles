@@ -7,7 +7,6 @@ export PATH=$HOME/.cargo/bin/:$PATH
 export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/.npm-packages/bin:$PATH
 export PATH=$HOME/.local/bin/:$PATH
-export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
 
 # Others
 export FPATH=$FPATH:$HOME/.zfunc
@@ -24,3 +23,7 @@ export SYSTEM_TYPE=$(uname -s)
 # For local user installs
 export CPATH=$HOME/usr/include/
 export LD_LIBRARY_PATH=$HOME/usr/lib:$LD_LIBRARY_PATH
+
+# Homebrew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval $(thefuck --alias)
