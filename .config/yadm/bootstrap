@@ -75,10 +75,8 @@ main() {
   # FIXME
   # install_fonts
 
-  # Options
   DECRYPT=${DECRYPT:-no}
   if [ $DECRYPT = yes ]; then
-    echo "Loading encrypted files"
     yadm decrypt
   else
     echo "Skipping encrypted files, as requested"
