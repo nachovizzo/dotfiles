@@ -1,0 +1,17 @@
+automake
+ccache
+curl
+docutils
+git-lfs
+htop
+neovim
+openssh
+pkg-config
+shfmt
+sshfs
+the_silver_searcher
+tig
+tmuxinator
+tree
+wget
+zsh
