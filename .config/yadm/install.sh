@@ -11,7 +11,7 @@ main() {
   # Parse arguments
   while [ $# -gt 0 ]; do
     case $1 in
-      --skip-decrypt) export DECRYPT=no ;;
+      --decrypt) export DECRYPT=yes ;;
     esac
     shift
   done

@@ -85,7 +85,7 @@ main() {
   # install_fonts
 
   # Options
-  DECRYPT=${DECRYPT:-yes}
+  DECRYPT=${DECRYPT:-no}
   if [ $DECRYPT = yes ]; then
     echo "Loading encrypted files"
     yadm decrypt
