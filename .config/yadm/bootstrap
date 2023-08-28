@@ -84,8 +84,7 @@ install_brew_packages() {
     git-lfs \
     htop \
     llvm \
-    openssh-client \
-    openssh-server \
+    openssh \
     sshfs \
     tig \
     tmux \
