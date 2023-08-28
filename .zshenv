@@ -1,12 +1,16 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
+# Homebrew env setup, only for Linux
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
+
 # PATH
-export PATH=$HOME/usr/bin:$PATH
 export PATH=$HOME/.cargo/bin/:$PATH
-export PATH=$HOME/go/bin:$PATH
-export PATH=$HOME/.npm-packages/bin:$PATH
 export PATH=$HOME/.local/bin/:$PATH
+export PATH=$HOME/.npm-packages/bin:$PATH
+export PATH=$HOME/go/bin:$PATH
+export PATH=$HOME/usr/bin:$PATH
+export PATH=$HOMEBREW_PREFIX/opt/llvm/bin:$PATH
 
 # Others
 export FPATH=$FPATH:$HOME/.zfunc
@@ -24,6 +28,4 @@ export SYSTEM_TYPE=$(uname -s)
 export CPATH=$HOME/usr/include/
 export LD_LIBRARY_PATH=$HOME/usr/lib:$LD_LIBRARY_PATH
 
-# Homebrew env setup, only for Linux
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
 eval $(thefuck --alias)
