@@ -1,12 +1,6 @@
 #!/bin/bash
 set -e
 
-install_fonts() {
-  # I have my own SF-Mono patched fonts, but just in case install powerline packaged fonts
-  install_pkgs fonts-powerline
-  fc-cache -f -v
-}
-
 command_exists() {
   command -v "$@" >/dev/null 2>&1
 }
@@ -38,12 +32,9 @@ install_neovim_extensions() {
   nvim --headless +PlugInstall +qall
 
   # Manually install coc-extensions(https://github.com/neoclide/coc.nvim/issues/118)
-  mkdir -p ~/.config/coc/extensions && cd ~/.config/coc/extensions
-  if [ ! -f package.json ]; then
-    echo '{"dependencies":{}}' >package.json
-  fi
   COC_EXTENSIONS=$(nvim --headless -c 'echo coc_global_extensions' +qa 2>&1 | awk -v RS="'" '!(NR%2)')
-  echo "Installing coc extensions: ${COC_EXTENSIONS}"
+  COC_EXT_DIR="$HOME/.config/coc/extensions"
+  mkdir -p $COC_EXT_DIR && cd $COC_EXT_DIR && [ ! -f package.json ] && echo '{"dependencies":{}}' >package.json
   npm install $(echo $COC_EXTENSIONS) --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 }
 
@@ -68,9 +59,6 @@ main() {
   install_pip_packages
   install_ohmyzsh
   install_neovim_extensions
-
-  # FIXME
-  # install_fonts
 
   DECRYPT=${DECRYPT:-no}
   if [ $DECRYPT = yes ]; then
