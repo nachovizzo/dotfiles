@@ -58,9 +58,18 @@ install_coc_extensions() {
 }
 
 install_neovim() {
-  wget -c https://github.com/neovim/neovim/releases/download/v0.8.0/nvim-linux64.deb
-  $RUN apt install ./nvim-linux64.deb
-  rm nvim-linux64.deb
+  mkdir -p $HOME/.local/bin
+  CUSTOM_NVIM_PATH=$HOME/.local/bin/nvim
+
+  wget -c https://github.com/neovim/neovim/releases/download/v0.9.1/nvim.appimage
+  chmod u+x nvim.appimage
+  mv nvim.appimage $CUSTOM_NVIM_PATH
+
+  $RUN update-alternatives --install /usr/bin/ex ex "${CUSTOM_NVIM_PATH}" 110
+  $RUN update-alternatives --install /usr/bin/vi vi "${CUSTOM_NVIM_PATH}" 110
+  $RUN update-alternatives --install /usr/bin/view view "${CUSTOM_NVIM_PATH}" 110
+  $RUN update-alternatives --install /usr/bin/vim vim "${CUSTOM_NVIM_PATH}" 110
+  $RUN update-alternatives --install /usr/bin/vimdiff vimdiff "${CUSTOM_NVIM_PATH}" 110
 
   # Install vim-plug packages
   nvim --headless -u $HOME/.vim/config/plug.vim +PlugInstall +qall
