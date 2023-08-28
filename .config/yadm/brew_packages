@@ -2,6 +2,7 @@ automake
 ccache
 curl
 htop
+llvm
 neovim
 node
 nvim
