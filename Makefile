@@ -1,11 +1,5 @@
 root:
-	@docker compose build --no-cache root
+	@docker build --no-cache -t nachovizzo/dotfiles .
 
 run:
-	@docker compose run --rm root
-
-user:
-	@docker compose build --build-arg CACHEBUST=$(shell date +%s) user
-
-run-user:
-	@docker compose run --rm user
+	@docker run --rm -it nachovizzo/dotfiles
