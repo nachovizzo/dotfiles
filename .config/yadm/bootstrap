@@ -1,12 +1,14 @@
 #!/bin/bash
 set -e
 
-# Shared common functionallities with the install script
-source ./install.sh
+command_exists() {
+  command -v "$@" >/dev/null 2>&1
+}
 
-# Options
-RUN=$(user_can_sudo && echo "sudo" || echo "command")
-DECRYPT=${DECRYPT:-yes}
+user_can_sudo() {
+  command_exists sudo || return 1
+  ! LANG= sudo -n -v 2>&1 | grep -q "may not run sudo"
+}
 
 install_pkgs() {
   $RUN apt install --no-install-recommends -y "$@"
@@ -114,6 +116,10 @@ install_fonts() {
   install_pkgs fonts-powerline
   fc-cache -f -v
 }
+
+# Options
+RUN=$(user_can_sudo && echo "sudo" || echo "command")
+DECRYPT=${DECRYPT:-yes}
 
 main() {
   echo "Updating the yadm repo origin URL"
