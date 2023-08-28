@@ -47,15 +47,15 @@ install_coc_extensions() {
 }
 
 install_neovim() {
+  # Install vim-plug packages
+  nvim --headless +PlugInstall +qall
+
   # Install coc-nvim plugins: neovim-coc relies on nodejs, install only if not there
   mkdir -p ${HOME}/.npm-packages
   npm config set prefix ${HOME}/.npm-packages
 
   # Manually install coc-extensions(https://github.com/neoclide/coc.nvim/issues/118)
   install_coc_extensions
-
-  # Install vim-plug packages
-  nvim --headless -u $HOME/.vim/config/plug.vim +PlugInstall +qall
 }
 
 install_pip_packages() {
@@ -81,7 +81,6 @@ main() {
   install_neovim
 
   # FIXME
-  # brew install llvm
   # install_fonts
 
   # Options
