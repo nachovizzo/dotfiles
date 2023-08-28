@@ -50,11 +50,6 @@ main() {
   # check brew exists, otherwise this script is useless
   command_exists brew || return 1
 
-  echo "Updating the yadm repo origin URL"
-  yadm remote set-url origin "git@github.com:nachovizzo/dotfiles.git"
-
-  cd "$HOME"
-
   install_brew_packages
   install_pip_packages
   install_ohmyzsh
