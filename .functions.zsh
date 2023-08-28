@@ -1,3 +1,8 @@
+ros2_setup() {
+  source /opt/ros/humble/setup.zsh
+  complete -o nospace -o default -F _python_argcomplete "ros2"
+}
+
 get_remote() {
     git remote -vv | tail -n1 | awk '{print $2}' | tr -d '\n' | xcopy
 }
