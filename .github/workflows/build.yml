@@ -1,0 +1,21 @@
+name: On-Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  on_push:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04,  macos-13]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run YADM Bootstrap
+        run: |
+          sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/.config/yadm/install.sh)"
