@@ -53,6 +53,7 @@ install_coc_extensions() {
   fi
   COC_EXTENSIONS=$(nvim --headless -c 'echo coc_global_extensions' +qa 2>&1 | awk -v RS="'" '!(NR%2)')
   echo "Installing coc extensions: ${COC_EXTENSIONS}"
+  # FIXME:
   # npm install $(echo $COC_EXTENSIONS) --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 }
 
