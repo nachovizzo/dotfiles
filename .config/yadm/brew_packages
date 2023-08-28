@@ -3,11 +3,9 @@ ccache
 curl
 htop
 llvm
-neovim
 node
 nvim
 openssh
-pkg-config
 python
 shfmt
 sshfs
