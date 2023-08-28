@@ -4,6 +4,7 @@ curl
 fzf
 htop
 llvm
+net-tools
 node
 nvim
 openssh

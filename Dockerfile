@@ -22,3 +22,5 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/.config/yadm/install.sh)"
 
 WORKDIR /root
+
+CMD ["/home/linuxbrew/.linuxbrew/bin/zsh"]
