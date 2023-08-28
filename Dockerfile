@@ -2,7 +2,6 @@ FROM ubuntu:22.04
 LABEL maintainer="Ignacio Vizzo <ignaciovizzo@gmail.com>"
 
 ENV LANG=en_US.UTF-8
-ENV NONINTERACTIVE=1
 
 # Install bare-minumin .config/yadm to bootstrap the installation
 RUN apt-get update && apt-get install --no-install-recommends -y \
