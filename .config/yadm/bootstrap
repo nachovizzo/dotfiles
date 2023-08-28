@@ -49,9 +49,10 @@ install_neovim_extensions() {
   if [ ! -f package.json ]; then
     echo '{"dependencies":{}}' >package.json
   fi
+  nvim --headless -c 'echo coc_global_extensions' +qa
   COC_EXTENSIONS=$(nvim --headless -c 'echo coc_global_extensions' +qa 2>&1 | awk -v RS="'" '!(NR%2)')
   echo "Installing coc extensions: ${COC_EXTENSIONS}"
-  #npm install $(echo $COC_EXTENSIONS) --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
+  npm install $(echo $COC_EXTENSIONS) --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 }
 
 install_pip_packages() {
