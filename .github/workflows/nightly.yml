@@ -1,9 +1,8 @@
 name: Nightly
 
 on:
-  push:
-    branches:
-      - never
+  schedule:
+    - cron: "0 0 * * *"  # Nightly
 
 jobs:
   nightly:
