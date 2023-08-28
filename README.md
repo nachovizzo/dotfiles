@@ -20,6 +20,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/.
 ```
 ## TODO
 
+- [ ] Migrate to brew for host-independent package manager
 - [ ] Install kitty terminal
 - [ ] Install fonts automagicaly (with patches)
 - [ ] Add CI so I can rest in peace
