@@ -7,26 +7,12 @@ command_exists() {
 
 user_can_sudo() {
   # If sudo is available then use it, if not default to command for root enviroments
-  # TODO: Add support for non root enviroments!!!
   # Adapted from https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh
   command_exists sudo || return 1
   ! LANG= sudo -n -v 2>&1 | grep -q "may not run sudo"
 }
 
-update_pkgs() {
-  # This takes too much, do it once
-  $RUN apt update
-}
-
 install_pkgs() {
-  # Wrapper to install packages depending on sudo or non-sudo enviroments
-  # if user_can_sudo; then
-  # $RUN apt update && apt install --no-install-recommends -y "$@"
-  # else
-  # # WIP
-  # apt-get download $(apt-rdepends $@ | grep -v "^ ")
-  # for pkg in $.deb; do dpkg -x $pkg $HOME; done
-  # fi
   $RUN apt install --no-install-recommends -y "$@"
 }
 
@@ -118,12 +104,6 @@ install_ssh() {
   install_pkgs openssh-client openssh-server sshfs
 }
 
-install_bat() {
-  wget -c https://github.com/sharkdp/bat/releases/download/v0.22.1/bat-musl_0.22.1_amd64.deb
-  sudo apt install ./bat-musl_0.22.1_amd64.deb
-  rm ./bat-musl_0.22.1_amd64.deb
-}
-
 install_fonts() {
   # I have my own SF-Mono patched fonts, but just in case install powerline packaged fonts
   install_pkgs fonts-powerline
@@ -136,7 +116,6 @@ minimal_installation() {
   install_zsh
   install_neovim
   install_tmux
-  install_bat
   install_fonts
 }
 
@@ -161,7 +140,7 @@ main() {
   cd "$HOME"
 
   # Fetch juste once the apt repositories
-  update_pkgs
+  $RUN apt update
 
   minimal_installation
 

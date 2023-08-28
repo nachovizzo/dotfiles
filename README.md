@@ -5,7 +5,7 @@ Work in progress (almost finished) transition repository using yadm as tool
 ## Dependencies
 
 - `curl`
-- root access, `sudo` or `root` user
+- root access
 
 ## Minimal Installation
 
@@ -23,4 +23,3 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/.
 - [ ] Install kitty terminal
 - [ ] Install fonts automagicaly (with patches)
 - [ ] Add CI so I can rest in peace
-- [ ] Investigate the use of `stow` to have a `~/dotiles` repo I can git-use

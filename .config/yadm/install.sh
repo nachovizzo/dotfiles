@@ -17,7 +17,6 @@ install_git() {
 }
 
 install_yadm() {
-  # TODO: Add support for non-root user, else loop is already working
   mkdir -p $HOME/.local/bin && export PATH=$PATH:$HOME/.local/bin/
   curl -fLo $HOME/.local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && chmod a+x $HOME/.local/bin/yadm
 }
