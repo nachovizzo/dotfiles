@@ -9,11 +9,11 @@ install_ohmyzsh() {
   export CHSH=no
   export KEEP_ZSHRC=yes
   export RUNZSH=no
+  export OHMYZSH_URL=https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
   export ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
-  export ZSH=
 
-  # Instal oh-my-zsh always
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  # Instal oh-my-zsh always, update if already istalled
+  ZSH= sh -c "$(curl -fsSL $OHMYZSH_URL/tools/install.sh)" >/dev/null || zsh -i -c "omz update"
 
   # If user shell is not zsh, change it (password required)
   if [ ! "$(basename "$SHELL")" = "zsh" ]; then
