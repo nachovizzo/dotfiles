@@ -19,21 +19,24 @@ user_can_sudo() {
 RUN=$(user_can_sudo && echo "sudo" || echo "command")
 
 install_ohmyzsh() {
-  # Install ohmyzsh
-  export CHSH=no
-  export KEEP_ZSHRC=yes
-  export RUNZSH=no
-  ZSH= sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
-  # FIXME: Get rid of thi RUN
-  $RUN chsh -s "$(which zsh)" "$USER" 2>/dev/null || chsh -s "$(which zsh)"
+  if [[ -z "$ZSH}" ]]; then
+    export CHSH=no
+    export KEEP_ZSHRC=yes
+    export RUNZSH=no
 
-  # Install zsh-autosuggestions custom plugin
-  git clone --depth 1 \
-    https://github.com/zsh-users/zsh-autosuggestions \
-    ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions 2>/dev/null || true
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-  # Copy custom configuration to the oh my sh installation
-  cp -r $HOME/.oh-my-zsh-custom/* ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/
+    # FIXME: Get rid of thi RUN
+    $RUN chsh -s "$(which zsh)" "$USER" 2>/dev/null || chsh -s "$(which zsh)"
+
+    # Install zsh-autosuggestions custom plugin
+    git clone --depth 1 \
+      https://github.com/zsh-users/zsh-autosuggestions \
+      ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions 2>/dev/null || true
+
+    # Copy custom configuration to the oh my sh installation
+    cp -r $HOME/.oh-my-zsh-custom/* ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/
+  fi
 }
 
 install_neovim_extensions() {
