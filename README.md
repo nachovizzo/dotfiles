@@ -7,6 +7,7 @@ Work in progress (almost finished) transition repository using yadm as tool
 - `curl`
 - `git`
 - root access
+- build-essential for Linux and Developer Tools for macOS
 
 ## Installation
 
