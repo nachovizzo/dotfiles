@@ -18,8 +18,3 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/.
 ## TODO
 
 - [ ] FIX Ci and finish
-- [ ] Encrypt SSH keys
-- [ ] Install Docker
-- [ ] Install Meld
-- [ ] Install fonts automagicaly (with patches)
-- [ ] Install kitty/iterm2 terminal
