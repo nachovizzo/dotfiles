@@ -1,5 +1,5 @@
 root:
-	@docker build -t --no-cache nachovizzo/dotfiles .
+	@docker build -t nachovizzo/dotfiles .
 
 run:
 	@docker run --rm -it nachovizzo/dotfiles
