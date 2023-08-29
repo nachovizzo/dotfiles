@@ -7,7 +7,7 @@ command_exists() {
 
 install_brew() {
   RUN=$(command_exists sudo && echo "sudo" || echo "command")
-  $RUN whoami >/dev/null 2>&1 || exit 1
+  $RUN whoami >/dev/null 2>&1
   NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
   eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || true)"
