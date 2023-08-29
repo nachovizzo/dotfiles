@@ -2,8 +2,12 @@
 set -e
 
 install_brew() {
-  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  export NONINTERACTIVE=1
+  # We need sudo to bootstrap hombrew
+  sudo whoami >/dev/null 2>&1 \ 
+    && bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
+    || exit 1
+  # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 }
 
 main() {
