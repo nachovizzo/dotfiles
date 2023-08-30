@@ -3,7 +3,7 @@ Plug 'akinsho/bufferline.nvim', { 'tag': 'v4.*' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ethanholz/nvim-lastplace'
 Plug 'kevinhwang91/nvim-bqf'
-Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-tree/nvim-web-devicons'
 Plug 'lervag/vimtex'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'nachovizzo/committia.vim'
