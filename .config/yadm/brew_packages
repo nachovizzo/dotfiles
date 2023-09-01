@@ -14,6 +14,7 @@ node
 nvim
 openssh
 patchelf
+prettier
 python
 rclone
 rsync
