@@ -6,16 +6,26 @@ on:
       - main
 
 jobs:
-  on_push:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-13, ubuntu-22.04]
-
+  linux:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+      - name: Install Brew
+        run: |
+          NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
       - name: Run YADM Bootstrap
         run: |
           brew install yadm
+          yadm clone --bootstrap https://github.com/nachovizzo/dotfiles.git
+
+  mac:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run YADM Bootstrap
+        run: |
+          brew install yadm
+          yadm clone --bootstrap https://github.com/nachovizzo/dotfiles.git
