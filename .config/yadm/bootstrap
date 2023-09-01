@@ -38,7 +38,7 @@ install_neovim_extensions() {
   COC_EXTENSIONS=$(nvim --headless -c 'echo coc_global_extensions' +qa 2>&1 | awk -v RS="'" '!(NR%2)')
   COC_EXT_DIR="$HOME/.config/coc/extensions"
   mkdir -p $COC_EXT_DIR && cd $COC_EXT_DIR && [ ! -f package.json ] && echo '{"dependencies":{}}' >package.json
-  npm install $(echo $COC_EXTENSIONS) --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
+  npm install $(echo $COC_EXTENSIONS) --install-strategy=shallow --ignore-scripts --no-bin-links --no-package-lock --only=prod
 }
 
 install_pip_packages() {
@@ -51,7 +51,7 @@ install_brew_packages() {
 
 main() {
   # check brew exists, otherwise this script is useless
-  command_exists brew || return 1
+  command_exists brew || (echo "Homebrew is not installed!" && return 1)
 
   install_brew_packages
   install_pip_packages
