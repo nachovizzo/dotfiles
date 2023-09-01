@@ -20,8 +20,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Install Brew
-        run:
-          NONINTERACTIVE=1  CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
+        run: NONINTERACTIVE=1  CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - name: Run YADM Bootstrap
         run: brew install yadm  && yadm clone --bootstrap https://github.com/nachovizzo/dotfiles.git
