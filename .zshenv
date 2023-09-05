@@ -25,3 +25,6 @@ export LC_ALL=en_US.UTF-8
 
 # Create env variabel to know who you are
 export SYSTEM_TYPE=$(uname -s)
+
+# GPG drives me nuts trying to guess this, just spit ttty
+export GPG_TTY=$(tty)
