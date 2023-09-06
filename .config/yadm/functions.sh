@@ -27,7 +27,7 @@ install_ohmyzsh() {
 
 install_neovim_extensions() {
   # Install vim-plug packages
-  nvim --headless +PlugInstall +qall
+  nvim --headless +PlugInstall +qa 2>&1
 
   # Manually install coc-extensions(https://github.com/neoclide/coc.nvim/issues/118)
   COC_EXTENSIONS=$(nvim --headless -c 'echo coc_global_extensions' +qa 2>&1 | awk -v RS="'" '!(NR%2)')
