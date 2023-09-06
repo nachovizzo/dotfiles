@@ -1,4 +1,3 @@
-p7zip
 automake
 ccache
 cloc
@@ -13,10 +12,12 @@ nmap
 node
 nvim
 openssh
+p7zip
 patchelf
 prettier
 python
 rclone
+ripgrep
 rsync
 shfmt
 the_silver_searcher
