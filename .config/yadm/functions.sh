@@ -43,3 +43,15 @@ install_pip_packages() {
 install_brew_packages() {
   xargs brew install <$HOME/.config/yadm/brew_packages
 }
+
+# To fetch clangd in brew we need to pull the whole llvm toolchain, which brings 1.5GiB to the
+# workspace, luckilly clang-format is available as standalone package
+install_standalone_clangd() {
+  # TODO: Automatically determine latest stable version
+  CLANGD_VERSION="16.0.2"
+  curl -LO https://github.com/clangd/clangd/releases/download/${CLANGD_VERSION}/clangd-linux-${CLANGD_VERSION}.zip
+  unzip clangd-linux-${CLANGD_VERSION}.zip
+  cp -R clangd_${CLANGD_VERSION}/* $HOME/usr/
+  rm -rf clangd_${CLANGD_VERSION}/
+  rm clangd-linux-${CLANGD_VERSION}.zip
+}

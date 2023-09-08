@@ -14,6 +14,7 @@ install_brew_packages
 install_pip_packages
 install_ohmyzsh
 install_neovim_extensions
+install_standalone_clangd
 
 DECRYPT=${DECRYPT:-no}
 if [ $DECRYPT = yes ]; then
