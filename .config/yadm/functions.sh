@@ -55,3 +55,12 @@ install_standalone_clangd() {
   rm -rf clangd_${CLANGD_VERSION}/
   rm clangd-linux-${CLANGD_VERSION}.zip
 }
+
+install_fonts() {
+  if [[ -z $(fc-list | grep SFMono) ]]; then
+    echo "SFMono patched fonts not installed, this might take a bit"
+    sh ~/.config/fonts/install_fonts.sh
+  else
+    echo "SFMono patched installed"
+  fi
+}
