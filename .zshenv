@@ -28,3 +28,6 @@ export SYSTEM_TYPE=$(uname -s)
 
 # GPG drives me nuts trying to guess this, just spit ttty
 export GPG_TTY=$(tty)
+
+# Instruct ade where it should look
+export ADE_HOME="$HOME/dev/dexory/"

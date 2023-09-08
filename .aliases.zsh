@@ -6,7 +6,6 @@ alias -g latest='*(om[1])'
 alias cb="cmake --build build -j"
 alias cm="cmake -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
 alias de='cd ~/dev'
-alias dex='cd ~/dev/dexory'
 alias deko='cd ~/Desktop'
 alias dekoo='cd ~/Desktop'
 alias df='df -h -xsquashfs -xtmpfs -xdevtmpfs'
@@ -31,3 +30,7 @@ else
   alias xcopy='xclip -selection clipboard'
   alias open='xdg-open'
 fi
+
+# Dexory aliases
+alias dex='cd ~/dev/dexory'
+alias ade='ade --rc ~/dev/dexory/src/auto/.aderc'
