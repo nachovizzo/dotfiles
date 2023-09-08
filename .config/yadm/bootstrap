@@ -3,10 +3,6 @@ set -e
 
 source "$(dirname "$(realpath "$0")")"/functions.sh
 
-command_exists() {
-  command -v "$@" >/dev/null 2>&1
-}
-
 # check brew exists, otherwise this script is useless
 command_exists brew || (echo "Homebrew is not installed!" && return 1)
 

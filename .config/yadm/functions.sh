@@ -1,5 +1,9 @@
 #!/bin/bash
-#
+
+command_exists() {
+  command -v "$@" >/dev/null 2>&1
+}
+
 install_ohmyzsh() {
   export CHSH=no
   export KEEP_ZSHRC=yes
@@ -47,7 +51,9 @@ install_brew_packages() {
 # To fetch clangd in brew we need to pull the whole llvm toolchain, which brings 1.5GiB to the
 # workspace, luckilly clang-format is available as standalone package
 install_standalone_clangd() {
-  # TODO: Automatically determine latest stable version
+  command_exists clangd && echo "clangd already isntalled on the system: $(clangd --version)" && return
+
+  # TODO: Automatically determine latest stable version, and don't hardcode linux
   CLANGD_VERSION="16.0.2"
   curl -LO https://github.com/clangd/clangd/releases/download/${CLANGD_VERSION}/clangd-linux-${CLANGD_VERSION}.zip
   unzip clangd-linux-${CLANGD_VERSION}.zip
