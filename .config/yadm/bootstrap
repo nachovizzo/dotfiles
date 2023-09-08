@@ -11,7 +11,8 @@ install_pip_packages
 install_ohmyzsh
 install_neovim_extensions
 install_standalone_clangd
-install_fonts
+# TODO: This breaks docker builds :)
+# install_fonts
 
 DECRYPT=${DECRYPT:-no}
 if [ $DECRYPT = yes ]; then
