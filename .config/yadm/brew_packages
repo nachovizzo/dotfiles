@@ -5,6 +5,7 @@ clang-format
 cloc
 cmatrix
 curl
+docker-credential-helper-ecr
 fzf
 glow
 htop
