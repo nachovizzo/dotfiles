@@ -1,5 +1,6 @@
 automake
 ccache
+clang-format
 cloc
 cmatrix
 curl
