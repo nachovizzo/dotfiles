@@ -67,6 +67,6 @@ install_fonts() {
     echo "SFMono patched fonts not installed, this might take a bit"
     sh ~/.config/fonts/install_fonts.sh
   else
-    echo "SFMono patched already installed, skipping
+    echo "SFMono patched already installed, skipping"
   fi
 }
