@@ -33,4 +33,4 @@ export GPG_TTY=$(tty)
 export ADE_HOME="$HOME/dev/dexory/"
 
 # Load secrets ENV variables (AWS keys mainly)
-for secret in $HOME/.secrets/*; do source ${secret}; done
+for secret in $HOME/.secrets/*(N); do source ${secret}; done
