@@ -1,5 +1,5 @@
 automake
-aws-cli
+awscli
 ccache
 clang-format
 cloc
