@@ -1,6 +1,9 @@
 # Homebrew env setup
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
-eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || true)"
+if [ "$SYSTEM_TYPE" = "Darwin" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || true)"
+else
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
+fi
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
