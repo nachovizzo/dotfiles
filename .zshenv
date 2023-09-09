@@ -1,10 +1,3 @@
-# Homebrew env setup
-if [ "$SYSTEM_TYPE" = "Darwin" ]; then
-  eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || true)"
-else
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
-fi
-
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -28,6 +21,13 @@ export LC_ALL=en_US.UTF-8
 
 # Create env variabel to know who you are
 export SYSTEM_TYPE=$(uname -s)
+
+# Homebrew env setup
+if [ "$SYSTEM_TYPE" = "Darwin" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || true)"
+else
+ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
+fi
 
 # GPG drives me nuts trying to guess this, just spit ttty
 export GPG_TTY=$(tty)
