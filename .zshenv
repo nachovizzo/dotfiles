@@ -9,6 +9,10 @@ export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/usr/bin:$PATH
 export PATH=$HOMEBREW_PREFIX/opt/llvm/bin:$PATH
 
+# Hacks to make python@3.10 the default version
+export PATH="$HOMEBREW_PREFIX/opt/python@3.10/libexec/bin:$PATH"
+export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages/
+
 # Others
 export FPATH=$FPATH:$HOME/.zfunc
 export EDITOR='nvim'
@@ -26,7 +30,7 @@ export SYSTEM_TYPE=$(uname -s)
 if [ "$SYSTEM_TYPE" = "Darwin" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || true)"
 else
- eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
 fi
 
 # GPG drives me nuts trying to guess this, just spit ttty
