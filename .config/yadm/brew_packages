@@ -17,7 +17,7 @@ openssh
 p7zip
 patchelf
 prettier
-python
+python@3.10
 rclone
 ripgrep
 rsync
