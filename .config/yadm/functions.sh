@@ -46,6 +46,12 @@ install_pip_packages() {
 
 install_brew_packages() {
   xargs brew install <$HOME/.config/yadm/brew_packages
+
+  # Now fix some madenes, to have compatibility with system wide libraries in Ubuntu 22.04
+  brew unlink python@3.11
+  brew link python@3.10
+  brew unlink ruby@3.2
+  brew link ruby@3.0
 }
 
 # To fetch clangd in brew we need to pull the whole llvm toolchain, which brings 1.5GiB to the
