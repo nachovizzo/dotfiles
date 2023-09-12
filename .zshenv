@@ -5,6 +5,9 @@ export ZSH=$HOME/.oh-my-zsh
 source $HOME/.env
 export FPATH=$FPATH:$HOME/.zfunc
 
+# Syncronize history with bash
+export HISTFILE=$HOME/.bash_history
+
 # Create env variabel to know who you are
 export SYSTEM_TYPE=$(uname -s)
 
