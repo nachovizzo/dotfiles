@@ -1,9 +1,9 @@
 [user]
     email = ignaciovizzo@gmail.com
     name = Ignacio Vizzo
-[includeIf "gitdir:~/Developer/"]
+[includeIf "gitdir:~/dev/"]
     path = ~/.config/git/personal
-[includeIf "gitdir:~/Developer/dexory/"]
+[includeIf "gitdir:~/dev/dexory/"]
     path = ~/.config/git/professional
 [core]
     editor = nvim
