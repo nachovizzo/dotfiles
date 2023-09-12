@@ -3,6 +3,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 # load zsh/bash shared env
 source $HOME/.env
+export FPATH=$FPATH:$HOME/.zfunc
 
 # Create env variabel to know who you are
 export SYSTEM_TYPE=$(uname -s)
