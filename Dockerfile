@@ -13,8 +13,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 RUN apt-get update && apt-get install --no-install-recommends -y \
     build-essential \
     git \
-    && rm -rf /var/lib/apt/lists/* \
-    && locale-gen $LANG
+    && rm -rf /var/lib/apt/lists/*
 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/.config/yadm/install.sh)"
 
