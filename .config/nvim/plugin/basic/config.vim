@@ -11,7 +11,6 @@ filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number
 set backspace=eol,start,indent
-set clipboard^=unnamed
 set cmdheight=1
 set colorcolumn=+1
 set completeopt+=menu
@@ -31,6 +30,7 @@ set termguicolors
 set textwidth=100
 set whichwrap+=<,>,h,l
 set mouse=a
+set clipboard=unnamedplus
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
