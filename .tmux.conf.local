@@ -373,6 +373,7 @@ bind q confirm-before -p "kill tmux session \"#S\"? (y/n)" kill-session
 
 # Add extra split
 bind | split-window -h
+bind \ split-window -h
 
 # clear both screen and history
 bind -n C-p send-keys C-l \; run 'sleep 0.1' \; clear-history
