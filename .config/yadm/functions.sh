@@ -41,7 +41,7 @@ install_neovim_extensions() {
 }
 
 install_pip_packages() {
-  python3 -m pip install --upgrade -r $HOME/.config/yadm/pip_packages
+  python3 -m pip install --user --upgrade -r $HOME/.config/yadm/pip_packages
 }
 
 install_brew_packages() {
