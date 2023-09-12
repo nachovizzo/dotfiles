@@ -1,4 +1,4 @@
-[[ -n $SSH_CONNECTION ]] && ZSH_THEME="fwalch-hostname" || ZSH_THEME="fwalch"
+([[ -n $DOCKER_ENV ]] || [[ -n $SSH_CONNECTION ]]) && ZSH_THEME="fwalch-hostname" || ZSH_THEME="fwalch"
 DISABLE_AUTO_UPDATE="true"
 ENABLE_CORRECTION="false"
 HYPHEN_INSENSITIVE="true"
