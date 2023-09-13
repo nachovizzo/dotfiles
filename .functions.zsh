@@ -74,3 +74,11 @@ fast_remove() {
     rm -rf /tmp/empty_directory
     echo "Done!"
 }
+
+ssh() {
+    if [ "$#" -eq 2 ]; then
+        /usr/bin/ssh $1 "balena exec -it \$(balena ps -q -f name=$2) bash"
+    else
+        /usr/bin/ssh $@
+    fi
+}
