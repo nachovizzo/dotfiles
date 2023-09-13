@@ -1,6 +1,6 @@
 ros2_setup() {
-  source /opt/ros/humble/setup.zsh
-  complete -o nospace -o default -F _python_argcomplete "ros2"
+    source /opt/ros/humble/setup.zsh
+    complete -o nospace -o default -F _python_argcomplete "ros2"
 }
 
 get_remote() {
@@ -8,7 +8,7 @@ get_remote() {
 }
 
 open_remote() {
-    open $(git remote -vv | grep origin | tail -n1 | awk '{print $2}' | xargs -I URL sh -c "echo URL | grep https || echo URL | sed 's/:/\//' | sed 's/^.*@/https:\/\//'") 1> /dev/null
+    open $(git remote -vv | grep origin | tail -n1 | awk '{print $2}' | xargs -I URL sh -c "echo URL | grep https || echo URL | sed 's/:/\//' | sed 's/^.*@/https:\/\//'") 1>/dev/null
 }
 
 grab() {
@@ -25,7 +25,7 @@ cpp_sources() {
         grep -vE "^./(build|3rdparty)/"
 }
 
-filename () {
+filename() {
     BASENAME="$(basename -- $1)"
     FILENAME=${BASENAME%.*}
     echo $FILENAME
@@ -38,7 +38,6 @@ check_includes() {
 check_imports() {
     grep -rh import | sort | uniq
 }
-
 
 zip_folder() {
     folder="$1"
@@ -66,8 +65,7 @@ fast_remove() {
     DIR="$(realpath $1)"
     printf '%s ' "[WARNING] Removing all contents in \"${DIR}\", are you sure (y/n)"
     read REPLY
-    if [[ ! $REPLY =~ ^[Yy]$ ]]
-    then
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
     fi
     mkdir /tmp/empty_directory
