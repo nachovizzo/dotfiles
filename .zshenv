@@ -1,15 +1,7 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
-
-# load zsh/bash shared env
 source $HOME/.env
+export ZSH=$HOME/.oh-my-zsh
 export FPATH=$FPATH:$HOME/.zfunc
-
-# Syncronize history with bash
 export HISTFILE=$HOME/.bash_history
-
-# Create env variabel to know who you are
-export SYSTEM_TYPE=$(uname -s)
 
 # no brew no love. For bash? no care
 if [ "$SYSTEM_TYPE" = "Darwin" ]; then
