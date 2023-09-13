@@ -30,4 +30,5 @@ tmuxinator
 tree
 wget
 xclip
+xsel
 zsh
