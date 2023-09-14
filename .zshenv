@@ -4,7 +4,7 @@ export FPATH=$FPATH:$HOME/.zfunc
 export HISTFILE=$HOME/.bash_history
 
 # Load secrets ENV variables (AWS keys mainly)
-for secret in $HOME/.secrets/*(N); do source ${secret}; done
+for secret in $HOME/.secrets/*.sh(N); do source ${secret}; done
 
 # no brew no love. For bash? no care
 if [ "$SYSTEM_TYPE" = "Darwin" ]; then
