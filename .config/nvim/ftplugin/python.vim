@@ -1,6 +1,6 @@
 let g:neoformat_python_black = {
       \ 'exe': 'black',
-      \ 'args': ['-q', '-', '--line-length', '100'],
+      \ 'args': ['-q', '-'],
       \ 'stdin': 1,
       \ }
 
