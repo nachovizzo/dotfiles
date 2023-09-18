@@ -31,9 +31,6 @@ set textwidth=100
 set whichwrap+=<,>,h,l
 set mouse=a
 set clipboard=unnamedplus
-
-" make underscore a keyword
-set iskeyword-=_
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
