@@ -17,6 +17,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/nachovizzo/dotfiles/main/.
 
 ## TODO
 
-- [ ] clang-format
-- [ ] clangd
+- [ ] python get-pip.py
+- [x] clang-format
+- [x] clangd
 - [ ] FIX Ci and finish
