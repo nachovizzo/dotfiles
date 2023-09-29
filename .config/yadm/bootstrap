@@ -6,11 +6,11 @@ source "$(dirname "$(realpath "$0")")"/functions.sh
 # check brew exists, otherwise this script is useless
 command_exists brew || (echo "Homebrew is not installed!" && return 1)
 
-install_brew_packages
-install_pip_packages
+# install_brew_packages
+# install_pip_packages
 install_ohmyzsh
-install_neovim_extensions
-install_standalone_clangd
+# install_neovim_extensions
+# install_standalone_clangd
 
 # TODO: This breaks docker builds :)
 # install_fonts
