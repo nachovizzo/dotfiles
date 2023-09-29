@@ -22,7 +22,7 @@ main() {
     shift
   done
 
-  install_brew
+  # install_brew
 
   brew install yadm
   yadm clone --bootstrap https://github.com/nachovizzo/dotfiles.git 2>/dev/null || yadm bootstrap
