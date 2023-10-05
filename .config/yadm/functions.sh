@@ -72,9 +72,16 @@ install_brew_packages() {
   xargs brew install <$HOME/.config/yadm/brew_packages
 
   # If you are using Homebrew on Ubuntu22.04 then the system wide Python and Ruby installations will
-  # conflict. For this we will force brew to use python@3.10 and ruby@3.2
-  replace_pkg_version python 3.11 3.10
-  replace_pkg_version ruby 3.2 3.0
+  # conflict. For this we will to
+  # -force brew to uninstall python 
+  # -install ruby@3.0
+  # -install pip with apt-get
+  if [ ! "$SYSTEM_TYPE" = "Darwin" ]; then
+    # For this
+    brew uninstall python3 --ignore-dependencies || true
+    sudo apt update && sudo apt install python3-pip -y
+    replace_pkg_version ruby 3.2 3.0
+  fi
 }
 
 # To fetch clangd in brew we need to pull the whole llvm toolchain, which brings 1.5GiB to the
