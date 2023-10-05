@@ -1,5 +1,5 @@
 ros2_setup() {
-    source /opt/ros/humble/setup.zsh
+    source /opt/ros/${ROS_DISTRO}/setup.zsh
     complete -o nospace -o default -F _python_argcomplete "ros2"
 }
 
