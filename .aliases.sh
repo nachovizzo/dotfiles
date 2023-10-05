@@ -28,4 +28,4 @@ fi
 
 # Dexory aliases
 alias dex='cd ~/dev/dexory'
-alias ade='ade --rc ~/dev/dexory/auto/.aderc'
+alias ade='ade --rc ~/dev/dexory/.auto/.aderc'
