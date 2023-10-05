@@ -94,7 +94,7 @@ install_standalone_clangd() {
   CLANGD_VERSION="16.0.2"
   curl -LO https://github.com/clangd/clangd/releases/download/${CLANGD_VERSION}/clangd-linux-${CLANGD_VERSION}.zip
   unzip clangd-linux-${CLANGD_VERSION}.zip
-  cp -R clangd_${CLANGD_VERSION}/* $HOME/.local/bin/
+  cp -R clangd_${CLANGD_VERSION}/* $HOME/.local/
   rm -rf clangd_${CLANGD_VERSION}/
   rm clangd-linux-${CLANGD_VERSION}.zip
 }
