@@ -73,13 +73,14 @@ install_brew_packages() {
 
   # If you are using Homebrew on Ubuntu22.04 then the system wide Python and Ruby installations will
   # conflict. For this we will to
-  # -force brew to uninstall python 
+  # -force brew to uninstall python
   # -install ruby@3.0
   # -install pip with apt-get
   if [ ! "$SYSTEM_TYPE" = "Darwin" ]; then
     # For this
-    brew uninstall python3 --ignore-dependencies || true
-    sudo apt update && sudo apt install python3-pip -y
+    #
+    brew uninstall python3 --ignore-dependencies 2>/dev/null || true
+    command_exists pip3 || (sudo apt update && sudo apt install python3-pip -y)
     replace_pkg_version ruby 3.2 3.0
   fi
 }
