@@ -41,7 +41,10 @@ install_neovim_extensions() {
 }
 
 install_pip_packages() {
-  python3 -m pip install --user --upgrade -r $HOME/.config/yadm/pip_packages
+  # PEP 668 forces us to install all python packages in a self-managed env
+  python3.10 -m venv --system-site-packages $HOME/.venv 2>/dev/null || true
+  source $HOME/.venv/bin/activate
+  python3 -m pip install --upgrade -r $HOME/.config/yadm/pip_packages
 }
 
 replace_pkg_version() {
@@ -70,19 +73,8 @@ replace_pkg_version() {
 
 install_brew_packages() {
   xargs brew install <$HOME/.config/yadm/brew_packages
-
-  # If you are using Homebrew on Ubuntu22.04 then the system wide Python and Ruby installations will
-  # conflict. For this we will to
-  # -force brew to uninstall python
-  # -install ruby@3.0
-  # -install pip with apt-get
-  if [ ! "$SYSTEM_TYPE" = "Darwin" ]; then
-    # For this
-    #
-    brew uninstall python3 --ignore-dependencies 2>/dev/null || true
-    command_exists pip3 || (sudo apt update && sudo apt install python3-pip -y)
-    replace_pkg_version ruby 3.2 3.0
-  fi
+  replace_pkg_version python3 3.11 3.10
+  replace_pkg_version ruby 3.2 3.0
 }
 
 # To fetch clangd in brew we need to pull the whole llvm toolchain, which brings 1.5GiB to the

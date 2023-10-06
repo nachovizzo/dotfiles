@@ -13,6 +13,7 @@ plugins=(
     fzf
     git
     tmux
+    virtualenv
     z
     zsh-autosuggestions
 )
