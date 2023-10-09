@@ -1,10 +1,6 @@
 [user]
-    email = ignaciovizzo@gmail.com
+    email = ignacio@dexory.com
     name = Ignacio Vizzo
-[includeIf "gitdir:~/dev/"]
-    path = ~/.config/git/personal
-[includeIf "gitdir:~/dev/dexory/"]
-    path = ~/.config/git/professional
 [core]
     editor = nvim
     pager = diff-so-fancy | less --tabs=4 -RFX
