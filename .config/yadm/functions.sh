@@ -66,7 +66,7 @@ replace_pkg_version() {
   # Fast check
   # First check if the default brew version is installed and unlink it
   if $(brew list --versions ${PKG}@${DEFAULT_VERSION} >/dev/null); then
-    brew uninstall --ignore dependencies ${PKG}
+    brew uninstall --ignore-dependencies ${PKG}@${DEFAULT_VERSION}
     brew install ${PKG}@${REQUIRED_VERSION}
   fi
 
