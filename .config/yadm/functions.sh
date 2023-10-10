@@ -51,7 +51,12 @@ replace_pkg_version() {
   PKG="$1"
   DEFAULT_VERSION="$2"
   REQUIRED_VERSION="$3"
-  INSTALLED_VERSION="$(${PKG} --version)"
+
+  if [ "$PKG" = "python" ]; then
+    INSTALLED_VERSION="$(${PKG}3 --version)"
+  else
+    INSTALLED_VERSION="$(${PKG} --version)"
+  fi
 
   # Quick runnaway in case stuff is already propperly linked
   if echo $INSTALLED_VERSION | grep $REQUIRED_VERSION >/dev/null; then
@@ -61,7 +66,8 @@ replace_pkg_version() {
   # Fast check
   # First check if the default brew version is installed and unlink it
   if $(brew list --versions ${PKG}@${DEFAULT_VERSION} >/dev/null); then
-    brew unlink ${PKG}
+    brew uninstall --ignore dependencies ${PKG}
+    brew install ${PKG}@${REQUIRED_VERSION}
   fi
 
   # Then check if the supported version is installed and force link it
@@ -73,7 +79,7 @@ replace_pkg_version() {
 
 install_brew_packages() {
   xargs brew install <$HOME/.config/yadm/brew_packages
-  replace_pkg_version python3 3.11 3.10
+  replace_pkg_version python 3.11 3.10
   replace_pkg_version ruby 3.2 3.0
 }
 
