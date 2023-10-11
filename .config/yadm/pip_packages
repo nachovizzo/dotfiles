@@ -1,5 +1,4 @@
 black
-cmake
 ipdb
 isort
 ipython
