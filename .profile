@@ -28,5 +28,6 @@ fi
 
 # if not already running zsh, run it :)
 if [[ ! -n "$ZSH_VERSION" ]]; then
-    exec $(which zsh) -l
+    export SHELL=$(which zsh)
+    exec "$SHELL" -l
 fi
