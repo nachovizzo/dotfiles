@@ -1,0 +1,4 @@
+[Serial Keyboards]
+MatchUdevType=keyboard
+MatchName=keyd virtual keyboard
+AttrKeyboardIntegration=internal
