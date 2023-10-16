@@ -68,4 +68,6 @@ set secure
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Disable automatic comment insertion
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set formatoptions-=cro
+" set formatoptions-=cro "Never worked for me!
+" https://vi.stackexchange.com/questions/9366/set-formatoptions-in-vimrc-is-being-ignored
+autocmd FileType * set formatoptions-=o
