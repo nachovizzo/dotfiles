@@ -9,6 +9,22 @@ wsp_compress() {
     mv "${FILENAME}_wsp".mp4 ${VIDEO}
 }
 
+mkv_to_mp4() {
+    VIDEO="$1"
+    BASENAME="$(basename -- $VIDEO)"
+    FILENAME=${BASENAME%.*}
+    echo "Converting $VIDEO to ${FILENAME}.mp4 ..."
+    ffmpeg -i $VIDEO -codec copy ${FILENAME}.mp4
+}
+
+mkv_to_wsp(){
+    VIDEO="$1"
+    BASENAME="$(basename -- $VIDEO)"
+    FILENAME=${BASENAME%.*}
+    mkv_to_mp4 $VIDEO
+    wsp_compress $FILENAME.mp4 
+}
+
 cut_video() {
     VIDEO="$1"
     START_TIME="$2"
@@ -43,13 +59,6 @@ speedup_video() {
     echo "Done!"
 }
 
-mkv_to_mp4() {
-    VIDEO="$1"
-    BASENAME="$(basename -- $VIDEO)"
-    FILENAME=${BASENAME%.*}
-    echo "Converting $VIDEO to ${FILENAME}.mp4 ..."
-    ffmpeg -i $VIDEO -codec copy ${FILENAME}.mp4
-}
 
 png_to_pdf() {
     IMAGE="$1"
