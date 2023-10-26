@@ -36,5 +36,5 @@ function! FormatOnOpen()
     endif
 endfunction
 
-autocmd BufWinLeave * call FormatOnClose()
+autocmd BufUnload * call FormatOnClose()
 autocmd BufReadPost * call FormatOnOpen()
