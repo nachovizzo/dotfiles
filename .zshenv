@@ -18,3 +18,6 @@ if [ -f /opt/ros/${ROS_DISTRO}/setup.zsh ]; then
   source /opt/ros/${ROS_DISTRO}/setup.zsh
   complete -o nospace -o default -F _python_argcomplete "ros2"
 fi
+
+# Load the fuck
+command -v thefuck >/dev/null 2>&1 && eval $(thefuck --alias)
