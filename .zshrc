@@ -24,4 +24,7 @@ source $HOME/.functions.zsh
 source $HOME/.zshrc_local 2>/dev/null || true
 
 # share bash/zsh history
+export HISTSIZE=1000000000
+export SAVEHIST=$HISTSIZE
+setopt EXTENDED_HISTORY
 setopt noextendedhistory
