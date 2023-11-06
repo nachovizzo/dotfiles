@@ -29,6 +29,5 @@ fi
 
 # if not already running zsh, run it :) (only inside docker env)
 if ([[ ! -n "$ZSH_VERSION" ]] && [[ -f /.dockerenv ]]); then
-    export SHELL=$(which zsh)
-    exec "$SHELL" -l
+    SHELL=$(which zsh) && exec "$SHELL" -l
 fi
