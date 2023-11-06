@@ -22,6 +22,7 @@ Plug 'nvimdev/dashboard-nvim'
 Plug 'folke/zen-mode.nvim'
 call plug#end()
 
+" WIP ==============================================================================================
 " TODO(Nacho): Transistion this into a plugin in the future !
 function! FormatOnClose()
     if &filetype == 'cpp'
@@ -36,5 +37,5 @@ function! FormatOnOpen()
     endif
 endfunction
 
-autocmd BufUnload * call FormatOnClose()
-autocmd BufReadPost * call FormatOnOpen()
+" autocmd BufUnload * call FormatOnClose()
+" autocmd BufReadPost * call FormatOnOpen()
