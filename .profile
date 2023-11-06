@@ -26,8 +26,10 @@ if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-
 # if not already running zsh, run it :) (only inside docker env)
 if ([[ ! -n "$ZSH_VERSION" ]] && [[ -f /.dockerenv ]]); then
-    SHELL=$(which zsh) && exec "$SHELL" -l
+    if command -v zsh >/dev/null 2>&1; then
+        export SHELL=$(which zsh)
+        exec "$SHELL" -l
+    fi
 fi
