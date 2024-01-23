@@ -1,7 +1,5 @@
 # Nacho dotfiles
 
-Work in progress (almost finished) transition repository using yadm as tool
-
 ## Dependencies
 
 - `curl`
