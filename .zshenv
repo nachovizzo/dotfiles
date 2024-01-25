@@ -2,6 +2,7 @@ source $HOME/.env
 export ZSH=$HOME/.oh-my-zsh
 export FPATH=$FPATH:$HOME/.zfunc
 export HISTFILE=$HOME/.bash_history
+export SHELL_RC=$HOME/.zshrc_local
 
 # Load secrets ENV variables (AWS keys mainly)
 for secret in $HOME/.secrets/*.sh(N); do source ${secret}; done
