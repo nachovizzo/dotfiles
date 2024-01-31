@@ -12,6 +12,7 @@ alias tkb='take build'
 alias tmux='tmux -2'
 alias ts='tmux new-session -s $(basename $(pwd))'
 alias vim='nvim'
+alias vi='nvim'
 alias ydam='yadm'
 alias taker='take $(mktemp -d)'
 
