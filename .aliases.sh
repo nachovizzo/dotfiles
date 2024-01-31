@@ -2,10 +2,7 @@ alias cb="cmake --build build -j"
 alias cm="cmake -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
 alias de='cd ~/dev'
 alias deko='cd ~/Desktop'
-alias dekoo='cd ~/Desktop'
 alias df='df -h -xsquashfs -xtmpfs -xdevtmpfs'
-alias ex='cd ~/dev/examples'
-alias gs="git status"
 alias ll='ls -hltrBF --color=auto'
 alias meld='light_meld'
 alias mkae='make'
@@ -25,7 +22,3 @@ else
   alias xcopy='xclip -selection clipboard'
   alias open='xdg-open'
 fi
-
-# Dexory aliases
-alias dex='cd ~/dev/dexory'
-alias ade='ade --rc ~/dev/dexory/.auto/.aderc'
