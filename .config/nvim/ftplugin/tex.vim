@@ -1,9 +1,4 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Enable universal ctags
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:gutentags_enabled=1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VimTeX
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vimtex_doc_handlers = ['vimtex#doc#handlers#texdoc']
@@ -43,8 +38,6 @@ let g:vimtex_complete_ref = {
 set textwidth=0
 set colorcolumn=0
 set spell
-set iskeyword+=-  " enables ctags to find fig:this-sucks
-set iskeyword+=\\ " enables ctags to find /my_shitty_command
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Keybindings

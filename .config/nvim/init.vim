@@ -5,7 +5,6 @@ Plug 'ethanholz/nvim-lastplace'
 Plug 'kevinhwang91/nvim-bqf'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'lervag/vimtex'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'nachovizzo/committia.vim'
 Plug 'nachovizzo/vim-colors-xcode'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
