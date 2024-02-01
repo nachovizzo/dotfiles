@@ -18,7 +18,6 @@ let g:coc_global_extensions = [
       \'coc-pyright',
       \'coc-snippets',
       \'coc-vimlsp',
-      \'coc-vimtex',
       \'coc-word',
       \'coc-yaml',
       \]

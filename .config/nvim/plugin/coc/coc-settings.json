@@ -2,7 +2,7 @@
   "coc.source.file.ignoreHidden": false,
   "coc.source.around.enable": false,
   "coc.source.buffer.enable": false,
-  "coc.source.word.filetypes": ["markdown", "latex"],
+  "coc.source.word.filetypes": ["markdown"],
   "inlayHint.enable": false,
   "diagnostic.enable": true,
   "clangd.compilationDatabaseCandidates": [
