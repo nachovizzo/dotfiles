@@ -21,4 +21,6 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 source $HOME/.aliases.zsh
 source $HOME/.functions.zsh
+source $HOME/.ros2_argcomplete.sh
 source $HOME/.zshrc_local 2>/dev/null || true
+
