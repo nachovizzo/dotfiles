@@ -4,6 +4,7 @@
 
 # Fix zsh autocomplete in zsh
 if [ -f /opt/ros/${ROS_DISTRO}/setup.zsh ]; then
+  source /opt/ros/${ROS_DISTRO}/setup.zsh
   eval "$(register-python-argcomplete3 ros2)"
   eval "$(register-python-argcomplete3 colcon)"
 fi
