@@ -27,6 +27,7 @@ map <silent><leader>6 <c-^><cr>
 
 " Remap visual block from Ctrl+v -> Ctrl+b
 " nmap <C-b> <C-v>
+map <silent><nowait><leader>o <C-o> <cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Shortcutting split navigation, saving a keypress:

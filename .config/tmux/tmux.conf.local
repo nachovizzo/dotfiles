@@ -399,6 +399,7 @@ bind '\' split-window -h
 # Zen mode, shutdown status bar
 bind z set -g status
 
+unbind C-c
 # -- vim -----------------------------------------------------------------------
 # Smart pane switching with awareness of Vim splits.
 # See: https://github.com/christoomey/vim-tmux-navigator
