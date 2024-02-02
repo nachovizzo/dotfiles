@@ -75,3 +75,5 @@ replace_word() {
     new_word="$2"
     grep -rl ${old_word} . | xargs sed -i "s/${old_word}/${new_word}/g"
 }
+
+source ~/.local/bin/video_utils
