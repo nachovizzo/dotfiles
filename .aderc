@@ -5,6 +5,7 @@ export ADE_DOCKER_RUN_ARGS="
   --privileged
   --volume /home/ivizzo/Desktop/:/home/ivizzo/Desktop:rw
   --volume /home/ivizzo/data/:/home/ivizzo/data:rw
+  --volume /home/ivizzo/robotfs/:/home/ivizzo/robotfs:rw
   --volume /media/ivizzo/:/home/ivizzo/media:ro
 "
 
