@@ -391,6 +391,9 @@ function! plug#end()
       if !empty(types)
         augroup filetypedetect
         call s:source(s:rtp(plug), 'ftdetect/**/*.vim', 'after/ftdetect/**/*.vim')
+        if has('nvim-0.5.0')
+          call s:source(s:rtp(plug), 'ftdetect/**/*.lua', 'after/ftdetect/**/*.lua')
+        endif
         augroup END
       endif
       for type in types
@@ -438,6 +441,9 @@ endfunction
 
 function! s:load_plugin(spec)
   call s:source(s:rtp(a:spec), 'plugin/**/*.vim', 'after/plugin/**/*.vim')
+  if has('nvim-0.5.0')
+    call s:source(s:rtp(a:spec), 'plugin/**/*.lua', 'after/plugin/**/*.lua')
+  endif
 endfunction
 
 function! s:reload_plugins()
@@ -655,6 +661,9 @@ function! s:lod(names, types, ...)
     let rtp = s:rtp(g:plugs[name])
     for dir in a:types
       call s:source(rtp, dir.'/**/*.vim')
+      if has('nvim-0.5.0')  " see neovim#14686
+        call s:source(rtp, dir.'/**/*.lua')
+      endif
     endfor
     if a:0
       if !s:source(rtp, a:1) && !empty(s:glob(rtp, a:2))
@@ -1031,6 +1040,11 @@ function! s:is_updated(dir)
 endfunction
 
 function! s:do(pull, force, todo)
+  if has('nvim')
+    " Reset &rtp to invalidate Neovim cache of loaded Lua modules
+    " See https://github.com/junegunn/vim-plug/pull/1157#issuecomment-1809226110
+    let &rtp = &rtp
+  endif
   for [name, spec] in items(a:todo)
     if !isdirectory(spec.dir)
       continue
@@ -2346,18 +2360,21 @@ function! s:git_validate(spec, check_branch)
               \ current_branch, origin_branch)
       endif
       if empty(err)
-        let [ahead, behind] = split(s:lastline(s:system([
-        \ 'git', 'rev-list', '--count', '--left-right',
-        \ printf('HEAD...origin/%s', origin_branch)
-        \ ], a:spec.dir)), '\t')
-        if !v:shell_error && ahead
-          if behind
+        let ahead_behind = split(s:lastline(s:system([
+          \ 'git', 'rev-list', '--count', '--left-right',
+          \ printf('HEAD...origin/%s', origin_branch)
+          \ ], a:spec.dir)), '\t')
+        if v:shell_error || len(ahead_behind) != 2
+          let err = "Failed to compare with the origin. The default branch might have changed.\nPlugClean required."
+        else
+          let [ahead, behind] = ahead_behind
+          if ahead && behind
             " Only mention PlugClean if diverged, otherwise it's likely to be
             " pushable (and probably not that messed up).
             let err = printf(
                   \ "Diverged from origin/%s (%d commit(s) ahead and %d commit(s) behind!\n"
                   \ .'Backup local changes and run PlugClean and PlugUpdate to reinstall it.', origin_branch, ahead, behind)
-          else
+          elseif ahead
             let err = printf("Ahead of origin/%s by %d commit(s).\n"
                   \ .'Cannot update until local changes are pushed.',
                   \ origin_branch, ahead)
