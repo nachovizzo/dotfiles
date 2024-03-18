@@ -36,7 +36,8 @@
 [init]
 	defaultBranch = main
 [alias]
-    patch = !git --no-pager diff
+  patch = !git --no-pager diff
+	bb = !better-branch.sh
 [credential "https://git.overleaf.com"]
 	username = ivizzo@uni-bonn.de
 	helper = cache
