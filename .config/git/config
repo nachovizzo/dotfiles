@@ -41,3 +41,5 @@
 [credential "https://git.overleaf.com"]
 	username = ivizzo@uni-bonn.de
 	helper = cache
+[rerere]
+	enabled = true
