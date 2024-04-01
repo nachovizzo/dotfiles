@@ -87,10 +87,10 @@ install_brew_packages() {
 # To fetch clangd in brew we need to pull the whole llvm toolchain, which brings 1.5GiB to the
 # workspace, luckilly clang-format is available as standalone package
 install_standalone_clangd() {
-  command_exists clangd && echo "clangd already isntalled on the system: $(clangd --version)" && return
+  # command_exists clangd && echo "clangd already isntalled on the system: $(clangd --version)" && return
 
   # TODO: Automatically determine latest stable version, and don't hardcode linux
-  CLANGD_VERSION="17.0.3"
+  CLANGD_VERSION="snapshot_20240331"
   curl -LO https://github.com/clangd/clangd/releases/download/${CLANGD_VERSION}/clangd-linux-${CLANGD_VERSION}.zip
   unzip clangd-linux-${CLANGD_VERSION}.zip
   cp -R clangd_${CLANGD_VERSION}/* $HOME/.local/
