@@ -30,7 +30,7 @@ set termguicolors
 set textwidth=100
 set whichwrap+=<,>,h,l
 set mouse=a
-set clipboard=unnamedplus
+set clipboard=unnamed
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
