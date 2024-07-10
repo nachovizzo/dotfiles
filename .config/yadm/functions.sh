@@ -20,10 +20,16 @@ install_ohmyzsh() {
     $RUN chsh -s "$(which zsh)" "$USER" 2>/dev/null || chsh -s "$(which zsh)"
   fi
 
+  # TODO: Find a plugin manager for these 2 guys down
   # Install zsh-autosuggestions custom plugin
   git clone --depth 1 \
     https://github.com/zsh-users/zsh-autosuggestions \
     ${ZSH_CUSTOM}/plugins/zsh-autosuggestions 2>/dev/null || true
+
+  # Install fzf-tab custom plugin
+  git clone --depth 1 \
+    https://github.com/Aloxaf/fzf-tab \
+    ${ZSH_CUSTOM}/plugins/fzf-tab 2>/dev/null || true
 
   # Copy custom configuration to the oh my sh installation
   cp -r $HOME/.templates/oh-my-zsh-custom/* ${ZSH_CUSTOM}

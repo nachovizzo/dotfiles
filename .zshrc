@@ -11,6 +11,7 @@ plugins=(
     command-not-found
     extract
     fzf
+    fzf-tab
     git
     tmux
     virtualenv
