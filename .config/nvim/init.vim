@@ -19,4 +19,5 @@ Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
 Plug 'nvimdev/dashboard-nvim'
 Plug 'folke/zen-mode.nvim'
+Plug 'lambdalisue/vim-suda'
 call plug#end()
