@@ -24,7 +24,3 @@ source $HOME/.aliases.zsh
 source $HOME/.functions.zsh
 source $HOME/.ros.sh
 source $HOME/.zshrc_local 2>/dev/null || true
-
-# Currently testing these speeds
-# https://www.reddit.com/r/Ubuntu/comments/n4qgfe/my_solution_to_get_faster_keyboard_key_input/
-xset r rate 200 75;
