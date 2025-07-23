@@ -20,7 +20,7 @@ prettier
 rclone
 ripgrep
 rsync
-ruby@3.0
+ruby
 shfmt
 the_silver_searcher
 tig
