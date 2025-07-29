@@ -53,8 +53,8 @@ install_packages() {
     xargs brew install <$HOME/.config/yadm/macos_packages
   else
     sudo apt update
-    sudo xargs -a packages apt install -y
-    sudo xargs -a linux_packages apt install -y
+    sudo xargs -a $HOME/.config/yadm/packages apt install -y
+    sudo xargs -a $HOME/.config/yadm/linux_packages apt install -y
   fi
 }
 
