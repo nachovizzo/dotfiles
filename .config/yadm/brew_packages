@@ -2,10 +2,10 @@ automake
 awscli
 ccache
 clang-format
+clangd
 cloc
 cmatrix
 curl
-docker-credential-helper-ecr
 fzf
 glow
 htop
