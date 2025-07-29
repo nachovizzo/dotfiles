@@ -1,8 +1,8 @@
 [user]
-    email = ignacio@dexory.com
+    email = ignaciovizzo@gmail.com
     name = Ignacio Vizzo
 [core]
-    editor = nvim
+    editor = vim
     pager = diff-so-fancy | less --tabs=4 -RFX
 [filter "lfs"]
     clean = git-lfs clean -- %f
@@ -38,14 +38,5 @@
 [alias]
   patch = !git --no-pager diff
 	bb = !better-branch.sh
-[credential "https://git.overleaf.com"]
-	username = ivizzo@uni-bonn.de
-	helper = cache
 [rerere]
 	enabled = true
-[credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
