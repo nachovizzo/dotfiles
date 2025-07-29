@@ -1,0 +1,7 @@
+clangd
+build-essential
+nodejs
+neovim
+openssh-client
+openssh-server
+silversearcher-ag

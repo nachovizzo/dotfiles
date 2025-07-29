@@ -50,10 +50,11 @@ install_packages() {
   system_type=$(uname -s)
   if [ "$system_type" = "Darwin" ]; then
     xargs brew install <$HOME/.config/yadm/packages
+    xargs brew install <$HOME/.config/yadm/macos_packages
   else
     sudo apt update
-    sudo apt install xargs
-    sudo xargs -a packages.txt apt install -y
+    sudo xargs -a packages apt install -y
+    sudo xargs -a linux_packages apt install -y
   fi
 }
 
