@@ -46,10 +46,6 @@ install_neovim_extensions() {
   npm install $(echo $COC_EXTENSIONS) --install-strategy=shallow --ignore-scripts --no-bin-links --no-package-lock --only=prod
 }
 
-install_pip_packages() {
-  python3 -m pip install --upgrade -r $HOME/.config/yadm/pip_packages
-}
-
 install_brew_packages() {
   xargs brew install <$HOME/.config/yadm/brew_packages
 }
