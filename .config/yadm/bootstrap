@@ -3,9 +3,9 @@ set -e
 
 source "$(dirname "$(realpath "$0")")"/functions.sh
 
-install_packages
-install_ohmyzsh
-install_neovim_extensions
+install_packages || true
+install_ohmyzsh || true
+install_neovim_extensions || true
 
 # TODO: This breaks docker builds :)
 # install_fonts

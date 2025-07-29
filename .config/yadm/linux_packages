@@ -1,4 +1,5 @@
 clangd
+cmake
 build-essential
 nodejs
 neovim
