@@ -46,8 +46,15 @@ install_neovim_extensions() {
   npm install $(echo $COC_EXTENSIONS) --install-strategy=shallow --ignore-scripts --no-bin-links --no-package-lock --only=prod
 }
 
-install_brew_packages() {
-  xargs brew install <$HOME/.config/yadm/brew_packages
+install_packages() {
+  system_type=$(uname -s)
+  if [ "$system_type" = "Darwin" ]; then
+    xargs brew install <$HOME/.config/yadm/packages
+  else
+    sudo apt update
+    sudo apt install xargs
+    sudo xargs -a packages.txt apt install -y
+  fi
 }
 
 install_fonts() {
