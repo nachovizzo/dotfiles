@@ -1,7 +1,0 @@
-#!/bin/sh
-
-if command -v diff-so-fancy >/dev/null 2>&1; then
-    exec diff-so-fancy | less --tabs=4 -RFX
-else
-    exec less --tabs=4 -RFX
-fi

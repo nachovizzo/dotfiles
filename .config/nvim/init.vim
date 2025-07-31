@@ -23,3 +23,5 @@ Plug 'nvimdev/dashboard-nvim'
 Plug 'folke/zen-mode.nvim'
 Plug 'lambdalisue/vim-suda'
 call plug#end()
+
+set clipboard+=unnamedplus

@@ -3,7 +3,7 @@
     name = Ignacio Vizzo
 [core]
     editor = nvim
-    pager = $HOME/.config/git/pager
+    pager = command -v diff-so-fancy >/dev/null && exec diff-so-fancy || exec less
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
