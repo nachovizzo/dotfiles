@@ -23,7 +23,7 @@ main() {
     sudo apt install -y yadm
   fi
 
-  yadm clone --bootstrap https://github.com/nachovizzo/dotfiles.git 2>/dev/null || yadm bootstrap
+  yadm clone --branch main --bootstrap https://github.com/nachovizzo/dotfiles.git 2>/dev/null || yadm bootstrap
   yadm remote set-url origin "git@github.com:nachovizzo/dotfiles.git"
 }
 
