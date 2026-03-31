@@ -27,3 +27,7 @@ call plug#end()
 
 set clipboard+=unnamedplus
 set clipboard=unnamedplus
+
+" 1. Visual Mode 'D': Delete ALL lines in the file containing the selected text
+vnoremap <silent> D "gy:%g/<C-R>=escape(@g, '/\.*$^~[')<CR>/d<CR>
+

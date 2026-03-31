@@ -10,10 +10,11 @@
     "${workspaceFolder}/build/",
   ],
   "clangd.arguments": [
-    "--query-driver=/usr/bin/c++",
     "--background-index",
     "--clang-tidy",
     "--header-insertion=iwyu",
+    "--log=verbose",
+    "--pretty",
   ],
   "python.pythonPath": "python3",
   "python.linting.pylintEnabled": true,
@@ -40,5 +41,5 @@
     "default": true,
     "line_length": false
   },
-  "snippets.ultisnips.pythonPrompt": false
+  "snippets.ultisnips.pythonPrompt": false,
 }

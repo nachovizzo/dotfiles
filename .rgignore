@@ -1,4 +1,11 @@
-log/
-build/
-install/
+deleted
+
+data/
+data_volume/
+
 .git/
+
+build/
+devel/
+install/
+log/

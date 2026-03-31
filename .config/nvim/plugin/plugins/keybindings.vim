@@ -7,7 +7,7 @@ map <silent><leader>f  :Neoformat<cr>
 " => Telescope
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent><C-p>      <cmd>Telescope find_files<cr>
-nnoremap <silent><leader>ag <cmd>Telescope grep_string<cr>
+nnoremap <silent><leader>a  <cmd>Telescope grep_string<cr>
 nnoremap <silent><leader>Ag <cmd>Telescope live_grep<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

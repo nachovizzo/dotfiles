@@ -63,7 +63,8 @@ nmap <silent><leader>l :colorscheme xcodelight<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap n nzz
 nnoremap N Nzz
-nnoremap * *zz
+" Highlight current word without jumping
+nnoremap <silent> * :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz

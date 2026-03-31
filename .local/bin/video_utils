@@ -17,12 +17,12 @@ mkv_to_mp4() {
     ffmpeg -i $VIDEO -codec copy ${FILENAME}.mp4
 }
 
-mkv_to_wsp(){
+mkv_to_wsp() {
     VIDEO="$1"
     BASENAME="$(basename -- $VIDEO)"
     FILENAME=${BASENAME%.*}
     mkv_to_mp4 $VIDEO
-    wsp_compress $FILENAME.mp4 
+    wsp_compress $FILENAME.mp4
 }
 
 cut_video() {
@@ -59,7 +59,6 @@ speedup_video() {
     echo "Done!"
 }
 
-
 png_to_pdf() {
     IMAGE="$1"
     BASENAME="$(basename -- $IMAGE)"
@@ -94,10 +93,43 @@ compress_video() {
         /dev/null &&
         ffmpeg \
             -i "$1" \
+            -filter:v "fps=30" \
             -c:v libx264 \
             -b:v "$target_video_bitrate_kbit_s"k \
             -pass 2 \
             -c:a aac \
             -b:a "$target_audio_bitrate_kbit_s"k \
             "${1%.*}-$2mB.mp4"
+}
+
+compress_video_gpu() {
+    target_video_size_MB="$2"
+
+    origin_duration_s=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$1")
+    origin_audio_bitrate_kbit_s=$(ffprobe -v error -show_entries stream=bit_rate -of csv=p=0 -select_streams a "$1")
+    origin_audio_bitrate_kbit_s=$((origin_audio_bitrate_kbit_s / 1000))
+
+    # Cap audio bitrate to max 128k
+    target_audio_bitrate_kbit_s=$(awk -v a="$origin_audio_bitrate_kbit_s" 'BEGIN { if (a > 128) a = 128; print a; }')
+
+    # Compute video bitrate, clamp to min 200k
+    target_video_bitrate_kbit_s=$(awk \
+        -v size="$target_video_size_MB" \
+        -v duration="$origin_duration_s" \
+        -v audio_rate="$target_audio_bitrate_kbit_s" \
+        'BEGIN {
+          v = ((size * 8192.0) / (1.048576 * duration) - audio_rate);
+          if (v < 200) v = 200;
+          print int(v);
+      }')
+
+    echo "🎥 Target video bitrate: ${target_video_bitrate_kbit_s}k"
+    echo "🔊 Target audio bitrate: ${target_audio_bitrate_kbit_s}k"
+
+    ffmpeg -y -i "$1" \
+        -filter:v "fps=30" \
+        -c:v h264_nvenc -b:v "${target_video_bitrate_kbit_s}k" \
+        -rc:v vbr -cq 19 -preset p4 \
+        -c:a aac -b:a "${target_audio_bitrate_kbit_s}k" \
+        "${1%.*}-${target_video_size_MB}mB.mp4"
 }
